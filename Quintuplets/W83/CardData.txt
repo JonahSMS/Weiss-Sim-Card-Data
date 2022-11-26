@@ -4792,7 +4792,7 @@ Level 2
 Cost 1
 Effect:
 {
-	*Check3Add1(Quintuplets)
+	*CheckAndAddAll(3, Quintuplets)
 }
 EndCard
 

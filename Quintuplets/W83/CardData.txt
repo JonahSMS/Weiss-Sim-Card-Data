@@ -677,7 +677,9 @@ Auto: OnAttack
 {
 	If Climax Carefree Smile && StageContains 4 HasTrait Quintuplets
 	{
+		UntilEndOfOpponentsTurn
 		GainPower 1000
+		UntilEndOfOpponentsTurn
 		GainEffect
 		{
 			Auto: StartOpponentAttackPhase
@@ -4792,7 +4794,7 @@ Level 2
 Cost 1
 Effect:
 {
-	*CheckAndAddAll(3, Quintuplets)
+	*CheckAndAddAll(3, HasTrait Quintuplets)
 }
 EndCard
 

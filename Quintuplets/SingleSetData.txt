@@ -1,4 +1,10 @@
 Series: The Quintessential Quintuplets
 Folder: Quintuplets/W83
 Prefix: 5HY/W83
-SetName: The Quintessential Quintuplets Vol. 1 
+SetName: The Quintessential Quintuplets
+
+Series: The Quintessential Quintuplets
+Folder: Quintuplets/W90
+Prefix: 5HY/W90
+SetName: The Quintessential Quintuplets 2
+

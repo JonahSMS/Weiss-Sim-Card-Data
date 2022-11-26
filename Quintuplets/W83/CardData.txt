@@ -3139,7 +3139,7 @@ Auto: OnPlay
 			{
 				IfTarget InLocation OpponentMemory
 				{
-					PlaceOnStage False True True False
+					OpponentPlaceOnStage False True True False
 				}
 			}
 		}

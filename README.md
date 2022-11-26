@@ -27,7 +27,7 @@ I will continue to work on sets I am interested in. I am open to taking requests
 
 ### Sets I Plan to Work On Eventually (and will work on if no one will take them):
 #### EN:
-* Kancolle
+* Kancolle (including Abyssal Fleet)
 
 #### JP:
 * Clannad (stand-alone sets + relevant cards in crossover sets like Key All-Stars)

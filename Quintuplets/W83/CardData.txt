@@ -4876,7 +4876,7 @@ Auto: OnPlay
 {
 	TargetTop Deck 1
 	Reveal
-	IfThatCard IsCharacter && Compare ThatCardsLevel 1 OrMore
+	IfThatCard IsCharacter && Compare ThatCardsLevel 1 OrLower
 	{
 		MoveCard Stock
 	}

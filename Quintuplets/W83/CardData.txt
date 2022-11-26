@@ -4832,7 +4832,7 @@ Cont: GiveAll
 Text Cont: All of your other "Rumor, Itsuki Nakano" get +1000 power.
 Auto: OnPlay
 {
-	PayCost Clock
+	PayCost StockClock
 	{
 		SearchDeck NameEquals Rumor, Itsuki Nakano
 	}

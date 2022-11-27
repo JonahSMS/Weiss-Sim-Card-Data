@@ -1668,7 +1668,7 @@ Auto: OnSentFromStageToWaitingRoom
 	PayCost Discard 1 Any
 	{
 		Peek Deck 4
-		ChooseCardsFromTargets 0 1 ThatCardsLevel 1 OrMore
+		ChooseCardsFromTargets 0 1 Compare ThatCardsLevel 1 OrMore
 		RevealTargets
 		MoveCard Hand
 		PutTheRestIntoTheWaitingRoom
@@ -3133,12 +3133,14 @@ Auto: OnPlay
 		TargetLocation OpponentStage
 		ChooseCharacterFromTargets Choose a character to send to memory.
 		MoveCard OpponentMemory
-		ScheduleEffectForTargets StartMyEncoreStep
+		RememberTargets
+		ScheduleEffect StartMyEncoreStep
 		{
 			Effect:
 			{
-				IfTarget InLocation OpponentMemory
+				If LocationContains OpponentMemory 1 RememberedByThisCard
 				{
+					TargetRemembered
 					OpponentPlaceOnStage False True True False
 				}
 			}

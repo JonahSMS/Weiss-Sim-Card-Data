@@ -66,8 +66,11 @@ Auto: OnSpecificClimaxPlay Memories of the Quintuplets
 	{
 		PayCost 4 Send 4 WaitingRoom Other
 		{
-			SearchLocationForTargets Marker 1 5 IsCharacter
-			PlaceOnStage False True True False
+			TargetLocation Marker
+			If HasTarget
+			{
+				PlaceOnStage False True True False
+			}
 			TargetSelf
 			MoveCard Memory
 		}
@@ -84,8 +87,9 @@ Act: RestSelf
 	AddToXValue TargetCount
 	If Compare X 5 OrLess
 	{
-		TargetLocation WaitingRoom
-		NarrowTargets IsCharacter && NameContains Irreplaceable Bond
+		Message Choose up to 1 character with "Irreplaceable Bond" in its card name from your waiting room, put it under this as a marker. You should choose "Irreplaceable Bond, Ichika Nakano", "Irreplaceable Bond, Nino Nakano", "Irreplaceable Bond, Miku Nakano", "Irreplaceable Bond, Yotsuba Nakano", and "Irreplaceable Bond, Itsuki Nakano" only ONCE each.
+		SearchLocationForTargets WaitingRoom 0 1 NameContains Irreplaceable Bond
+		Marker_FaceUp
 	}
 }
 Text Act: [Rest this card] Choose 1 of your characters, it gets +1000 power until end of turn. Choose up to 1 character with "Irreplaceable Bond" in its card name in your waiting room, and if the total number of cards in your memory and marker areas is 4 or less, and there are no markers with the same card name as that card underneath this card, put that card face up underneath this card as a marker.
@@ -290,7 +294,7 @@ Cont: GiveSelf
 		NarrowTargets NameContains Ichika
 		SetXValue TargetCount
 		MultiplyXValue 1000
-		GainPower 1000
+		GainPower X
 	}
 }
 Text Cont: During your turn, this card gets +1000 power for each of your other characters with "Ichika" in their card names.
@@ -333,10 +337,11 @@ Auto: OnTriggerCheckClimax
 {
 	IfOther HasTrigger Choice && Not HasMarker
 	{
-		TargetLocation WaitingRoom
-		NarrowTargets HasTrait Quintuplets
-		ChooseCharacterFromTargets
-		Marker_FaceDown
+		SearchLocationForTargets WaitingRoom 0 1 HasTrait Quintuplets
+		If Not HasMarker // Safety If statement just in case you trigger two choice in twin drive
+		{
+			Marker_FaceDown
+		}
 	}
 }
 Text Auto: When your character's trigger check reveals a climax with Choice in its trigger icon, if there are no markers underneath this card, you may choose 1 《Quintuplets》 character in your waiting room, and put it face down underneath this card as a marker.
@@ -345,12 +350,14 @@ Act: SendMarker WaitingRoom
 	TargetLocation OpponentStage
 	ChooseCharacterFromTargets Choose a character to send to memory.
 	MoveCard OpponentMemory
-	ScheduleEffectForTargets StartMyEncoreStep
+	RememberTargets
+	ScheduleEffect StartMyEncoreStep
 	{
 		Effect:
 		{
-			IfTarget InLocation OpponentMemory
+			If LocationContains OpponentMemory 1 RememberedByThisCard
 			{
+				TargetRemembered
 				OpponentPlaceOnStage False True True False
 			}
 		}
@@ -532,7 +539,6 @@ Name Disguise With Glasses
 Color Y
 Level 1
 Cost 1
-Requirement StageContains 1 NameContains Ichika
 Text If you do not have a character with "Ichika" in its card name, this card cannot be played from your hand.
 Effect:
 {
@@ -545,6 +551,7 @@ Effect:
 	MoveCard Hand
 	PutTheRestIntoTheWaitingRoom
 }
+ActivationRequirement StageContains 1 NameContains Ichika
 Text Look at up to X cards from the top of your deck, choose up to 1 card from among them, put it into your hand, and put the rest into your waiting room. X is equal to the number of characters you have with "Ichika" in their card names +1.
 EndCard
 
@@ -709,7 +716,15 @@ Auto: OnPlay
 	}
 }
 Text Auto: When this card is placed on the stage from your hand, put up to 1 card from the top of your clock into your waiting room, and this card gets the following ability until the end of your opponent's next turn. "Auto: At the beginning of your opponent's attack phase, choose up to 1 of your opponent's characters, it does not become Reversed until end of turn."
-*OnActGivePower(3000,1)
+Auto: OnUseAct
+{
+	If StageContains 1 Other && HasTrait Quintuplets
+	{
+		GainPower 3000
+	}
+}
+TimesPerTurn 1
+Auto: This ability activates up to 1 time per turn. When you use an Act:, if you have another 《Quintuplets》 character, this card gets +3000 power until end of turn.
 EndCard
 
 Character: 5HY/W90-E027
@@ -1224,16 +1239,8 @@ Cost 0
 Power 1000
 Trait1 Quintuplets
 Trait2 Earnest
-Cont: InHand
-{
-	If StageContains 5 HasTrait Quintuplets
-	{
-		GainEffect
-		{
-			Backup 2000
-		}
-	}	
-}
+Backup 2000
+ActivationRequirement StageContains 5 HasTrait Quintuplets
 Text Cont: If you have 5 or more 《Quintuplets》 characters, this card gets "Act: Counter: BACKUP 2000, Level 0 [Put this card from your hand into your waiting room]" while in your hand.
 Auto: StartOpponentAttackPhase
 {
@@ -1272,7 +1279,9 @@ Auto: OnAttack
 	{
 		PayCost Discard 1 Any
 		{
-			*CheckAndAddAll(3, HasTrait Quintuplets|NameEquals Codeword)
+			RevealUpTo Deck 3
+			NarrowTargets HasTrait Quintuplets || NameEquals Codeword
+			MoveCard Hand
 		}
 	}
 }
@@ -1407,7 +1416,7 @@ Trait1 Quintuplets
 Trait2 Earnest
 Cont: GiveSelf
 {
-	*IncreaseMaxHandSize 1
+	IncreaseMaxHandSize 1
 }
 Text Cont: You get +1 to the limit on the number of cards in your hand.
 Cont: Assist
@@ -1954,7 +1963,7 @@ Auto: StartAttackPhase
 	{
 		If LocationContains Memory 1 NameEquals Tutor of the Quintuplets, Futaro Uesugi &&& StageContains 1 Other && HasTrait Quintuplets
 		{
-			*ReorderOpponentsStageToMemory
+			ReorderOpponentsStageToMemory
 			TargetLocation Stage
 			ChooseCharacterFromTargets
 			GainPower 2000
@@ -2001,7 +2010,7 @@ Effect:
 {
 	SearchWaitingRoom IsCharacter
 	Mill 1
-	IfTarget IsCHaracter && NameContains Itsuki
+	IfTarget IsCharacter && NameContains Itsuki
 	{
 		SearchWaitingRoom IsCharacter
 	}
@@ -2014,7 +2023,6 @@ Name Runaway Train of Love
 Color R
 Level 2
 Cost 2
-Requirement StageContains 5 NameContains Nino
 Effect:
 {
 	TargetLocation Stage
@@ -2034,6 +2042,7 @@ Effect:
 		Text Auto: This ability activates up to 1 time per turn. When this card attacks, reveal the top 9 cards of your deck, shuffle your deck, and deal X damage to your opponent. X is equal to the total number of Standby in the trigger icons of those cards.
 	}
 }
+ActivationRequirement StageContains 5 NameContains Nino
 Text If you have 5 or more characters with "Nino" in their card names, choose 1 of your characters, it gets the following ability until end of turn. "Auto: This ability activates up to 1 time per turn. When this card attacks, reveal the top 9 cards of your deck, shuffle your deck, and deal X damage to your opponent. X is equal to the total number of in the trigger icons of those cards." 
 EndCard
 
@@ -2478,7 +2487,6 @@ Name Headphone
 Color B
 Level 1
 Cost 0
-Requirement StageContains 1 NameContains Miku
 Effect:
 {
 	RevealUpTo Deck 5
@@ -2497,6 +2505,7 @@ Effect:
 		EndPeek Deck
 	}
 }
+ActivationRequirement StageContains 1 NameContains Miku
 Text If you do not have a character with "Miku" in its card name, this card cannot be played from your hand.
 Text Look at up to 5 cards from the top of your deck, choose up to 1 character with "Miku" in its card name from among them, reveal it to your opponent, put it into your hand, and put the rest into your waiting room. Look at the top card of your deck, and put it on the top or at the bottom of your deck.
 EndCard
@@ -2506,7 +2515,6 @@ Name Secret Confession
 Color B
 Level 2
 Cost 1
-Requirement StageContains 2 NameContains Miku
 Effect:
 {
 	MultipleChoiceQuestion Choose an effect.\n1. "Choose up to 1 "Confession of Love, Miku Nakano" in your hand, put it on any position of your stage, and at the end of the turn, put that character into your waiting room."\n2. "Choose 1 card in your clock, and put it into your waiting room."\n3. "Choose 1 of your opponent's characters with level higher than your opponent's level, and put it into their waiting room."\n4. "Choose 1 of your characters, it gets +3500 power and cannot move to another position of the stage until the end of your opponent's next turn."|Choice 1|Choice 2|Choice 3|Choice 4
@@ -2548,6 +2556,7 @@ Effect:
 		}
 	}
 }
+ActivationRequirement StageContains 2 NameContains Miku
 Text If you have 2 or more characters with "Miku" in their card names, choose 1 of the following effects, and perform it.
 Text "Choose up to 1 "Confession of Love, Miku Nakano" in your hand, put it on any position of your stage, and at the end of the turn, put that character into your waiting room." "Choose 1 card in your clock, and put it into your waiting room." "Choose 1 of your opponent's characters with level higher than your opponent's level, and put it into their waiting room." "Choose 1 of your characters, it gets +3500 power and cannot move to another position of the stage until the end of your opponent's next turn."
 EndCard

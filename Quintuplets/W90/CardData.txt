@@ -44,6 +44,7 @@ Auto: OnSpecificClimaxPlay A Single Lie
 				SetXValue TargetCardsLevel
 				SearchWaitingRoom IsCharacter && Compare ThatCardsLevel X OrLower
 			}
+			Text Auto: At the end of this card's attack, reveal the top card of your deck, choose 1 level X or lower character in your waiting room, and return it to your hand. X is equal to the level of the revealed card.
 		}
 	}
 }
@@ -87,7 +88,7 @@ Act: RestSelf
 		NarrowTargets IsCharacter && NameContains Irreplaceable Bond
 	}
 }
-Text Act: [Rest this card] Choose 1 of your characters, it gets +1000 power until end of turn. Choose up to 1 character with "Irreplaceable Bond(かけがえのない絆)" in its card name in your waiting room, and if the total number of cards in your memory and marker areas is 4 or less, and there are no markers with the same card name as that card underneath this card, put that card face up underneath this card as a marker.
+Text Act: [Rest this card] Choose 1 of your characters, it gets +1000 power until end of turn. Choose up to 1 character with "Irreplaceable Bond" in its card name in your waiting room, and if the total number of cards in your memory and marker areas is 4 or less, and there are no markers with the same card name as that card underneath this card, put that card face up underneath this card as a marker.
 EndCard
 
 Character: 5HY/W90-E004
@@ -136,14 +137,14 @@ Auto: OnReversed
 	{
 		RevealUpTo Deck 3
 		Message Choose up to 1 character with Ichika in the name to add to your hand.
-		ChooseCardsFromTargets 0 1 NameContains Ichika
+		ChooseCardsFromTargets 0 1 IsCharacter && NameContains Ichika
 		RevealTargets
 		MoveCard Hand
 		PutTheRestIntoTheWaitingRoom
 		Discard 1 Any
 	}
 }
-Text Auto: When this card becomes reversed in battle, you may reveal up to 3 cards from the top of your deck. If you reveal 1 or more cards, choose up to 1 character with "Ichika(一花)" in its card name among those cards, put it into your hand, put the rest into your waiting room, choose 1 card in your hand, and put it into your waiting room.
+Text Auto: When this card becomes reversed in battle, you may reveal up to 3 cards from the top of your deck. If you reveal 1 or more cards, choose up to 1 character with "Ichika" in its card name among those cards, put it into your hand, put the rest into your waiting room, choose 1 card in your hand, and put it into your waiting room.
 EndCard
 
 Character: 5HY/W90-E006
@@ -211,6 +212,7 @@ Auto: OnAttacked
 {
 	PayCost 1
 	{
+		Peek Deck 2
 		*ChooseCardsToPutIntoWaitingRoomReturnTheRestInAnyOrder(0,2)
 	}
 }
@@ -291,7 +293,7 @@ Cont: GiveSelf
 		GainPower 1000
 	}
 }
-Text Cont: During your turn, this card gets +1000 power for each of your other characters with "Ichika(一花)" in their card names.
+Text Cont: During your turn, this card gets +1000 power for each of your other characters with "Ichika" in their card names.
 EndCard
 
 Character: 5HY/W90-E012
@@ -313,7 +315,7 @@ Auto: OnUseThisCardsBackup
 		}
 	}
 }
-Text Auto: [(1)] When you use this card's "BACKUP", if you have 5 or more characters with "Yotsuba(四葉)" in their card names, you may pay the cost. If you do, return all cards in your waiting room to your deck, and shuffle your deck.
+Text Auto: [(1)] When you use this card's "BACKUP", if you have 5 or more characters with "Yotsuba" in their card names, you may pay the cost. If you do, return all cards in your waiting room to your deck, and shuffle your deck.
 Backup 1500
 EndCard
 
@@ -376,6 +378,7 @@ Cont: Alarm
 				Discard 1 Any
 			}
 		}
+		Auto: If this card is the top card of your clock, at the beginning of your main phase, you may draw 1 card. If you do, choose 1 card in your hand, and put it into your waiting room.
 	}
 }
 Text Auto: 【CLOCK】 ALARM If this card is the top card of your clock, at the beginning of your main phase, you may draw 1 card. If you do, choose 1 card in your hand, and put it into your waiting room.
@@ -391,6 +394,7 @@ Cont: Alarm
 				ChooseCharacterFromTargets
 				GainPower 2000
 			}
+			Text Auto: If this card is the top card of your clock, and you have 3 or more 《Quintuplets》 characters, at the beginning of your climax phase, choose 1 of your characters, it gets +2000 power until end of turn.
 		}
 	}
 }
@@ -506,13 +510,13 @@ Cont: GiveAll
 		GainPower 1500
 	}
 }
-Text Cont: All of your other characters with "Irreplaceable Bond(かけがえのない絆)" in their card names get +1500 power.
+Text Cont: All of your other characters with "Irreplaceable Bond" in their card names get +1500 power.
 Auto: StartAttackPhase
 {
 	If Climax Memories of the Quintuplets && LocationContains Memory 1 NameEquals Tutor of the Quintuplets, Futaro Uesugi
 	{
-		*OptionalStock
-		*OptionalStock
+		*OptionalBlindStock
+		*OptionalBlindStock
 		OpponentMessage Choose a climax to keep in your waiting room.
 		OpponentSearchLocationForTargets WaitingRoom 1 1 IsClimax
 		ReverseTargets OpponentWaitingRoom
@@ -529,7 +533,7 @@ Color Y
 Level 1
 Cost 1
 Requirement StageContains 1 NameContains Ichika
-Text If you do not have a character with "Ichika(一花)" in its card name, this card cannot be played from your hand.
+Text If you do not have a character with "Ichika" in its card name, this card cannot be played from your hand.
 Effect:
 {
 	TargetLocation Stage
@@ -541,7 +545,7 @@ Effect:
 	MoveCard Hand
 	PutTheRestIntoTheWaitingRoom
 }
-Text Look at up to X cards from the top of your deck, choose up to 1 card from among them, put it into your hand, and put the rest into your waiting room. X is equal to the number of characters you have with "Ichika(一花)" in their card names +1.
+Text Look at up to X cards from the top of your deck, choose up to 1 card from among them, put it into your hand, and put the rest into your waiting room. X is equal to the number of characters you have with "Ichika" in their card names +1.
 EndCard
 
 Climax: 5HY/W90-E020
@@ -596,7 +600,7 @@ Trait2 Ribbon
 Combo The World As She Leaps
 Auto: OnEndOfAttack
 {
-	PayCost 2 Discard 1
+	PayCost 2 Discard 1 Any
 	{
 		MillOpponentBottom 5
 		NarrowTargets IsClimax
@@ -645,7 +649,7 @@ Cont: GiveSelf
 		GainPower 1000
 	}
 }
-Text Cont: If all of your characters have "Yotsuba(四葉)" in their card names, this card gets +1000 power.
+Text Cont: If all of your characters have "Yotsuba" in their card names, this card gets +1000 power.
 Auto: OnSpecificClimaxPlay A New Choice
 {
 	If InLocation CenterStage &&& StageContains 1 Other && HasTrait Quintuplets
@@ -690,7 +694,7 @@ Cont: InHand
 		LoseLevel 1
 	}
 }
-Text Cont: If you have 4 or more characters with "Itsuki(五月)" in their card names, this card gets -1 level while in your hand.
+Text Cont: If you have 4 or more characters with "Itsuki" in their card names, this card gets -1 level while in your hand.
 Auto: OnPlay
 {
 	*OptionalHeal
@@ -718,7 +722,29 @@ Power 9500
 Soul 2
 Trait1 Quintuplets
 Trait2 Headphone
+Auto: OnPlay
+{
+	TargetTop Deck 3
+	If Compare TargetCount 2 OrMore
+	{
+		Reorder
+	}
+	Else
+	{
+		View
+	}
+	TargetLocation OpponentStage
+	ChooseCharacterFromTargets_Optional Choose up to 1 character to return to hand.
+	Bounce
+}
 Text Auto: When this card is placed on the stage from your hand, look at up to 3 cards from the top of your deck, put them on the top of your deck in any order, choose up to 1 of your opponent's characters, and return it to their hand.
+Auto: OnPlay
+{
+	PayCost Discard 1 NameEquals Headphone
+	{
+		Refresh
+	}
+}
 Text Auto: [Put 1 "Headphone" from your hand into your waiting room] When this card is placed on the stage from your hand, you may pay the cost. If you do, return all cards from your waiting room to your deck, and shuffle your deck.
 EndCard
 
@@ -730,7 +756,13 @@ Cost 0
 Power 500
 Trait1 Quintuplets
 Trait2 Earnest
-Text Auto: [(1) Put 1 climax from your hand into your waiting room] When this card is placed on the stage from your hand, you may pay the cost. If you do, choose 1 climax in your waiting room, and return it to your hand.
+*ClimaxExchange
+Act: Rest 2 HasTrait Quintuplets
+{
+	TargetLocation Stage
+	ChooseCharacterFromTargets
+	GainPower 3000
+}
 Text Act: [Rest 2 of your 《Quintuplets》 characters] Choose 1 of your characters, it gets +3000 power until end of turn.
 EndCard
 
@@ -742,8 +774,16 @@ Cost 0
 Power 2000
 Trait1 Quintuplets
 Trait2 Headphone
+Auto: OnPlay
+{
+	Question Put the top 3 cards of your deck into your waiting room?
+	If Yes
+	{
+		Mill 3
+	}
+}
 Text Auto: When this card is placed on the stage from your hand, you may put the top 3 cards of your deck into your waiting room.
-Text Auto: [(1) Put 1 climax from your hand into your waiting room] When this card is placed on the stage from your hand, you may pay the cost. If you do, choose 1 climax in your waiting room, and return it to your hand.
+*ClimaxExchange
 EndCard
 
 Character: 5HY/W90-E030
@@ -754,7 +794,14 @@ Cost 0
 Power 500
 Trait1 Quintuplets
 Trait2 Earnest
-Text Auto: When you use this card's "BACKUP", put X cards from the top of your deck into your waiting room. X is equal to the number of characters you have with "Itsuki(五月)" in their card names.
+Auto: OnUseThisCardsBackup
+{
+	TargetLocation Stage
+	NarrowTargets NameContains Itsuki
+	SetXValue TargetCount
+	Mill X
+}
+Text Auto: When you use this card's "BACKUP", put X cards from the top of your deck into your waiting room. X is equal to the number of characters you have with "Itsuki" in their card names.
 Backup 1500
 EndCard
 
@@ -766,7 +813,19 @@ Cost 0
 Power 3500
 Trait1 Quintuplets
 Trait2 Headphone
-Text Auto: When this card is placed on the stage from your hand, choose 1 of your other 《Quintuplets》 characters, it gets +2000 power until end of turn.
+*OnPlayGiveOtherPower(2000, Quintuplets)
+Auto: OnAttack
+{
+	If StageContains 2 Other && HasTrait Quintuplets
+	{
+		Question Draw a card?
+		If Yes
+		{
+			DrawCard
+			Discard 1 Any
+		}
+	}
+}
 Text Auto: When this card attacks, if you have 2 or more other 《Quintuplets》 characters, you may draw 1 card. If you do, choose 1 card in your hand, and put it into your waiting room.
 EndCard
 
@@ -778,7 +837,15 @@ Cost 0
 Power 4500
 Trait1 Quintuplets
 Trait2 Ribbon
-Text Auto: When this card is placed on the stage from your hand, this card gets +1500 power until end of turn.
+*OnPlayGainPower(1500)
+Auto: OnReverseOpponent
+{
+	TargetLocation Climax
+	If HasTarget
+	{
+		*OptionalBlindStock
+	}
+}
 Text Auto: When this card's battle opponent becomes reversed, if there is a climax in your climax area, you may put the top card of your deck into your stock.
 EndCard
 
@@ -791,8 +858,21 @@ Trigger Soul
 Power 2000
 Trait1 Quintuplets
 Trait2 Ribbon
-Text Cont: ASSIST All of your characters in front of this card get +X power. X is equal to that character's level ×500.
+*LevelAssist
+Auto: OnPlay
+{
+	TargetLocation WaitingRoom
+	NarrowTargets NameEquals What She Yearned For, Yotsuba Nakano
+	MoveCard Memory
+}
 Text Auto: When this card is placed on the stage from your hand, you may choose 1 "What She Yearned For, Yotsuba Nakano" in your waiting room, and put it into your memory.
+Auto: OnTriggerCheckClimax
+{
+	PayCost Discard 1 IsClimax
+	{
+		*CheckAndAdd(2)
+	}
+}
 Text Auto: [Put 1 climax from your hand into your waiting room] When your character's trigger check reveals a climax, you may pay the cost. If you do, look at up to 2 cards from the top of your deck, choose up to 1 card from among them, put it into your hand, and put the rest into your waiting room.
 EndCard
 
@@ -805,7 +885,23 @@ Trigger Soul
 Power 5500
 Trait1 Quintuplets
 Trait2 Headphone
+Auto: OnUseEvent
+{
+	SetXValue MyLevel
+	MultiplyXValue 1500
+	TargetLocation Stage
+	ChooseCharacterFromTargets
+	GainPower X
+}
+TimesPerTurn 1
 Text Auto: This ability activates up to 1 time per turn. When you play an event, choose 1 of your characters, it gets +X power until end of turn. X is equal to your level ×1500.
+Auto: OnTriggerCheckClimax
+{
+	PayCost Discard 1 IsClimax
+	{
+		SearchWaitingRoom NameEquals Headphone || IsCharacter
+	}
+}
 Text Auto: [Put 1 climax from your hand into your waiting room] When your character's trigger check reveals a climax, you may pay the cost. If you do, choose 1 "Headphone" or character in your waiting room, and return it to your hand.
 EndCard
 
@@ -818,6 +914,31 @@ Trigger Soul
 Power 7500
 Trait1 Quintuplets
 Trait2 Earnest
+Auto: StartClimaxPhase
+{
+	If StageContains 1 Other && HasTrait Quintuplets
+	{
+		MultipleChoiceQuestion Choose 1 of the following abilities for this card to gain for the turn.|Auto: When this card attacks, if the character facing this card is level 3 or higher, this card gets +6000 power until end of turn.|Auto: When this card direct attacks, choose 1 of your other 《Quintuplets》 characters, it gets +2000 power until the end of your opponent's next turn.
+		If Answer 0
+		{
+			GainEffect
+			{
+				*GainPowerWhenAttackingLevel3(3000)
+			}
+		}
+		Else
+		{
+			Auto: OnDirectAttack
+			{
+				TargetLocation Stage
+				NarrowTargets Other && HasTrait Quintuplets
+				ChooseCharacterFromTargets
+				UntilEndOfOpponentsTurn
+				GainPower 2000
+			}
+		}
+	}
+}
 Text Auto: At the beginning of your climax phase, if you have another 《Quintuplets》 character, choose 1 of the following abilities, and this card gets that ability until end of turn. "Auto: When this card attacks, if the character facing this card is level 3 or higher, this card gets +6000 power until end of turn." "Auto: When this card direct attacks, choose 1 of your other 《Quintuplets》 characters, it gets +2000 power until the end of your opponent's next turn."
 EndCard
 
@@ -829,7 +950,30 @@ Cost 0
 Power 1000
 Trait1 Quintuplets
 Trait2 Earnest
-Text Cont: During your turn, this card gets +3000 power.
+*PowerOnMyTurn(3000)
+Auto: OnPlay
+{
+	GainEffect
+	{
+		Cont: GiveSelf
+		{
+			TargetFacing
+			If HasTarget
+			{
+				GainEffect
+				{
+					Cont: GiveSelf
+					{
+						GainSpecialEffect CannotMove
+						GainSpecialEffect CannotGoToMemory
+					}
+					Text Cont: This character cannot move to another position of the stage or be put to memory.
+				}
+			}	
+		}
+		Text Cont: The character facing this card cannot move to another position of the stage or be put into memory.
+	}
+}
 Text Auto: When this card is placed on the stage from your hand, this card gets the following ability until end of turn. "Cont: The character facing this card cannot move to another position of the stage or be put into memory."
 EndCard
 
@@ -841,8 +985,8 @@ Cost 0
 Power 2000
 Trait1 Quintuplets
 Trait2 Ribbon
-Text Auto: When this card is placed on the stage from your hand, this card gets +1500 power until end of turn.
-Text Auto: When this card attacks, choose 1 of your other 《Quintuplets》 characters, it gets +X power until end of turn. X is equal to the number of other 《Quintuplets》 characters you have ×500.
+*OnPlayGainPower(1500)
+*OnAttackGivePowerForEachOther(500, Quintuplets)
 EndCard
 
 Character: 5HY/W90-E038
@@ -853,6 +997,13 @@ Cost 0
 Power 2000
 Trait1 Quintuplets
 Trait2 Ribbon
+Auto: OnSentFromStageToWaitingRoom
+{
+	PayCost 1 Clock
+	{
+		*Check3Add1(Any)
+	}
+}
 Text Auto: [(1) Put the top card of your deck into your clock] When this card is put into your waiting room from the stage, you may pay the cost. If you do, look at up to 3 cards from the top of your deck, choose up to 1 character from among them, reveal it to your opponent, put it into your hand, and put the rest into your waiting room.
 EndCard
 
@@ -864,8 +1015,27 @@ Cost 0
 Power 3500
 Trait1 Quintuplets
 Trait2 Ribbon
-Text Cont: All of your other 《Quintuplets》 characters get +500 power.
+*GlobalPower(500,Quintuplets)
+Auto: OnTriggerCheckClimax
+{
+	PayCost Discard 1 IsClimax
+	{
+		SearchWaitingRoom NameEquals Variety of Charms, Yotsuba Nakano|Intimate Sisters, Yotsuba Nakano
+	}
+}
 Text Auto: [Put 1 climax from your hand into your waiting room] When your character's trigger check reveals a climax, you may pay the cost. If you do, choose 1 "Variety of Charms, Yotsuba Nakano" or "Intimate Sisters, Yotsuba Nakano" in your waiting room, and return it to your hand.
+Auto: StartMainPhase
+{
+	If Compare MyLevel 2 OrMore
+	{
+		PayCost 1 SendSelf WaitingRoom
+		{
+			TargetLocation WaitingRoom
+			NarrowTargets NameEquals Intimate Sisters, Yotsuba Nakano
+			Change
+		}
+	}
+}
 Text Auto: [(1) Put this card into your waiting room] At the beginning of your main phase, if your level is 2 or higher, you may pay the cost. If you do, choose 1 "Intimate Sisters, Yotsuba Nakano" in your waiting room, and put it on the stage position that this card was on.
 EndCard
 
@@ -878,6 +1048,10 @@ Trigger Soul
 Power 1000
 Trait1 Quintuplets
 Trait2 Headphone
+Auto: OnUseThisCardsBackup
+{
+	Mill 3
+}
 Text Auto: When you use this card's "BACKUP", put the top 3 cards of your deck into your waiting room.
 Backup 2000
 EndCard
@@ -891,7 +1065,25 @@ Trigger Soul
 Power 7000
 Trait1 Quintuplets
 Trait2 Ribbon
+Auto: OnPlay
+{
+	TargetLocation Stage
+	NarrowTargets HasTrait Quintuplets
+	SetXValue TargetCount
+	MultiplyXValue 1000
+	GainPower X
+}
 Text Auto: When this card is placed on stage from your hand, this card gets +X power until end of turn. X is equal to the number of 《Quintuplets》 characters you have ×1000.
+Auto: OnReverseOpponent
+{
+	TargetLocation Climax
+	If HasTarget
+	{
+		TargetLocation WaitingRoom
+		ChooseCardsFromTargets 0 1 HasTrait Quintuplets
+		MoveCard Stock
+	}
+}
 Text Auto: When this card's battle opponent becomes reversed, if there is a climax in your climax area, you may choose 1 《Quintuplets》 character in your waiting room, and put it into your stock.
 EndCard
 
@@ -905,8 +1097,30 @@ Power 7500
 Soul 2
 Trait1 Quintuplets
 Trait2 Headphone
-Text Cont: ASSIST All of your characters in front of this card with "Irreplaceable Bond(かけがえのない絆)" in their card names get +2500 power.
+Combo Memories of the Quintuplets
+Cont: Assist
+{
+	If NameContains Irreplaceable Bond
+	{
+		GainPower 2500
+	}
+}
+Text Cont: ASSIST All of your characters in front of this card with "Irreplaceable Bond" in their card names get +2500 power.
+Auto: OnPlay|PlacedBy Tutor of the Quintuplets, Futaro Uesugi
+{
+	*OptionalHeal
+}
 Text Auto: When this card is placed on the stage from your hand or by the Auto: effect of "Tutor of the Quintuplets, Futaro Uesugi", you may put the top card of your clock into your waiting room.
+Auto: StartAttackPhase
+{
+	If Climax Memories of the Quintuplets && LocationContains Memory 1 NameEquals Tutor of the Quintuplets, Futaro Uesugi
+	{
+		*OptionalBlindStock
+		TargetLocation Stage
+		ChooseCharacterFromTargets
+		GainPower 2500
+	}
+}
 Text Auto: CxCombo MEMORY At the beginning of your attack phase, if "Memories of the Quintuplets" is in your climax area, and "Tutor of the Quintuplets, Futaro Uesugi" is in your memory, put up to 1 card from the top of your deck into your stock, choose 1 of your characters, it gets +2500 power until end of turn.
 EndCard
 
@@ -920,7 +1134,27 @@ Power 10000
 Soul 2
 Trait1 Quintuplets
 Trait2 Earnest
+Combo Memories of the Quintuplets
+Auto: OnPlay|PlacedBy Tutor of the Quintuplets, Futaro Uesugi
+{
+	*OptionalHeal
+}
 Text Auto: When this card is placed on the stage from your hand or by the Auto: effect of "Tutor of the Quintuplets, Futaro Uesugi", you may put the top card of your clock into your waiting room.
+Auto: OnReverseOpponent
+{
+	If Climax Memories of the Quintuplets
+	{
+		If LocationContains Memory 1 NameEquals Tutor of the Quintuplets, Futaro Uesugi &&& StageContains 1 Other && HasTrait Quintuplets
+		{
+			PayCost 4
+			{
+				Stand
+				Peek Deck 2
+				*ChooseCardsToPutIntoWaitingRoomReturnTheRestInAnyOrder(0,2)
+			}
+		}
+	}
+}
 Text Auto: CxCombo MEMORY [(4)] When this card's battle opponent becomes reversed, if "Memories of the Quintuplets" is in your climax area, you have another 《Quintuplets》 character, and "Tutor of the Quintuplets, Futaro Uesugi" is in your memory, you may pay the cost. If you do, Stand this card, look at up to 2 cards from the top of your deck, choose up to 2 cards from among them, put them on the top of your deck in any order, and put the rest into your waiting room.
 EndCard
 
@@ -929,7 +1163,12 @@ Name Flashcards
 Color G
 Level 1
 Cost 0
-Text If you have 4 or more characters with "Yotsuba(四葉)" in their card names, choose 1 character with "Yotsuba(四葉)" in its card name in your waiting room, and return it to your hand.
+Requirement StageContains 4 NameContains Yotsuba
+Effect
+{
+	SearchWaitingRoom IsCharacter && NameContains Yotsuba
+}
+Text If you have 4 or more characters with "Yotsuba" in their card names, choose 1 character with "Yotsuba" in its card name in your waiting room, and return it to your hand.
 EndCard
 
 Event: 5HY/W90-E045
@@ -937,27 +1176,44 @@ Name Five Cranes in Return
 Color G
 Level 1
 Cost 1
+Effect:
+{
+	SearchWaitingRoom IsCharacter
+	TargetSelf
+	MoveCard Memory
+}
 Text Choose 1 character in your waiting room, and return it to your hand. You may put this card into your memory.
-Text Cont: MEMORY If this card is in your memory, all players cannot use "Auto: ENCORE". (The "Auto: ENCORE [
+Cont: Global
+{
+	GainSpecialEffect CannotUseEncore
+}
+InMemory
+Text Cont: MEMORY If this card is in your memory, all players cannot use "Auto: ENCORE".
+Auto: StartMainPhase
+{
+	TargetSelf
+	MoveCard WaitingRoom
+}
+InMemory
 Text Auto: MEMORY If this card is in your memory, at the beginning of your main phase, put this card into your waiting room.
 EndCard
 
 Climax: 5HY/W90-E046
 Name The World As She Leaps
 Color G
-Text Cont: All of your characters get +1000 power and +1 soul.
+*BarClimax
 EndCard
 
 Climax: 5HY/W90-E047
 Name A New Choice
 Color G
-Text Cont: All of your characters get +1000 power and +1 soul.
+*BarClimax
 EndCard
 
 Climax: 5HY/W90-E048
 Name Memories of the Quintuplets
 Color G
-Text Cont: All of your characters get +1000 power and +1 soul.
+*BarClimax
 EndCard
 
 Character: 5HY/W90-E049
@@ -968,7 +1224,30 @@ Cost 0
 Power 1000
 Trait1 Quintuplets
 Trait2 Earnest
+Cont: InHand
+{
+	If StageContains 5 HasTrait Quintuplets
+	{
+		GainEffect
+		{
+			Backup 2000
+		}
+	}	
+}
 Text Cont: If you have 5 or more 《Quintuplets》 characters, this card gets "Act: Counter: BACKUP 2000, Level 0 [Put this card from your hand into your waiting room]" while in your hand.
+Auto: StartOpponentAttackPhase
+{
+	TargetFacing
+	If HasTarget
+	{
+		TargetSelf
+		Question Move this card to an open position of your center stage?
+		If Yes
+		{
+			MoveToOpenPosition True False
+		}
+	}
+}
 Text Auto: At the beginning of your opponent's attack phase, if there is a character facing this card, you may move this card to an open position of your center stage.
 EndCard
 
@@ -980,7 +1259,23 @@ Cost 0
 Power 4500
 Trait1 Quintuplets
 Trait2 Earnest
+Combo Visiting Her Mother's Grave
+Auto: OnUseAct
+{
+	GainPower 1500
+}
+TimesPerTurn 1
 Text Auto: This ability activates up to 1 time per turn. When you use an Act:, this card gets +1500 power until end of turn.
+Auto: OnAttack
+{
+	If Climax Visiting Her Mother's Grave && Compare Experience 2 OrMore
+	{
+		PayCost Discard 1 Any
+		{
+			*CheckAndAddAll(3, HasTrait Quintuplets|NameEquals Codeword)
+		}
+	}
+}
 Text Auto: CxCombo EXPERIENCE [Put 1 card from your hand into your waiting room] When this card attacks, if "Visiting Her Mother's Grave" is in your climax area, and the total level of the cards in your level is 2 or higher, you may pay the cost. If you do, look at up to 3 cards from the top of your deck, choose up to 3 "Codeword" or 《Quintuplets》 characters from among them, reveal them to your opponent, put them into your hand, and put the rest into your waiting room.
 EndCard
 
@@ -994,7 +1289,41 @@ Power 7000
 Soul 2
 Trait1 Quintuplets
 Trait2 Cooking
+Combo Unstoppable Feelings
+Cont: GiveSelf
+{
+	If AllYourCharacters HasTrait Quintuplets
+	{
+		GainEffect
+		{
+			*HandEncore
+		}
+		GainEffect
+		{
+			Cont: GiveSelf
+			{
+				If MyTurn
+				{
+					GainPower 5000
+				}
+			}
+			Text Cont: During your turn, this card gets +5000 power.
+		}
+	}
+}
 Text Cont: If all of your characters are 《Quintuplets》, this card gets the following 2 abilities. "Cont: During your turn, this card gets +5000 power." "Auto: ENCORE [Put 1 《Quintuplets》 character from your hand into your waiting room]"
+Auto: PlacedBy Unstoppable Feelings
+{
+	If Phase Climax &&& StageContains 2 Other && HasTrait Quintuplets
+	{
+		PayCost SendClimax WaitingRoom
+		{
+			Stand
+			UntilEndOfOpponentsTurn
+			GainPower 1000
+		}
+	}
+}
 Text Auto: CxCombo [Put 1 "Unstoppable Feelings" from your climax area into your waiting room] During your climax phase, when this card is placed on the stage from your waiting room by the effect of "Unstoppable Feelings", and you have 2 or more other 《Quintuplets》 characters, you may pay the cost. If you do, Stand this card, and this card gets +1000 power until the end of your opponent's next turn.
 EndCard
 
@@ -1008,9 +1337,34 @@ Power 8500
 Soul 2
 Trait1 Quintuplets
 Trait2 Cooking
-Text Cont: CxCombo If "Straightforward Feelings" is in your climax area, this card in all of your zones get in the trigger icon.
+Combo Straightforward Feelings
+Cont: GiveSelfEverywhere
+{
+	If Climax Straightforward Feelings
+	{
+		ChangeOtherCardsTriggerIcon Standby NameEquals Love Taking Off, Nino Nakano
+	}
+}
+Text Cont: CxCombo If "Straightforward Feelings" is in your climax area, this card in all of your zones get Standby in the trigger icon.
+Cont: GiveSelf
+{
+	If MyTurn &&& StageContains 2 Other && HasTrait Quintuplets
+	{
+		GainPower 4000
+	}
+}
 Text Cont: During your turn, if you have 2 or more other 《Quintuplets》 characters, this card gets +4000 power.
-Text Auto: When this card is placed on the stage from your hand, you may put the top card of your clock into your waiting room.
+*Healer
+Auto: OnEndOfAttack
+{
+	If Climax Straightforward Feelings &&& StageContains 2 Other && HasTrait Quintuplets
+	{
+		PayCost 1 Discard 1 Any
+		{
+			Burn 3
+		}
+	}
+}
 Text Auto: CxCombo [(1) Put 1 card from your hand into your waiting room] At the end of this card's attack, if "Straightforward Feelings" is in your climax area, and you have 2 or more other 《Quintuplets》 characters, you may pay the cost. If you do, deal 3 damage to your opponent. 
 EndCard
 
@@ -1022,7 +1376,24 @@ Cost 0
 Power 500
 Trait1 Quintuplets
 Trait2 Cooking
-Text Auto: [Put 1 character with "Nino(二乃)" in its card name from your hand into your waiting room] When this card is placed on the stage from your hand, you may pay the cost. If you do, draw 1 card.
+Auto: OnPlay
+{
+	PayCost Discard 1 IsCharacter && NameContains Nino
+	{
+		DrawCard
+	}
+}
+Text Auto: [Put 1 character with "Nino" in its card name from your hand into your waiting room] When this card is placed on the stage from your hand, you may pay the cost. If you do, draw 1 card.
+Auto: OnPlay
+{
+	PayCost Discard 1 Any
+	{
+		TargetTop Deck 1
+		Reveal
+		SetXValue TargetCardsLevel
+		SearchWaitingRoom IsCharacter && Compare ThatCardsLevel X OrLower
+	}
+}
 Text Auto: [Put 1 card from your hand into your waiting room] When this card is placed on the stage from your hand, you may pay the cost. If you do, reveal the top card of your deck, choose 1 level X or lower character in your waiting room, and return it to your hand. X is equal to the level of the revealed card. 
 EndCard
 
@@ -1034,9 +1405,31 @@ Cost 0
 Power 1500
 Trait1 Quintuplets
 Trait2 Earnest
+Cont: GiveSelf
+{
+	*IncreaseMaxHandSize 1
+}
 Text Cont: You get +1 to the limit on the number of cards in your hand.
+Cont: Assist
+{
+	If MyTurn && Compare CardsInHand 5 OrMore
+	{
+		GainPower 500
+	}
+}
 Text Cont: ASSIST During your turn, if your hand has 5 or more cards, all of your characters in front of this card get +500 power.
-Text Act: BRAINSTORM [(1) Rest this card] Flip over 4 cards from the top of your deck, and put them into your waiting room. For each climax with in its trigger icon revealed among those cards, search your deck for up to 1 《Quintuplets》 character, reveal it to your opponent, put it into your hand, and shuffle your deck.
+Act: 1 RestSelf
+{
+	Brainstorm 4
+	TargetBrainstormed
+	NarrowTargets HasTrigger Door
+	SetXValue TargetCount
+	Repeat X
+	{
+		SearchDeck HasTrait Quintuplets
+	}
+}
+Text Act: BRAINSTORM [(1) Rest this card] Flip over 4 cards from the top of your deck, and put them into your waiting room. For each climax with Door in its trigger icon revealed among those cards, search your deck for up to 1 《Quintuplets》 character, reveal it to your opponent, put it into your hand, and shuffle your deck.
 EndCard
 
 Character: 5HY/W90-E055
@@ -1047,7 +1440,33 @@ Cost 0
 Power 1500
 Trait1 Quintuplets
 Trait2 Earnest
+Auto: OnPlay
+{
+	Question Put a card from your hand into your clock?
+	If Yes
+	{
+		TargetLocation Hand
+		ChooseCardsFromTargets 1 1 Any
+		MoveCard Clock
+		TargetLocation Stage
+		NarrowTargets HasTrait Quintuplets
+		SetXToNumberOfCharacters
+		Peek Deck X
+		ChooseCard Choose a card to add to your hand.
+		MoveCard Hand
+		PutTheRestIntoTheWaitingRoom
+	}
+}
 Text Auto: [Put 1 card from your hand into your clock] When this card is placed on the stage from your hand, you may pay the cost. If you do, look at up to X cards from the top of your deck, choose up to 1 card from among them, put it into your hand, and put the rest into your waiting room. X is equal to the number of other 《Quintuplets》 characters you have.
+Auto: OnOpponentClimaxPlay
+{
+	Question Put this card into your stock?
+	If Yes
+	{
+		TargetSelf
+		MoveCard Stock
+	}
+}
 Text Auto: When your opponent's climax is placed on their climax area, you may put this card into your stock.
 EndCard
 
@@ -1059,8 +1478,14 @@ Cost 0
 Power 2000
 Trait1 Quintuplets
 Trait2 Stylish
+Auto: OnPlay
+{
+	TargetLocation Hand
+	ChooseCardFromTargets 0 1 Any
+	MoveCard Stock
+}
 Text Auto: When this card is placed on the stage from your hand, you may choose 1 card in your hand, and put it into your stock.
-Text Auto: [(1) Put 1 climax from your hand into your waiting room] When this card is placed on the stage from your hand, you may pay the cost. If you do, choose 1 climax in your waiting room, and return it to your hand.
+*ClimaxExchange
 EndCard
 
 Character: 5HY/W90-E057
@@ -1071,7 +1496,29 @@ Cost 0
 Power 2000
 Trait1 Quintuplets
 Trait2 Cooking
+Auto: OnPlay
+{
+	PayCost ShuffleFromWaitingRoom 2 HasTrait Quintuplets
+	{
+		TargetLocation Stage
+		ChooseCharacterFromTargets
+		GainSoul 1
+	}
+}
 Text Auto: [Return 2 《Quintuplets》 characters from your waiting room to your deck & Shuffle your deck] When this card is placed on the stage from your hand, you may pay the cost. If you do, choose 1 of your 《Quintuplets》 characters, it gets +1 soul until end of turn.
+Auto: OnClimaxPlay
+{
+	PayCost SendSelf Hand
+	{
+		TargetLocation Stage
+		ChooseCharacterFromTargets
+		GainPower 1000
+		GainEffect
+		{
+			*OnAttackCheck2ChooseTrigger
+		}
+	}
+}
 Text Auto: [Return this card to your hand] When your climax is placed on your climax area, you may pay the cost. If you do, choose 1 of your characters, it gets +1000 power and the following ability until end of turn. "Auto: When this card attacks, look at up to 2 cards from the top of your deck, choose 1 card from among them, put it on the top of your deck, and put the rest into your waiting room."
 EndCard
 
@@ -1085,7 +1532,24 @@ Power 9500
 Soul 2
 Trait1 Quintuplets
 Trait2 Cooking
-Text Cont: During your turn, if all of your characters have "Nino(二乃)" in their card names, this card gets +4000 power.
+Cont: GiveSelf
+{
+	If MyTurn && AllYourCharacters NameContains Nino
+	{
+		GainPower 4000
+	}
+}
+Text Cont: During your turn, if all of your characters have "Nino" in their card names, this card gets +4000 power.
+Auto: OnReverseOpponent
+{
+	If MyTurn
+	{
+		PayCost 1
+		{
+			Burn 1
+		}
+	}
+}
 Text Auto: [(1)] During your turn, when this card's battle opponent becomes reversed, you may pay the cost. If you do, deal 1 damage to your opponent. 
 EndCard
 
@@ -1099,8 +1563,24 @@ Power 10000
 Soul 2
 Trait1 Quintuplets
 Trait2 Cooking
-Text Cont: If this card is in your center stage, all of your 《Quintuplets》 characters get +1500 power.
-Text Auto: When your climax with in its trigger icon is placed on your climax area, look at up to 2 cards from the top of your deck, put them on the top of your deck in any order, choose 1 of your 《Quintuplets》 characters, it gets the following ability until end of turn. "Auto: When this card attacks, look at up to 2 cards from the top of your deck, choose up to 1 card from among them, put it on the top of your deck, and put the rest into your waiting room."
+*GiveAll1500OnCenterStage(Quintuplets)
+Auto: OnClimaxPlay
+{
+	IfOther HasTrigger Standby
+	{
+		TargetTop Deck 2
+		Reorder
+		TargetLocation Stage
+		NarrowTargets HasTrait Quintuplets
+		ChooseCharacterFromTargets
+		GainEffect
+		{
+			*OnAttackCheck2ChooseTrigger
+		}
+	}
+	
+}
+Text Auto: When your climax with Standby in its trigger icon is placed on your climax area, look at up to 2 cards from the top of your deck, put them on the top of your deck in any order, choose 1 of your 《Quintuplets》 characters, it gets the following ability until end of turn. "Auto: When this card attacks, look at up to 2 cards from the top of your deck, choose up to 1 card from among them, put it on the top of your deck, and put the rest into your waiting room."
 EndCard
 
 Character: 5HY/W90-E060
@@ -1113,7 +1593,19 @@ Power 10000
 Soul 2
 Trait1 Quintuplets
 Trait2 Earnest
-Text Auto: When this card is placed on the stage from your hand, draw up to 2 cards, choose 1 card in your hand, and put it into your waiting room.
+Combo Under the Moonlight
+*OnPlayDraw2Discard1
+Auto: OnAttack
+{
+	If Climax Under the Moonlight && Compare Experience 6 OrMore
+	{
+		PayCost Discard 3 HasTrait Quintuplets
+		{
+			Burn 1
+			Burn 4
+		}
+	}
+}
 Text Auto: CxCombo EXPERIENCE [Put 3 《Quintuplets》 characters from your hand into your waiting room] When this card attacks, if "Under the Moonlight" is in your climax area, and the total level of the cards in your level is 6 or higher, you may pay the cost. If you do, deal 1 damage to your opponent, and deal 4 damage to your opponent. 
 EndCard
 
@@ -1125,8 +1617,20 @@ Cost 0
 Power 500
 Trait1 Quintuplets
 Trait2 Stylish
+Act: 1 SendSelf WaitingRoom
+{
+	*Check4Add1(Quintuplets)
+}
 Text Act: [(1) Put this card into your waiting room] Look at up to 4 cards from the top of your deck, choose up to 1 《Quintuplets》 character from among them, reveal it to your opponent, put it into your hand, and put the rest into your waiting room.
-Text Act: BRAINSTORM [(1) Rest 2 of your characters] Flip over 5 cards from the top of your deck, and put them into your waiting room. For each climax revealed among those cards, search your deck for up to 1 character with "Ichika(一花)" in its card name, reveal it to your opponent, put it into your hand, and shuffle your deck.
+Act: 1 Rest 2 Any
+{
+	Brainstorm 5
+	PerClimax
+	{
+		SearchDeck IsCharacter && NameContains Ichika
+	}
+}
+Text Act: BRAINSTORM [(1) Rest 2 of your characters] Flip over 5 cards from the top of your deck, and put them into your waiting room. For each climax revealed among those cards, search your deck for up to 1 character with "Ichika" in its card name, reveal it to your opponent, put it into your hand, and shuffle your deck.
 EndCard
 
 Character: 5HY/W90-E062
@@ -1137,7 +1641,33 @@ Cost 0
 Power 3500
 Trait1 Quintuplets
 Trait2 Cooking
-Text Cont: If all of your characters have "Nino(二乃)" in their card names, this card gets the following ability. "Auto: When this card becomes reversed, if this card's battle opponent is level 1 or lower, you may Reversed that character."
+Cont: GiveSelf
+{
+	If AllYourCharacters NameContains Nino
+	{
+		GainEffect
+		{
+			*RedLevel1Bomb
+		}
+	}
+}
+Text Cont: If all of your characters have "Nino" in their card names, this card gets the following ability. "Auto: When this card becomes reversed, if this card's battle opponent is level 1 or lower, you may Reversed that character."
+Auto: OnPlay
+{
+	Repeat 2
+	{
+		PeekTop Deck
+		Question Place this card in your waiting room? (Press no to return it to the top)
+		If Yes
+		{
+			MoveCard WaitingRoom
+		}
+		If No
+		{
+			EndPeek Deck
+		}
+	}
+}
 Text Auto: When this card is placed on the stage from your hand, perform the following action 2 times. "Look at the top card of your deck, and put it on the top of your deck or into your waiting room."
 EndCard
 
@@ -1150,6 +1680,22 @@ Trigger Soul
 Power 3000
 Trait1 Quintuplets
 Trait2 Earnest
+Auto: OnUseThisCardsBackup
+{
+	TargetMyCharacterInBattle
+	GainEffect
+	{
+		Auto: OnReverseOpponent
+		{
+			PayCost Discard 1 Any
+			{
+				Burn 1
+			}
+		}
+		TimesPerTurn 1
+		Text Auto: This ability activates up to 1 time per turn. When this card's battle opponent becomes reversed, you may pay the cost. If you do, deal 1 damage to your opponent.
+	} 
+}
 Text Auto: When you use this card's "BACKUP", choose 1 of your characters in battle, it gets the following ability until end of turn. "Auto: [Put 1 card from your hand into your waiting room] This ability activates up to 1 time per turn. When this card's battle opponent becomes reversed, you may pay the cost. If you do, deal 1 damage to your opponent." 
 Backup 2500
 EndCard
@@ -1164,7 +1710,13 @@ Power 8000
 Soul 2
 Trait1 Quintuplets
 Trait2 Earnest
-Text Cont: All of your other 《Quintuplets》 characters get +1500 power.
+*GlobalPower(1500,Quintuplets)
+Auto: OnPlay
+{
+	SearchLocationForTargets Hand 0 1 IsCharacter && Compare ThatCardsLevel MyLevel OrLess
+	PlaceOnStage False True True False
+	GainPower 2000
+}
 Text Auto: When this card is placed on the stage from your hand, choose up to 1 character with level equal to or lower than your level in your hand, put it on any position of your stage, and that card gets +2000 power until end of turn.
 EndCard
 
@@ -1176,7 +1728,19 @@ Cost 0
 Power 1000
 Trait1 Quintuplets
 Trait2 Earnest
+Auto: OnUseAct
+{
+	TargetLocation Stage
+	NarrowTargets HasTrait Quintuplets
+	ChooseCharacterFromTargets
+	GainPower 1000
+}
+TimesPerTurn 1
 Text Auto: This ability activates up to 1 time per turn. When you use an Act:, choose 1 of your 《Quintuplets》 characters, it gets +1000 power until end of turn.
+Act: RestSelf
+{
+	*ExchangeCardInLevelWithWaitingRoom(Any, HasTrait Quintuplets)
+}
 Text Act: [Rest this card] Choose 1 card in your level and 1 《Quintuplets》 character in your waiting room, and exchange them.
 EndCard
 
@@ -1188,7 +1752,15 @@ Cost 0
 Power 4000
 Trait1 Quintuplets
 Trait2 Cooking
+Cont: GiveAll
+{
+	If MyTurn &&& Other && HasTrait Quintuplets
+	{
+		GainPower 1000
+	}
+}
 Text Cont: During your turn, all of your other 《Quintuplets》 characters get +1000 power.
+*SacrificeToSave(HasTrait Quintuplets)
 Text Auto: [Put this card into your waiting room] When your other 《Quintuplets》 character is put into your waiting room from your stage, if this card is in your back stage, you may pay the cost. If you do, return that character to its previous stage position as resting.
 EndCard
 
@@ -1201,6 +1773,16 @@ Trigger Soul
 Power 500
 Trait1 Quintuplets
 Trait2 Stylish
+Auto: OnUseThisCardsBackup
+{
+	If StageContains 1 HasTrait Quintuplets
+	{
+		PayCost Clock
+		{
+			SearchWaitingRoom HasTrait Quintuplets
+		}
+	}
+}
 Text Auto: [Put the top card of your deck into your clock] When you use this card's "BACKUP", if you have another 《Quintuplets》 character, you may pay the cost. If you do, choose 1 《Quintuplets》 character in your waiting room, and return it to your hand.
 Backup 2000
 EndCard
@@ -1214,7 +1796,17 @@ Trigger Soul
 Power 2500
 Trait1 Quintuplets
 Trait2 Earnest
-Text Auto: This ability activates up to 1 time per turn. When you use an Act:, choose 1 of your characters, it gets +1000 power until end of turn.
+*GivePowerOnAct(1000,1)
+Act: RestSelf
+{
+	TargetLocation Stage
+	NarrowTargets HasTrait Quintuplets
+	SetXValue TargetCount
+	MultiplyXValue 500
+	TargetLocation Stage
+	ChooseCharacterFromTargets
+	GainPower X
+}
 Text Act: [Rest this card] Choose 1 of your characters, it gets +X power until end of turn. X is equal to the number of 《Quintuplets》 characters you have ×500.
 EndCard
 
@@ -1227,7 +1819,35 @@ Trigger Soul
 Power 4000
 Trait1 Quintuplets
 Trait2 Earnest
+Cont: GiveSelf
+{
+	If Compare MyLevel 3 OrMore
+	{
+		GainEffect
+		{
+			Act: SendSelf WaitingRoom
+			{
+				TargetLocation OpponentStage
+				*ExchangeOpponentsCharactersOrMoveToOpenPosition
+			}
+		}
+	}
+}
 Text Cont: If your level is 3 or higher, this card gets the following ability. "Act: [Put this card into your waiting room] Choose 1 of your opponent's characters, and move it to another open position of their stage as standing, or choose another of your opponent's characters and exchange them as standing."
+Auto: OnReversed
+{
+	TargetBattleOpponent
+	SetXValue OpponentsLevel
+	AddToXValue 1
+	IfThatCard Compare ThatCardsLevel X OrMore && OnStage
+	{
+		Question_Obvious Reverse the battle opponent?
+		If Yes
+		{
+			MoveCard OpponentMemory
+		}
+	}
+}
 Text Auto: When this card becomes reversed, if the level of this card's battle opponent is higher than your opponent's level, you may put that character into your opponent's memory.
 EndCard
 
@@ -1239,8 +1859,8 @@ Cost 1
 Power 5500
 Trait1 Quintuplets
 Trait2 Cooking
-Text Cont: If you have 2 or more other 《Quintuplets》 characters, this card gets +2000 power.
-Text Auto: ENCORE [Put 1 character from your hand into your waiting room] 
+*GainPowerWithEnoughCharacters(2000,2,Quintuplets)
+*HandEncore
 EndCard
 
 Character: 5HY/W90-E071
@@ -1252,8 +1872,8 @@ Trigger Soul
 Power 7000
 Trait1 Quintuplets
 Trait2 Cooking
-Text Auto: When this card attacks, if the character facing this card is level 3 or higher, this card gets +6000 power until end of turn.
-Text Auto: [(1)] At the beginning of your opponent's attack phase, you may pay the cost. If you do, choose this card and 1 of your 《Quintuplets》 characters, and exchange them as standing.
+*GainPowerWhenAttackingLevel3(6000)
+*PayToExchange(Quintuplets)
 EndCard
 
 Character: 5HY/W90-E072
@@ -1266,8 +1886,24 @@ Power 5500
 Soul 2
 Trait1 Quintuplets
 Trait2 Stylish
-Text Cont: If all of your characters have "Ichika(一花)" in their card names, this card gets +4000 power.
-Text Auto: When this card attacks, reveal the top card of your deck. If that card is a character with "Ichika(一花)" in its card name, put that card into your stock. 
+Cont: GiveSelf
+{
+	If AllYourCharacters NameContains Ichika
+	{
+		GainPower 4000
+	}
+}
+Text Cont: If all of your characters have "Ichika" in their card names, this card gets +4000 power.
+Auto: OnAttack
+{
+	TargetTop Deck 1
+	Reveal
+	IfTarget NameContains Ichika
+	{
+		MoveCard Stock
+	}
+}
+Text Auto: When this card attacks, reveal the top card of your deck. If that card is a character with "Ichika" in its card name, put that card into your stock. 
 EndCard
 
 Character: 5HY/W90-E073
@@ -1280,7 +1916,19 @@ Power 9500
 Soul 2
 Trait1 Quintuplets
 Trait2 Stylish
+Auto: StartClimaxPhase
+{
+	PayCost SendSelf Hand
+	{
+		SearchLocationForTargets Hand 0 1 HasTrait Quintuplets
+		Change
+	}
+}
 Text Auto: CHANGE [Return this card to your hand] At the beginning of your climax phase, you may pay the cost. If you do, choose up to 1 《Quintuplets》 character in your hand, and put it on the stage position that this card was on.
+Act: 2 RestSelf
+{
+	Burn 1
+}
 Text Act: [(2) Rest this card] Deal 1 damage to your opponent. 
 EndCard
 
@@ -1294,7 +1942,25 @@ Power 10000
 Soul 2
 Trait1 Quintuplets
 Trait2 Stylish
+Combo Memories of the Quintuplets
+Auto: OnPlay|PlacedBy Tutor of the Quintuplets, Futaro Uesugi
+{
+	*OptionalHeal
+}
 Text Auto: When this card is placed on the stage from your hand or by the Auto: effect of "Tutor of the Quintuplets, Futaro Uesugi", you may put the top card of your clock into your waiting room.
+Auto: StartAttackPhase
+{
+	If Climax Memories of the Quintuplets && InLocation CenterStage
+	{
+		If LocationContains Memory 1 NameEquals Tutor of the Quintuplets, Futaro Uesugi &&& StageContains 1 Other && HasTrait Quintuplets
+		{
+			*ReorderOpponentsStageToMemory
+			TargetLocation Stage
+			ChooseCharacterFromTargets
+			GainPower 2000
+		}
+	}
+}
 Text Auto: CxCombo MEMORY At the beginning of your attack phase, if "Memories of the Quintuplets" is in your climax area, this card is in your center stage, and "Tutor of the Quintuplets, Futaro Uesugi" is in your memory, you may put all of your opponent's characters into their memory. If you do, put all of those characters on separate positions of your opponent's stage, choose 1 of your characters, it gets +2000 power until end of turn.
 EndCard
 
@@ -1304,6 +1970,25 @@ Color R
 Level 2
 Cost 1
 Counter
+Effect
+{
+	TargetMyCharacterInBattle
+	MoveCard Memory
+	RememberTargets
+	ScheduleEffect StartDrawPhase
+	{
+		Effect:
+		{
+			If LocationContains Memory 1 RememberedByThisCard
+			{
+				TargetRemembered
+				PlaceOnStage False True True False
+				GainPower 1000
+				GainSoul 1
+			}
+		}
+	}
+}
 Text Counter: Choose 1 of your 《Quintuplets》 characters in battle, and put it into your memory. At the beginning of your next draw phase, put that character from your memory on any position of your stage, it gets +1000 power and +1 soul until end of turn.
 EndCard
 
@@ -1312,7 +1997,16 @@ Name Codeword
 Color R
 Level 2
 Cost 1
-Text Choose 1 character in your waiting room, and return it to your hand. You may put the top card of your deck into your waiting room. If that card is a character with "Itsuki(五月)" in its card name, choose 1 character in your waiting room, and return it to your hand.
+Effect:
+{
+	SearchWaitingRoom IsCharacter
+	Mill 1
+	IfTarget IsCHaracter && NameContains Itsuki
+	{
+		SearchWaitingRoom IsCharacter
+	}
+}
+Text Choose 1 character in your waiting room, and return it to your hand. You may put the top card of your deck into your waiting room. If that card is a character with "Itsuki" in its card name, choose 1 character in your waiting room, and return it to your hand.
 EndCard
 
 Event: 5HY/W90-E077
@@ -1320,31 +2014,51 @@ Name Runaway Train of Love
 Color R
 Level 2
 Cost 2
-Text If you have 5 or more characters with "Nino(二乃)" in their card names, choose 1 of your characters, it gets the following ability until end of turn. "Auto: This ability activates up to 1 time per turn. When this card attacks, reveal the top 9 cards of your deck, shuffle your deck, and deal X damage to your opponent. X is equal to the total number of in the trigger icons of those cards." 
+Requirement StageContains 5 NameContains Nino
+Effect:
+{
+	TargetLocation Stage
+	ChooseCharacterFromTargets
+	GainEffect
+	{
+		Auto: OnAttack
+		{
+			RevealExactly Deck 9
+			EndPeek
+			ShuffleLocation Deck
+			NarrowTargets HasTrigger Standby
+			SetXValue TargetCount
+			Burn X
+		}
+		TimesPerTurn 1
+		Text Auto: This ability activates up to 1 time per turn. When this card attacks, reveal the top 9 cards of your deck, shuffle your deck, and deal X damage to your opponent. X is equal to the total number of Standby in the trigger icons of those cards.
+	}
+}
+Text If you have 5 or more characters with "Nino" in their card names, choose 1 of your characters, it gets the following ability until end of turn. "Auto: This ability activates up to 1 time per turn. When this card attacks, reveal the top 9 cards of your deck, shuffle your deck, and deal X damage to your opponent. X is equal to the total number of in the trigger icons of those cards." 
 EndCard
 
 Climax: 5HY/W90-E078
 Name Straightforward Feelings
 Color R
-Text Auto: When this card is placed on your climax area from your hand, perform the effect.
+*StandbyClimax
 EndCard
 
 Climax: 5HY/W90-E079
 Name Visiting Her Mother's Grave
 Color R
-Text Cont: All of your characters get +1000 power and +1 soul.
+*DoorClimax
 EndCard
 
 Climax: 5HY/W90-E080
 Name Unstoppable Feelings
 Color R
-Text Auto: When this card is placed on your climax area from your hand, perform the effect.
+*StandbyClimax
 EndCard
 
 Climax: 5HY/W90-E081
 Name Under the Moonlight
 Color R
-Text Cont: All of your characters get +1000 power and +1 soul.
+*DoorClimax
 EndCard
 
 Character: 5HY/W90-E082
@@ -1357,9 +2071,16 @@ Power 9000
 Soul 2
 Trait1 Quintuplets
 Trait2 Headphone
-Text Cont: If you have 4 or more 《Quintuplets》 characters, this card gets -1 level while in your hand.
+*EarlyPlay4OrMore(Quintuplets)
+Cont: GiveSelf
+{
+	If MyTurn && AllYourCharacters HasTrait Quintuplets
+	{
+		GainPower 2000
+	}
+}
 Text Cont: During your turn, if all of your characters are 《Quintuplets》, this card gets +2000 power.
-Text Auto: When this card is placed on the stage from your hand, you may put the top card of your clock into your waiting room.
+*Healer
 EndCard
 
 Character: 5HY/W90-E083
@@ -1372,7 +2093,28 @@ Power 10500
 Soul 2
 Trait1 Quintuplets
 Trait2 Headphone
+Combo What She Loves
+Auto: OnPlay
+{
+	MultipleChoiceQuestion Search your deck or waiting room for up to 1 Headphone or Secret Confession?|Deck|WaitingRoom
+	If Answer 0
+	{
+		SearchDeck NameEquals Headphone|Secret Confession
+	}
+	Else
+	{
+		SearchWaitingRoom NameEquals Headphone|Secret Confession
+	}
+}
 Text Auto: When this card is placed on the stage from your hand, choose 1 of the following effects, and perform it. "Search your deck for up to 1 "Headphone" or "Secret Confession", reveal it to your opponent, put it into your hand, and shuffle your deck." "Choose 1 "Headphone" or "Secret Confession" in your waiting room, and return it to your hand."
+Auto: OnDamageCancel
+{
+	If Climax What She Loves &&& StageContains 4 Other && HasTrait Quintuplets
+	{
+		Stand
+	}
+}
+TimesPerTurn 1
 Text Auto: CxCombo This ability activates up to 1 time per turn. When damage dealt by this card is canceled, if "What She Loves" is in your climax area, and you have 4 or more other 《Quintuplets》 characters, Stand this card.
 EndCard
 
@@ -1384,8 +2126,26 @@ Cost 0
 Power 1000
 Trait1 Quintuplets
 Trait2 Headphone
+Auto: StartClimaxPhase
+{
+	TargetLocation Stage
+	ChooseCharacterFromTargets
+	GainEffect
+	{
+		Auto: OnReverseOpponent
+		{
+			Question Put the battle opponent at the bottom of your opponent's deck?
+			If Yes
+			{
+				TargetBattleOpponent
+				MoveCard BottomOfOpponentDeck
+			}
+		}
+	}
+}
+Alarm
 Text Auto: 【CLOCK】 ALARM If this card is the top card of your clock, at the beginning of your climax phase, choose 1 of your characters, it gets the following ability until end of turn. "Auto: When this card's battle opponent becomes reversed, you may put that character at the bottom of your opponent's deck."
-Text Act: BRAINSTORM [(1) Rest this card] Flip over 4 cards from the top of your deck, and put them into your waiting room. For each climax revealed among those cards, search your deck for up to 1 《Quintuplets》 character, reveal it to your opponent, put it into your hand, and shuffle your deck.
+*Act1RestSelfSearchBrainstorm(Quintuplets)
 EndCard
 
 Character: 5HY/W90-E085
@@ -1396,7 +2156,23 @@ Cost 0
 Power 4500
 Trait1 Quintuplets
 Trait2 Headphone
+Combo Wholehearted Feelings
+Auto: OnAttack
+{
+	TargetLocation WaitingRoom
+	NarrowTargets NameEquals Headphone
+	SetXValue TargetCount
+	MultiplyXValue 1500
+	GainPower X
+}
 Text Auto: When this card attacks, this card gets +X power until end of turn. X is equal the number of "Headphone" in your waiting room ×1500.
+Auto: OnReverseOpponent
+{
+	If Climax Wholehearted Feelings
+	{
+		SearchWaitingRoom IsCharacter
+	}
+}
 Text Auto: CxCombo When this card's battle opponent becomes reversed, if "Wholehearted Feelings" is in your climax area, you may choose 1 character in your waiting room, and return it to your hand.
 EndCard
 
@@ -1409,7 +2185,7 @@ Trigger Soul
 Power 4000
 Trait1 Quintuplets
 Trait2 Headphone
-Text Auto: When this card becomes reversed, if the level of this card's battle opponent is higher than your opponent's level, you may put that character at the bottom of your opponent's deck.
+*BlueEarlyPlayBomb
 EndCard
 
 Character: 5HY/W90-E087
@@ -1420,8 +2196,24 @@ Cost 0
 Power 500
 Trait1 Quintuplets
 Trait2 Cooking
-Text Auto: At the beginning of your attack phase, choose 1 of your characters with "Nino(二乃)" in its card name, it gets +1500 power until end of turn.
-Text Act: [(1) Rest this card] Reveal the top card of your deck. If that card is "Runaway Train of Love" or a character with "Nino(二乃)" in its card name, put it into your hand. 
+Auto: StartAttackPhase
+{
+	TargetLocation Stage
+	NarrowTargets NameContains Nino
+	ChooseCharacterFromTargets
+	GainPower 1500
+}
+Text Auto: At the beginning of your attack phase, choose 1 of your characters with "Nino" in its card name, it gets +1500 power until end of turn.
+Act: 1 RestSelf
+{
+	TargetTop Deck 1
+	Reveal
+	IfTarget NameEquals Runaway Train of Love ||| IsCharacter && NameContains Nino
+	{
+		MoveCard Hand
+	}
+}
+Text Act: [(1) Rest this card] Reveal the top card of your deck. If that card is "Runaway Train of Love" or a character with "Nino" in its card name, put it into your hand. 
 EndCard
 
 Character: 5HY/W90-E088
@@ -1432,7 +2224,18 @@ Cost 0
 Power 2000
 Trait1 Quintuplets
 Trait2 Cooking
-Text Auto: When this card is placed on the stage from your hand, look at the top card of your deck, and put it on the top or at the bottom of your deck.
+*OnPlayScryToBottom
+Auto: OnPlay
+{
+	PayCost 1 Discard 1 Any
+	{
+		SearchWaitingRoom HasTrait Quintuplets
+		TargetLocation Stage
+		NarrowTargets Other && HasTrait Quintuplets
+		ChooseCharacterFromTargets
+		GainPower 1000
+	}
+}
 Text Auto: [(1) Put 1 card from your hand into your waiting room] When this card is placed on the stage from your hand, you may pay the cost. If you do, choose 1 《Quintuplets》 character in your waiting room, return it to your hand, choose 1 of your other 《Quintuplets》 characters, it gets +1000 power until end of turn.
 EndCard
 
@@ -1445,6 +2248,13 @@ Trigger Soul
 Power 1500
 Trait1 Quintuplets
 Trait2 Cooking
+Auto: OnUseThisCardsBackup
+{
+	PayCost 1
+	{
+		SearchWaitingRoom NameEquals Sudden Approach, Nino Nakano
+	}
+}
 Text Auto: [(1)] When you use this card's "BACKUP", you may pay the cost. If you do, choose 1 "Sudden Approach, Nino Nakano" in your waiting room, and return it to your hand.
 Backup 2500
 EndCard
@@ -1458,7 +2268,7 @@ Trigger Soul
 Power 2500
 Trait1 Quintuplets
 Trait2 Headphone
-Text Auto: When you use this card's "BACKUP", choose 1 of your characters in battle, it gets the following ability until end of turn. "Auto: When this card's battle opponent becomes reversed, put that character into your opponent's memory."
+*MemoryBackup
 Backup 3000
 EndCard
 
@@ -1470,8 +2280,8 @@ Cost 0
 Power 500
 Trait1 Quintuplets
 Trait2 Headphone
-Text Auto: When this card is placed on the stage from your hand, choose 1 of your other 《Quintuplets》 characters, it gets +1000 power until end of turn.
-Text Auto: When this card becomes reversed in battle, if this card's battle opponent is level 0 or lower, you may put that card at the bottom of your opponent's deck.
+*OnPlayGiveOtherPower(1000, Quintuplets)
+*BlueLevel0Bomb
 EndCard
 
 Character: 5HY/W90-E092
@@ -1482,8 +2292,54 @@ Cost 0
 Power 1000
 Trait1 Quintuplets
 Trait2 Headphone
+Cont: GiveSelf
+{
+	If HasMarker
+	{
+		GainPower 2000
+		GainEffect
+		{
+			Cont: GiveFacing
+			{
+				GainSpecialEffect CannotMove
+			}
+			Text Cont: The character facing this card cannot move to another position of the stage.
+		}
+		GainEffect
+		{
+			Auto: StartOpponentAttackPhase
+			{
+				TargetFacing
+				If HasTarget
+				{
+					TargetSelf
+					Question Move this card to an open position of your center stage?
+					If Yes
+					{
+						MoveToOpenPosition True False
+					}
+				}
+			}
+			Text Auto: At the beginning of your opponent's attack phase, if there is a character facing this card, you may move this card to an open position of your center stage.
+		}
+	}
+}
 Text Cont: If there is a marker underneath this card, this card gets +2000 power and the following 2 abilities. "Cont: The character facing this card cannot move to another position of the stage." "Auto: At the beginning of your opponent's attack phase, if there is a character facing this card, you may move this card to an open position of your center stage."
-Text Auto: When this card is placed on the stage from your hand, reveal the top card of your deck. If that card is an event or a character with "Miku(三玖)" in its card name, you may put that card face down underneath this card as a marker. 
+Auto: OnPlay
+{
+	TargetTop Deck 1
+	Reveal
+	IfTarget IsCharacter && NameContains Miku ||| IsEvent
+	{
+		Question Put the revealed card underneath as a marker?
+		If Yes
+		{
+			Marker_FaceDown
+		}
+
+	}
+}
+Text Auto: When this card is placed on the stage from your hand, reveal the top card of your deck. If that card is an event or a character with "Miku" in its card name, you may put that card face down underneath this card as a marker. 
 EndCard
 
 Character: 5HY/W90-E093
@@ -1494,7 +2350,16 @@ Cost 0
 Power 1500
 Trait1 Quintuplets
 Trait2 Headphone
-Text Cont: All of your other 《Quintuplets》 characters get +500 power.
+*GlobalPower(500,Quintuplets)
+Auto: OnUseEvent
+{
+	Question Put this card into your stock?
+	If Yes
+	{
+		TargetSelf
+		MoveCard Stock
+	}
+}
 Text Auto: When you play an event, you may put this card into your stock.
 EndCard
 
@@ -1506,6 +2371,17 @@ Cost 0
 Power 3500
 Trait1 Quintuplets
 Trait2 Cooking
+Auto: OnAttack
+{
+	TargetTop Deck 1
+	Reveal
+	IfTarget IsEvent || HasTrait Quintuplets
+	{
+		TargetLocation Stage
+		ChooseCharacterFromTargets
+		GainPower 3000
+	}
+}
 Text Auto: When this card attacks, reveal the top card of your deck. If that card is an event or a 《Quintuplets》 character, choose 1 of your characters, it gets +3000 power until end of turn. 
 EndCard
 
@@ -1519,7 +2395,38 @@ Power 10000
 Soul 2
 Trait1 Quintuplets
 Trait2 Cooking
+Combo A White Lie
+Auto: OnPlay
+{
+	PayCost 1
+	{
+		SearchLocationForTargets WaitingRoom 0 1 NameEquals Sensitive and Straightforward, Nino Nakano
+		PlaceOnStage False True True False
+	}
+}
 Text Auto: [(1)] When this card is placed on the stage from your hand, you may pay the cost. If you do, choose 1 "Sensitive and Straightforward, Nino Nakano" in your waiting room, and put it on any position of your stage.
+Auto: OnSpecificClimaxPlay A White Lie
+{
+	If InLocation CenterStage && Compare CardsInHand 5 OrLess
+	{
+		TargetLocation Stage
+		NarrowTargets NameEquals Sensitive and Straightforward, Nino Nakano
+		ChooseCharacterFromTargets
+		GainEffect
+		{
+			Auto: OnDamageCancel
+			{
+				Question Deal the same damage to your opponent?
+				If Yes
+				{
+					Burn LastDamageGiven
+				}
+			}
+			TimesPerTurn 1
+			Text Auto: This ability activates up to 1 time per turn. When damage dealt by this card is canceled, you may deal the same damage to your opponent.
+		}
+	}
+}
 Text Auto: CxCombo When "A White Lie" is placed on your climax area, if this card is in your center stage, and your hand has 5 or less cards, choose 1 of your "Sensitive and Straightforward, Nino Nakano", and that card gets the following ability until end of turn. "Auto: This ability activates up to 1 time per turn. When damage dealt by this card is canceled, you may deal the same damage to your opponent." 
 EndCard
 
@@ -1533,7 +2440,36 @@ Power 10000
 Soul 2
 Trait1 Quintuplets
 Trait2 Cooking
+Combo Memories of the Quintuplets
+Auto: OnPlay|PlacedBy Tutor of the Quintuplets, Futaro Uesugi
+{
+	*OptionalHeal
+}
 Text Auto: When this card is placed on the stage from your hand or by the Auto: effect of "Tutor of the Quintuplets, Futaro Uesugi", you may put the top card of your clock into your waiting room.
+Auto: OnAttack
+{
+	If Climax Memories of the Quintuplets && LocationContains Memory 1 NameEquals Tutor of the Quintuplets, Futaro Uesugi
+	{
+		PayCost 3
+		{
+			GainPower 1000
+			TargetLocation CenterStage
+			GainEffect
+			{
+				Auto: OnDamageNotCanceled
+				{
+					Question Deal 1 damage to your opponent?
+					If Yes
+					{
+						Burn 1
+					}
+				}
+				TimesPerTurn 1
+				Text Auto: This ability activates up to 1 time per turn. When damage dealt by this card is not canceled, you may deal 1 damage to your opponent.
+			}
+		}
+	}
+}
 Text Auto: CxCombo MEMORY [(3)] When this card attacks, if "Memories of the Quintuplets" is in your climax area, and "Tutor of the Quintuplets, Futaro Uesugi" is in your memory, you may pay the cost. If you do, this card gets +1000 power until end of turn, and all of your characters in your center stage gets the following ability. "Auto: This ability activates up to 1 time per turn. When damage dealt by this card is not canceled, you may deal 1 damage to your opponent." 
 EndCard
 
@@ -1542,8 +2478,27 @@ Name Headphone
 Color B
 Level 1
 Cost 0
-Text If you do not have a character with "Miku(三玖)" in its card name, this card cannot be played from your hand.
-Text Look at up to 5 cards from the top of your deck, choose up to 1 character with "Miku(三玖)" in its card name from among them, reveal it to your opponent, put it into your hand, and put the rest into your waiting room. Look at the top card of your deck, and put it on the top or at the bottom of your deck.
+Requirement StageContains 1 NameContains Miku
+Effect:
+{
+	RevealUpTo Deck 5
+	ChooseCardsFromTargets 0 1 IsCharacter && NameContains Miku
+	RevealTargets
+	MoveCard Hand
+	PutTheRestIntoTheWaitingRoom
+	PeekTop Deck
+	Question Place this card on the bottom of your deck? (Press no to return it to the top)
+	If Yes
+	{
+		MoveCardToBottom Deck
+	}
+	If No
+	{
+		EndPeek Deck
+	}
+}
+Text If you do not have a character with "Miku" in its card name, this card cannot be played from your hand.
+Text Look at up to 5 cards from the top of your deck, choose up to 1 character with "Miku" in its card name from among them, reveal it to your opponent, put it into your hand, and put the rest into your waiting room. Look at the top card of your deck, and put it on the top or at the bottom of your deck.
 EndCard
 
 Event: 5HY/W90-E098
@@ -1551,20 +2506,62 @@ Name Secret Confession
 Color B
 Level 2
 Cost 1
-Text If you have 2 or more characters with "Miku(三玖)" in their card names, choose 1 of the following effects, and perform it.
+Requirement StageContains 2 NameContains Miku
+Effect:
+{
+	MultipleChoiceQuestion Choose an effect.\n1. "Choose up to 1 "Confession of Love, Miku Nakano" in your hand, put it on any position of your stage, and at the end of the turn, put that character into your waiting room."\n2. "Choose 1 card in your clock, and put it into your waiting room."\n3. "Choose 1 of your opponent's characters with level higher than your opponent's level, and put it into their waiting room."\n4. "Choose 1 of your characters, it gets +3500 power and cannot move to another position of the stage until the end of your opponent's next turn."|Choice 1|Choice 2|Choice 3|Choice 4
+	If Answer 0
+	{
+		SearchLocationForTargets Hand 0 1 NameEquals Confession of Love, Miku Nakano
+		PlaceOnStage False True True False
+		GainEffect
+		{
+			Auto: EndOfMyTurn
+			{
+				IfTarget OnStage
+				{
+					MoveCard WaitingRoom
+				}
+			}
+		}
+	}
+	If Answer 1
+	{
+		TargetLocation Clock
+		ChooseCardsFromTargets 0 1 Any
+		MoveCard WaitingRoom
+	}
+	If Answer 2
+	{
+		*SendEarlyPlayToWaitingRoom
+	}
+	If Answer 3
+	{
+		TargetLocation Stage
+		ChooseCharacterFromTargets
+		UntilEndOfOpponentsTurn
+		GainPower 3500
+		UntilEndOfOpponentsTurn
+		GainEffect
+		{
+			GainSpecialEffect CannotMove
+		}
+	}
+}
+Text If you have 2 or more characters with "Miku" in their card names, choose 1 of the following effects, and perform it.
 Text "Choose up to 1 "Confession of Love, Miku Nakano" in your hand, put it on any position of your stage, and at the end of the turn, put that character into your waiting room." "Choose 1 card in your clock, and put it into your waiting room." "Choose 1 of your opponent's characters with level higher than your opponent's level, and put it into their waiting room." "Choose 1 of your characters, it gets +3500 power and cannot move to another position of the stage until the end of your opponent's next turn."
 EndCard
 
 Climax: 5HY/W90-E099
 Name What She Loves
 Color B
-Text Cont: All of your characters get +1000 power and +1 soul.
+*GateClimax
 EndCard
 
 Climax: 5HY/W90-E100
 Name Wholehearted Feelings
 Color B
-Text Cont: All of your characters get +1000 power and +1 soul.
+*GateClimax
 EndCard
 
 Character: 5HY/W90-E101
@@ -1576,6 +2573,15 @@ Trigger Soul
 Power 1500
 Trait1 Quintuplets
 Trait2 Stylish
+Auto: OnOtherReversed
+{
+	IfOther HasTrait Quintuplets
+	{
+		TargetLocation Stage
+		ChooseCharacterFromTargets
+		GainPower 1000
+	}
+}
 Text Auto: When your other 《Quintuplets》 character becomes reversed in battle, choose 1 of your characters, it gets +1000 power until end of turn.
 Backup 3000
 EndCard
@@ -1588,7 +2594,31 @@ Cost 0
 Power 1000
 Trait1 Quintuplets
 Trait2 Cooking
-Text Auto: When this card is placed on the stage from your hand, reveal the top card of your deck. If that card is an event or a 《Quintuplets》 character, put it into your hand, choose 1 card in your hand, and put it into your waiting room. 
+Auto: OnPlay
+{
+	TargetTop Deck 1
+	Reveal
+	IfThatCard IsCharacter && HasTrait Quintuplets
+	{
+		MoveCard Hand
+		Discard 1 Any
+	}
+	Else
+	{
+		IfThatCard IsEvent
+		{
+			MoveCard Hand
+			Discard 1 Any
+		}
+	}
+}
+Text Auto: When this card is placed on the stage from your hand, reveal the top card of your deck. If that card is an event or a 《Quintuplets》 character, put it into your hand, choose 1 card in your hand, and put it into your waiting room.
+Auto: OnAttack
+{
+	TargetLocation Stage
+	ChooseCharacterFromTargets
+	GainPower 500
+}
 Text Auto: When this card attacks, choose 1 of your characters, it gets +500 power until end of turn.
 EndCard
 
@@ -1600,7 +2630,21 @@ Cost 0
 Power 3500
 Trait1 Quintuplets
 Trait2 Headphone
+Cont: GiveSelf
+{
+	If InLocation MiddleCenterStage
+	{
+		GainPower 2000
+	}
+}
 Text Cont: If this card is in the middle position of your center stage, this card gets +2000 power.
+Auto: OnPlay
+{
+	PayCost Discard 1 IsClimax
+	{
+		SearchWaitingRoom HasTrait Quintuplets && IsCharacter
+	}
+}
 Text Auto: [Put 1 climax from your hand into your waiting room] When this card is placed on the stage from your hand, you may pay the cost. If you do, choose 1 《Quintuplets》 character in your waiting room, and return it to your hand.
 EndCard
 
@@ -1613,7 +2657,20 @@ Trigger Soul
 Power 7000
 Trait1 Quintuplets
 Trait2 Ribbon
-Text Auto: [(1)] At the beginning of the encore step, if you do not have another Rest character in your center stage, you may pay the cost. If you do, Rest this card.
+*EncoreStepIfNoneRestedPayToRest
+Auto: OnAttack
+{
+	TargetLocation Memory
+	SetXValue TargetCount
+	If Compare X 2 OrMore
+	{
+		TargetLocation Stage
+		NarrowTargets HasTrait Quintuplets
+		SetXValue TargetCount
+		MultiplyXValue 1000
+		GainPower X
+	}
+}
 Text Auto: MEMORY When this card attacks, if your memory has 2 or more cards, this card gets +X power until end of turn. X is equal to the number of 《Quintuplets》 characters you have ×1000.
 EndCard
 
@@ -1625,7 +2682,27 @@ Cost 0
 Power 1000
 Trait1 Quintuplets
 Trait2 Earnest
+Cont: GiveSelf
+{
+	If HasMarker
+	{
+		GainPower 3000
+	}
+}
 Text Cont: If there is a marker underneath this card, this card gets +3000 power.
+Auto: OnPlay
+{
+	TargetTop Deck 1
+	Reveal
+	IfTarget IsEvent || HasTrait Quintuplets
+	{
+		Question Put revealed card underneath this as a marker?
+		If Yes
+		{
+			Marker_FaceDown
+		}
+	}
+}
 Text Auto: When this card is placed on the stage from your hand, reveal the top card of your deck. If that card is an event or a 《Quintuplets》 character, you may put it face down underneath this card as a marker. 
 EndCard
 
@@ -1638,8 +2715,8 @@ Trigger Soul
 Power 10000
 Soul 2
 Trait1 Quintuplets
-Text Cont: If your waiting room has 2 or less climax, this card gets -1 level while in your hand.
-Text Auto: When this card is placed on the stage from your hand, look at up to X cards from the top of your deck, choose up to 1 card from among them, put it into your hand, and put the rest into your waiting room. X is equal to the number of 《Quintuplets》 characters you have.
+*EarlyPlay2OrLessClimax
+*OnPlayCheckX(Quintuplets)
 EndCard
 
 Character: 5HY/W90-PE02
@@ -1650,8 +2727,23 @@ Cost 0
 Power 1500
 Trait1 Quintuplets
 Trait2 Stylish
+Cont: InHand
+{
+	GainSpecialEffect IgnoreColorRequirement
+}
 Text Cont: This card can be played from your hand without fulfilling color requirements.
+Act: Discard 1 Any SendSelf WaitingRoom
+{
+	SearchWaitingRoom IsCharacter
+}
 Text Act: [Put 1 card from your hand into your waiting room & Put this card into your waiting room] Choose 1 character in your waiting room, and return it to your hand.
+Act: RestSelf
+{
+	TargetLocation Stage
+	ChooseCharacterFromTargets Choose a character to give +1000 power until the end of your opponent's next turn.
+	UntilEndOfOpponentsTurn
+	GainPower 1000
+}
 Text Act: [Rest this card] Choose 1 of your characters, it gets +1000 power until the end of your opponent's next turn.
 EndCard
 
@@ -1663,8 +2755,23 @@ Cost 0
 Power 1500
 Trait1 Quintuplets
 Trait2 Cooking
+Cont: InHand
+{
+	GainSpecialEffect IgnoreColorRequirement
+}
 Text Cont: This card can be played from your hand without fulfilling color requirements.
+Act: Discard 1 Any SendSelf WaitingRoom
+{
+	SearchWaitingRoom IsCharacter
+}
 Text Act: [Put 1 card from your hand into your waiting room & Put this card into your waiting room] Choose 1 character in your waiting room, and return it to your hand.
+Act: RestSelf
+{
+	TargetLocation Stage
+	ChooseCharacterFromTargets Choose a character to give +1000 power until the end of your opponent's next turn.
+	UntilEndOfOpponentsTurn
+	GainPower 1000
+}
 Text Act: [Rest this card] Choose 1 of your characters, it gets +1000 power until the end of your opponent's next turn.
 EndCard
 
@@ -1676,8 +2783,23 @@ Cost 0
 Power 1500
 Trait1 Quintuplets
 Trait2 Headphone
+Cont: InHand
+{
+	GainSpecialEffect IgnoreColorRequirement
+}
 Text Cont: This card can be played from your hand without fulfilling color requirements.
+Act: Discard 1 Any SendSelf WaitingRoom
+{
+	SearchWaitingRoom IsCharacter
+}
 Text Act: [Put 1 card from your hand into your waiting room & Put this card into your waiting room] Choose 1 character in your waiting room, and return it to your hand.
+Act: RestSelf
+{
+	TargetLocation Stage
+	ChooseCharacterFromTargets Choose a character to give +1000 power until the end of your opponent's next turn.
+	UntilEndOfOpponentsTurn
+	GainPower 1000
+}
 Text Act: [Rest this card] Choose 1 of your characters, it gets +1000 power until the end of your opponent's next turn.
 EndCard
 
@@ -1689,8 +2811,23 @@ Cost 0
 Power 1500
 Trait1 Quintuplets
 Trait2 Ribbon
+Cont: InHand
+{
+	GainSpecialEffect IgnoreColorRequirement
+}
 Text Cont: This card can be played from your hand without fulfilling color requirements.
+Act: Discard 1 Any SendSelf WaitingRoom
+{
+	SearchWaitingRoom IsCharacter
+}
 Text Act: [Put 1 card from your hand into your waiting room & Put this card into your waiting room] Choose 1 character in your waiting room, and return it to your hand.
+Act: RestSelf
+{
+	TargetLocation Stage
+	ChooseCharacterFromTargets Choose a character to give +1000 power until the end of your opponent's next turn.
+	UntilEndOfOpponentsTurn
+	GainPower 1000
+}
 Text Act: [Rest this card] Choose 1 of your characters, it gets +1000 power until the end of your opponent's next turn.
 EndCard
 
@@ -1702,8 +2839,23 @@ Cost 0
 Power 1500
 Trait1 Quintuplets
 Trait2 Earnest
+Cont: InHand
+{
+	GainSpecialEffect IgnoreColorRequirement
+}
 Text Cont: This card can be played from your hand without fulfilling color requirements.
+Act: Discard 1 Any SendSelf WaitingRoom
+{
+	SearchWaitingRoom IsCharacter
+}
 Text Act: [Put 1 card from your hand into your waiting room & Put this card into your waiting room] Choose 1 character in your waiting room, and return it to your hand.
+Act: RestSelf
+{
+	TargetLocation Stage
+	ChooseCharacterFromTargets Choose a character to give +1000 power until the end of your opponent's next turn.
+	UntilEndOfOpponentsTurn
+	GainPower 1000
+}
 Text Act: [Rest this card] Choose 1 of your characters, it gets +1000 power until the end of your opponent's next turn.
 EndCard
 

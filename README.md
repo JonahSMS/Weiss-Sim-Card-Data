@@ -1,4 +1,4 @@
-# Weiss Schwarz Simulator Card and Set Data
+# What is this repository for?
 
 This is my repository for card and set data that I worked on for the Weiss Schwarz simulator by Blake Thoennes, linked here: https://blakethoennes.itch.io/weiss-schwarz
 
@@ -6,12 +6,12 @@ I made this so that I can keep track of what sets I have worked on, when I worke
 
 # What is the Weiss Schwarz Simulator?
 
-It is an application created by Blake Thoennes that simulates a game of Weiss Schwarz, a card game by Bushiroad. The simulator allows for an automated system for card effects and progressing through a player's turns. It can be played with an AI, locally or online. It can be downloaded via the link above, with no installation needed.
+It is an application created by Blake Thoennes that simulates a game of Weiss Schwarz, a card game by Bushiroad that utilizes various anime and video game series. The simulator allows for an automated system for card effects and progressing through a player's turns. It can be played with an AI, and against other people locally or online. It can be downloaded for Windows, Linux, and Mac via the link above with no installation needed.
 
-## How to add a custom/DLC set:
+## How to add a custom/DLC set from my repository:
 1. Click the green Code button
 2. Click Download ZIP from the dropdown menu
-3. Extract the folders into Weiss Schwarz_Data/StreamingAssets/Cards
+3. Extract the folders into ...[game folder]/Weiss Schwarz_Data/StreamingAssets/Cards
 - Extracting all of the folders will allow you to play with all of the sets available in the repository
 - Selecting which folders you want to play can save storage
 4. Run the game

@@ -27,10 +27,12 @@ I will continue to work on sets I am interested in. I am open to taking requests
 
 ### In Testing:
 * The Quintessential Quintuplets ∬
-* Log Horizon
 
 ### Currently working on:
 * N/A
+
+### Backlog because of missing effects
+* Log Horizon (anti-burn effect)
 
 ### Sets I Plan to Work On Eventually (and will work on if no one will take them):
 #### EN:

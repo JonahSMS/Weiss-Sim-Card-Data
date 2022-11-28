@@ -116,9 +116,7 @@ Act: 1 SendSelf WaitingRoom
 	*Check3Add1(Quintuplets)
 	If StageContains 1 Other HasTrait Quintuplets
 	{
-		TargetLocation WaitingRoom
-		NarrowTargets NameEquals What She Yearned For, Yotsuba Nakano
-		ChooseCharacterFromTargets
+		SearchLocationForTargets WaitingRoom 0 1 NameEquals What She Yearned For, Yotsuba Nakano
 		MoveCard Memory
 	}
 }
@@ -583,10 +581,13 @@ Auto: OnReversed
 		PayCost 1
 		{
 			Rest
-			ScheduleEffectForTargets StartMyEncorePhase
+			ScheduleEffect StartMyEncorePhase
 			{
-				TargetSelf
-				MoveCard Memory
+				Effect:
+				{
+					TargetSelf
+					MoveCard Memory
+				}
 			}
 		}
 	}
@@ -613,6 +614,8 @@ Auto: OnEndOfAttack
 		NarrowTargets IsClimax
 		SetXValue TargetCount
 		Burn X
+		TargetSelf
+		UntilEndOfOpponentsTurn
 		GainPower +1000
 	}
 }
@@ -724,7 +727,7 @@ Auto: OnUseAct
 	}
 }
 TimesPerTurn 1
-Auto: This ability activates up to 1 time per turn. When you use an Act:, if you have another 《Quintuplets》 character, this card gets +3000 power until end of turn.
+Text Auto: This ability activates up to 1 time per turn. When you use an Act:, if you have another 《Quintuplets》 character, this card gets +3000 power until end of turn.
 EndCard
 
 Character: 5HY/W90-E027
@@ -876,8 +879,7 @@ Trait2 Ribbon
 *LevelAssist
 Auto: OnPlay
 {
-	TargetLocation WaitingRoom
-	NarrowTargets NameEquals What She Yearned For, Yotsuba Nakano
+	SearchLocationForTargets WaitingRoom 0 1 NameEquals What She Yearned For, Yotsuba Nakano
 	MoveCard Memory
 }
 Text Auto: When this card is placed on the stage from your hand, you may choose 1 "What She Yearned For, Yotsuba Nakano" in your waiting room, and put it into your memory.
@@ -2050,6 +2052,11 @@ Climax: 5HY/W90-E078
 Name Straightforward Feelings
 Color R
 *StandbyClimax
+Cont: GiveSelf
+{
+	ChangeOtherCardsTriggerIcon Standby NameEquals Love Taking Off, Nino Nakano
+}
+Text Cont: While this CX is in play, Love Taking Off, Nino Nakano gets Standby trigger.
 EndCard
 
 Climax: 5HY/W90-E079

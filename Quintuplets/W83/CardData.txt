@@ -114,6 +114,7 @@ Auto: OnPlay
 	NarrowTargets IsClimax
 	If HasTarget
 	{
+		TargetSelf
 		GainSoul 2
 	}
 }

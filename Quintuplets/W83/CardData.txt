@@ -716,6 +716,9 @@ Act: 1 Discard 1 IsClimax
 		MoveCard Hand
 		TargetTop Deck 1
 		MoveCard Clock
+		TargetLocation Stage
+		ChooseCharacterFromTargets
+		GainPower 500
 	}
 }
 Text Act: [(1) Put 1 climax from your hand into your waiting room] Choose 1 card in your clock, return it to your hand, put the top card of your deck into your clock, choose 1 of your characters, it gets +500 power until end of turn.

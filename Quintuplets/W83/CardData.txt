@@ -114,6 +114,7 @@ Auto: OnPlay
 	NarrowTargets IsClimax
 	If HasTarget
 	{
+		TargetSelf
 		GainSoul 2
 	}
 }
@@ -182,7 +183,7 @@ Cont: GiveSelf
 		
 	}
 }
-Text Cont: During your turn, if all of your characters have "Ichika(一花)" in their card names, this card gets +2000 power and the following ability. "Auto: [(1)] When this card attacks, you may pay the cost. If you do, during that attack, perform a trigger check 2 times on the trigger step."
+Text Cont: During your turn, if all of your characters have "Ichika" in their card names, this card gets +2000 power and the following ability. "Auto: [(1)] When this card attacks, you may pay the cost. If you do, during that attack, perform a trigger check 2 times on the trigger step."
 EndCard
 
 Character: 5HY/W83-E006S
@@ -232,7 +233,7 @@ Cont: GiveSelf
 		}
 	}
 }
-Text Cont: During your turn, if all of your characters have "Ichika(一花)" in their card names, this card gets +2000 power and the following ability. "Auto: [(1)] When this card attacks, you may pay the cost. If you do, during that attack, perform a trigger check 2 times on the trigger step."
+Text Cont: During your turn, if all of your characters have "Ichika" in their card names, this card gets +2000 power and the following ability. "Auto: [(1)] When this card attacks, you may pay the cost. If you do, during that attack, perform a trigger check 2 times on the trigger step."
 EndCard
 
 Character: 5HY/W83-E008S
@@ -390,7 +391,7 @@ Auto: OnPlay
 		GainPower 2000
 	}
 }
-Text Auto: When this card is placed on the stage from your hand, reveal the top card of your deck. If that card is a character with "Yotsuba(四葉)" in its card name, this card gets +2000 power until end of turn. 
+Text Auto: When this card is placed on the stage from your hand, reveal the top card of your deck. If that card is a character with "Yotsuba" in its card name, this card gets +2000 power until end of turn. 
 Auto: OnReverseOpponent
 {
 	TargetLocation Stage
@@ -402,7 +403,7 @@ Auto: OnReverseOpponent
 		MoveToOpenPosition False True
 	}
 }
-Text Auto: When this card's battle opponent becomes reversed, choose 1 of your other characters with "Yotsuba(四葉)" in its card name, Rest it, and move it to an open position of your back stage.
+Text Auto: When this card's battle opponent becomes reversed, choose 1 of your other characters with "Yotsuba" in its card name, Rest it, and move it to an open position of your back stage.
 EndCard
 
 Character: 5HY/W83-E015
@@ -715,6 +716,9 @@ Act: 1 Discard 1 IsClimax
 		MoveCard Hand
 		TargetTop Deck 1
 		MoveCard Clock
+		TargetLocation Stage
+		ChooseCharacterFromTargets
+		GainPower 500
 	}
 }
 Text Act: [(1) Put 1 climax from your hand into your waiting room] Choose 1 card in your clock, return it to your hand, put the top card of your deck into your clock, choose 1 of your characters, it gets +500 power until end of turn.
@@ -1110,11 +1114,11 @@ Cont: GiveSelf
 					Discard 1 Any
 				}
 			}
-			Text Auto: When this card is put into your waiting room from the stage, you may reveal up to 3 cards from the top of your deck. If you revealed 1 or more cards, choose up to 1 character with "Yotsuba(四葉)" in its card name among those cards, put it into your hand, put the rest into your waiting room, choose 1 card in your hand, and put it into your waiting room.
+			Text Auto: When this card is put into your waiting room from the stage, you may reveal up to 3 cards from the top of your deck. If you revealed 1 or more cards, choose up to 1 character with "Yotsuba" in its card name among those cards, put it into your hand, put the rest into your waiting room, choose 1 card in your hand, and put it into your waiting room.
 		}
 	}
 }
-Text Cont: If all of your characters have "Yotsuba(四葉)" in their card names, this card gets +1500 power and the following ability. "Auto: When this card is put into your waiting room from the stage, you may reveal up to 3 cards from the top of your deck. If you revealed 1 or more cards, choose up to 1 character with "Yotsuba(四葉)" in its card name among those cards, put it into your hand, put the rest into your waiting room, choose 1 card in your hand, and put it into your waiting room."
+Text Cont: If all of your characters have "Yotsuba" in their card names, this card gets +1500 power and the following ability. "Auto: When this card is put into your waiting room from the stage, you may reveal up to 3 cards from the top of your deck. If you revealed 1 or more cards, choose up to 1 character with "Yotsuba" in its card name among those cards, put it into your hand, put the rest into your waiting room, choose 1 card in your hand, and put it into your waiting room."
 EndCard
 
 Character: 5HY/W83-E042
@@ -1212,7 +1216,7 @@ Cont: InHand
 		LoseLevel 1
 	}
 }
-Text Cont: If you have 4 or more characters with "Yotsuba(四葉)" in their card names, this card gets -1 level while in your hand.
+Text Cont: If you have 4 or more characters with "Yotsuba" in their card names, this card gets -1 level while in your hand.
 Cont: GiveSelf
 {
 	If AllYourCharacters NameContains Yotsuba
@@ -1220,7 +1224,7 @@ Cont: GiveSelf
 		GainPower 2000
 	}
 }
-Text Cont: If all of your characters have "Yotsuba(四葉)" in their card names, this card gets +2000 power.
+Text Cont: If all of your characters have "Yotsuba" in their card names, this card gets +2000 power.
 *OnPlayDraw2Discard2BlindStock
 EndCard
 
@@ -1239,7 +1243,7 @@ Cont: GiveSelf
 		GainPower 2000
 	}
 }
-Text Cont: If you have 2 or more other characters with "Miku(三玖)" in their card names, this card gets +2000 power.
+Text Cont: If you have 2 or more other characters with "Miku" in their card names, this card gets +2000 power.
 Auto: OnPlay
 {
 	PayCost Discard 1 IsClimax
@@ -1247,7 +1251,7 @@ Auto: OnPlay
 		SearchWaitingRoom IsCharacter && NameContains Miku
 	}
 }
-Text Auto: [Put 1 climax from your hand into your waiting room] When this card is placed on the stage from your hand, you may pay the cost. If you do, choose 1 character with "Miku(三玖)" in its card name in your waiting room, and return it to your hand.
+Text Auto: [Put 1 climax from your hand into your waiting room] When this card is placed on the stage from your hand, you may pay the cost. If you do, choose 1 character with "Miku" in its card name in your waiting room, and return it to your hand.
 EndCard
 
 Character: 5HY/W83-E047
@@ -1668,7 +1672,7 @@ Auto: OnSentFromStageToWaitingRoom
 	PayCost Discard 1 Any
 	{
 		Peek Deck 4
-		ChooseCardsFromTargets 0 1 ThatCardsLevel 1 OrMore
+		ChooseCardsFromTargets 0 1 Compare ThatCardsLevel 1 OrMore
 		RevealTargets
 		MoveCard Hand
 		PutTheRestIntoTheWaitingRoom
@@ -1864,7 +1868,7 @@ Auto: OnTriggerCheckClimax
 		GainSoul 1
 	}
 }
-Text Auto: When your character's trigger check reveals a climax with Door in its trigger icon, choose up to 2 of your characters with "Itsuki(五月)" in their card names, and those characters get +1 soul until end of turn.
+Text Auto: When your character's trigger check reveals a climax with Door in its trigger icon, choose up to 2 of your characters with "Itsuki" in their card names, and those characters get +1 soul until end of turn.
 Act: RestSelf Discard 1 NameEquals The Quintessential Quintuplets, Itsuki Nakano
 {
 	TargetLocation Stage
@@ -2023,7 +2027,7 @@ Cont: GiveAll
 		GainPower 500
 	}
 }
-Text Cont: All of your other characters with "Ichika(一花)" in their card names gets +500 power.
+Text Cont: All of your other characters with "Ichika" in their card names gets +500 power.
 Auto: StartClimaxPhase
 {
 	Message Choose up to two characters with Ichika in their card name to get +500 power.
@@ -2031,7 +2035,7 @@ Auto: StartClimaxPhase
 	ChooseCharacterFromTargets 0 2 NameContains Ichika
 	GainPower 500
 }
-Text Auto: At the beginning of your climax phase, choose up to 2 of your characters with "Ichika(一花)" in their card names, and those characters get +500 power until end of turn.
+Text Auto: At the beginning of your climax phase, choose up to 2 of your characters with "Ichika" in their card names, and those characters get +500 power until end of turn.
 EndCard
 
 Character: 5HY/W83-E078
@@ -2174,7 +2178,7 @@ Cont: GiveSelf
 		}
 	}
 }
-Text Cont: If all of your characters have "Nino(二乃)" in their card names, this card gets +2000 power and the following ability. "Auto: When this card attacks, look at up to 2 cards from the top of your deck, choose 1 card from among them, put it on the top of your deck, and put the rest into your waiting room."
+Text Cont: If all of your characters have "Nino" in their card names, this card gets +2000 power and the following ability. "Auto: When this card attacks, look at up to 2 cards from the top of your deck, choose 1 card from among them, put it on the top of your deck, and put the rest into your waiting room."
 EndCard
 
 Character: 5HY/W83-E083
@@ -2196,7 +2200,7 @@ Cont: GiveSelf
 		GainPower X
 	}
 }
-Text Cont: If all of your characters have "Itsuki(五月)" in their card names, this card gets +500 power for each of your other character with "Itsuki(五月)" in its card name.
+Text Cont: If all of your characters have "Itsuki" in their card names, this card gets +500 power for each of your other character with "Itsuki" in its card name.
 EndCard
 
 Character: 5HY/W83-E084
@@ -2353,7 +2357,7 @@ Auto: OnAttack
 	ChooseCharacterFromTargets Choose a character to give +1500 power.
 	GainPower 1500
 }
-Text Auto: When this card attacks, choose 1 of your characters with "Itsuki(五月)" in its card name, it gets +1500 power until end of turn.
+Text Auto: When this card attacks, choose 1 of your characters with "Itsuki" in its card name, it gets +1500 power until end of turn.
 *EncoreStepIfNoneRestedPayToRest
 EndCard
 
@@ -2811,7 +2815,7 @@ Auto: OnAttack
 		GainPower 3000
 	}
 }
-Text Auto: When this card attacks, if you have another character with "Miku(三玖)" in its card name, this card gets +3000 power until end of turn.
+Text Auto: When this card attacks, if you have another character with "Miku" in its card name, this card gets +3000 power until end of turn.
 EndCard
 
 Character: 5HY/W83-E111S
@@ -2837,7 +2841,7 @@ Cont: Assist
 		GainPower X
 	}
 }
-Text Cont: ASSIST All of your characters in front of this card with "Miku(三玖)" in their card names get +X power. X is equal to that character's level ×500.
+Text Cont: ASSIST All of your characters in front of this card with "Miku" in their card names get +X power. X is equal to that character's level ×500.
 Auto: OnUseEvent
 {
 	TargetTop Deck 2
@@ -2926,7 +2930,7 @@ Cont: GiveSelf
 		*HandEncoreTrait(Quintuplets)
 	}
 }
-Text Cont: If all of your characters have "Nino(二乃)" in their card names, this card gets +1500 power and "[AUTO] Encore [Put 1 《Quintuplets》 character from your hand into your waiting room]".
+Text Cont: If all of your characters have "Nino" in their card names, this card gets +1500 power and "[AUTO] Encore [Put 1 《Quintuplets》 character from your hand into your waiting room]".
 *Healer
 EndCard
 
@@ -2981,7 +2985,7 @@ Cont: GiveSelf
 		GainPower 1500
 	}
 }
-Text Cont: If you have another character with "Nino(二乃)" in its card name, this card gets +1500 power.
+Text Cont: If you have another character with "Nino" in its card name, this card gets +1500 power.
 Auto: OnSentFromStageToWaitingRoom
 {
 	PayCost Discard 1 Any
@@ -2993,7 +2997,7 @@ Auto: OnSentFromStageToWaitingRoom
 		PutTheRestIntoTheWaitingRoom
 	}
 }
-Text Auto: [Put 1 card from your hand into your waiting room] When this card is put into your waiting room from the stage, you may pay the cost. If you do, look at up to 4 cards from the top of your deck, choose up to 1 character with "Nino(二乃)" in its card name from among them, reveal it to your opponent, put it into your hand, and put the rest into your waiting room.
+Text Auto: [Put 1 card from your hand into your waiting room] When this card is put into your waiting room from the stage, you may pay the cost. If you do, look at up to 4 cards from the top of your deck, choose up to 1 character with "Nino" in its card name from among them, reveal it to your opponent, put it into your hand, and put the rest into your waiting room.
 EndCard
 
 Character: 5HY/W83-E117
@@ -3133,13 +3137,15 @@ Auto: OnPlay
 		TargetLocation OpponentStage
 		ChooseCharacterFromTargets Choose a character to send to memory.
 		MoveCard OpponentMemory
-		ScheduleEffectForTargets StartMyEncoreStep
+		RememberTargets
+		ScheduleEffect StartMyEncoreStep
 		{
 			Effect:
 			{
-				IfTarget InLocation OpponentMemory
+				If LocationContains OpponentMemory 1 RememberedByThisCard
 				{
-					PlaceOnStage False True True False
+					TargetRemembered
+					OpponentPlaceOnStage False True True False
 				}
 			}
 		}

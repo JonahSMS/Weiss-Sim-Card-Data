@@ -29,7 +29,7 @@ I will continue to work on sets I am interested in. I am open to taking requests
 * The Quintessential Quintuplets ∬
 
 ### Currently working on:
-* N/A
+* Kantai Collection
 
 ### Backlog because of missing effects
 * Log Horizon (anti-burn effect)

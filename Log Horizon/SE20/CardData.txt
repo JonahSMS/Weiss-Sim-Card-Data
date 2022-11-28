@@ -1,0 +1,986 @@
+//Log Horizon Booster
+
+Character: LH/SE20-E01
+Name Beach Angel, Marielle
+Color R
+Level 0
+Cost 0
+Power 500
+Trait1 Magic
+Trait2 Swimsuit
+*GlobalPower(500,Weapon|Magic)
+Auto: OnPlay
+{
+	Question Mill the top 3 cards of your deck?
+	If Yes
+	{
+		Mill 3
+	}
+}
+Text Auto: When this card is placed on the stage from your hand, you may put the top three cards of your deck into your waiting room.
+Auto: OnPlay
+{
+	Mill 1
+	IfTarget IsClimax
+	{
+		TargetSelf
+		MoveCard Stock
+	}
+}
+Text Auto: When this card is placed on the stage from your hand, put the top card of your deck into your waiting room. If that card is a climax, put this card into your stock.
+EndCard
+
+Character: LH/SE20-E02
+Name Assassin, Akatsuki
+Color R
+Level 0
+Cost 0
+Power 1000
+Trait1 Weapon
+Trait2 Shinobi
+*RedLevel0Bomb
+Act: Rest 1 IsCharacter
+{
+	GainPower 1000
+}
+Text Act: [Rest one of your characters] This card gets +1000 power until end of turn.
+EndCard
+
+Character: LH/SE20-E03
+Name Lord's Ninja, Akatsuki
+Color R
+Level 3
+Cost 2
+Trigger Soul
+Power 10000
+Soul 2
+Trait1 Weapon
+Trait2 Shinobi
+Combo Waltz for Two
+*CannotSideAttack
+Auto: OnPlay|PlacedBy Change
+{
+	*OptionalHeal
+}
+Text Auto: When this card is placed on the stage from your hand or by a "CHANGE" effect, you may put the top card of your clock into your waiting room.
+Auto: OnAttack
+{
+	If Climax Waltz for Two
+	{
+		GainPower 4000
+		GainEffect
+		{
+			Auto: OnReverseOpponent
+			{
+				Question Deal 1 damage to your opponent?
+				If Yes
+				{
+					Burn 1
+				}
+			}
+			Text Auto: When this card's battle opponent becomes reversed, you may deal one damage to your opponent.
+		}
+	}
+}
+Text Auto: When this card attacks, if a card named "Waltz for Two" is in your climax area, until end of turn, this card gets +4000 power and the following ability. "Auto: When this card's battle opponent becomes reversed, you may deal one damage to your opponent."
+EndCard
+
+Character: LH/SE20-E04
+Name Crescent Moon Alliance, Serara
+Color R
+Level 0
+Cost 0
+Power 2000
+Trait1 Magic
+*OnPlayGivePower(1500, Weapon|Magic)
+EndCard
+
+Character: LH/SE20-E05
+Name Isuzu
+Color R
+Level 1
+Cost 0
+Power 3500
+Trait1 Weapon
+Trait2 Music
+*RedLevel1Bomb
+EndCard
+
+Character: LH/SE20-E06
+Name Dislikes Fashion? Akatsuki
+Color R
+Level 1
+Cost 1
+Power 6000
+Trait1 Weapon
+Trait2 Shinobi
+*ClockEncore
+Act: Rest 1 HasTrait Magic
+{
+	GainPower 1000
+}
+Text Act: [Rest one of your 《Magic》 characters] This card gets +1000 power until end of turn.
+EndCard
+
+Character: LH/SE20-E07
+Name Adventurer, Rundellhaus
+Color R
+Level 1
+Cost 1
+Power 7000
+Trait1 Magic
+*CannotSideAttack
+Cont: GiveSelf
+{
+	GainSpecialEffect CannotBeReversedByAutoEffects
+}
+Text Cont: This card cannot become Reversed from your opponent character's Auto: effects.
+EndCard
+
+Character: LH/SE20-E08
+Name Serara
+Color R
+Level 2
+Cost 1
+Trigger Soul
+Power 4000
+Trait1 Magic
+*LevelAssist
+Auto: OnOtherReversed
+{
+	TargetLocation Stage
+	ChooseCharacterFromTargets
+	GainPower 1000
+}
+Text Auto: When another of your characters becomes reversed in battle, choose one of your characters, it gets +1000 power until end of turn.
+EndCard
+
+Character: LH/SE20-E09
+Name Maiden's Heart, Akatsuki
+Color R
+Level 2
+Cost 1
+Trigger Soul
+Power 7000
+Trait1 Weapon
+Trait2 Shinobi
+Auto: OnPlay
+{
+	TargetTop Deck 1
+	Reveal
+	IfThatCard IsCharacter && HasTrait Weapon|Magic
+	{
+		MoveCard Hand
+		Discard 1 Any
+	}
+}
+Text Auto: When this card is placed on the stage from your hand, reveal the top card of your deck, if it is a <Weapon> or <Magic> character, add it to your hand and discard 1 card.
+Auto: StartClimaxPhase
+{
+	PayCost 2 SendSelf WaitingRoom Discard 1 Any
+	{
+		*ChangeWaitingRoom(Lord's Ninja\, Akatsuki)
+	}
+}
+Text Auto:CHANGE [(2) Put a card from your hand into your waiting room & Put this card into your waiting room] At the beginning of your climax phase, you may pay the cost. If you do, choose a card named "Lord's Ninja, Akatsuki" in your waiting room, and put it on the stage position that this card was on.
+EndCard
+
+Character: LH/SE20-E10
+Name Rudy's Owner? Isuzu
+Color R
+Level 0
+Cost 0
+Power 500
+Trait1 Weapon
+Trait2 Music
+Cont: GiveAll
+{
+	If Other && NameContains Rundellhaus
+	{
+		GainPower 500
+	}
+}
+Text Cont: All of your other characters with "Rundellhaus" in its card name get +500 power.
+*DropSearch(Weapon|Magic)
+EndCard
+
+Character: LH/SE20-E11
+Name Waltz for Two, Akatsuki
+Color R
+Level 0
+Cost 0
+Power 2500
+Trait1 Weapon
+Trait2 Shinobi
+Cont: GiveSelf
+{
+	If StageContainsOrLess 0 Other
+	{
+		GainPower 1500
+		GainEffect
+		{
+			*HandEncore
+		}
+	}
+}
+Text Cont: If you do not have any other characters, this card gets +1500 power and "Auto: ENCORE [Put a character from your hand into your waiting room］".
+EndCard
+
+Character: LH/SE20-E12
+Name Henrietta
+Color R
+Level 0
+Cost 0
+Power 3500
+Trait1 Weapon
+Trait2 Glasses
+Auto: OnPlay
+{
+	If StageContainsOrLess 0 Other && HasTrait Magic
+	{
+		MoveCard WaitingRoom
+	}
+}
+Text Auto: When this card is placed on the stage from your hand, if you do not have any other 《Magic》 characters, put this card into your waiting room.
+EndCard
+
+Character: LH/SE20-E13
+Name Reliable Accountant, Henrietta
+Color R
+Level 1
+Cost 0
+Power 3500
+Trait1 Weapon
+Trait2 Glasses
+*Bond1(Cleric\, Marielle)
+EndCard
+
+Character: LH/SE20-E14
+Name Silent Worker, Akatsuki
+Color R
+Level 2
+Cost 1
+Trigger Soul
+Power 2500
+Trait1 Weapon
+Trait2 Shinobi
+Auto: OnUseThisCardsBackup
+{
+	PayCost 2
+	{
+		Refresh
+	}
+}
+Text Auto: [(2)] When you use this card's "BACKUP", you may pay the cost. If you do, return all cards in your waiting room to your deck, and shuffle your deck.
+Backup 2500
+EndCard
+
+Character: LH/SE20-E15
+Name Sorcerer, Rundellhaus
+Color R
+Level 2
+Cost 2
+Trigger Soul
+Power 7500
+Soul 2
+Trait1 Magic
+*GainPowerForEachOther(500, Weapon|Magic)
+Auto: OnAttack
+{
+	PayCost 3 Discard 2 Any
+	{
+		Burn 5
+	}
+}
+Text Auto: [(3) Put two cards from your hand into your waiting room] When this card attacks, you may pay the cost. If you do, deal five damage to your opponent. 
+EndCard
+
+Character: LH/SE20-E16
+Name Rundellhaus
+Color R
+Level 0
+Cost 0
+Power 2500
+Trait1 Magic
+Auto: StartClimaxPhase
+{
+	PayCost 1 SendSelf WaitingRoom Discard 1 Any
+	{
+		*ChangeWaitingRoom(Adventurer\, Rundellhaus)
+	}
+}
+Text Auto:CHANGE [(1) Put a card from your hand into your waiting room & Put this card into your waiting room] At the beginning of your climax phase, you may pay the cost. If you do, choose a card named "Adventurer, Rundellhaus" in your waiting room, and put it on the stage position that this card was on.
+EndCard
+
+Character: LH/SE20-E17
+Name Loves Nyan-ta, Serara
+Color R
+Level 0
+Cost 0
+Power 3000
+Trait1 Magic
+Text 
+EndCard
+
+Character: LH/SE20-E18
+Name Crescent Moon Shopowner, Marielle
+Color R
+Level 1
+Cost 0
+Power 1500
+Trait1 Magic
+Backup 1500
+EndCard
+
+Character: LH/SE20-E19
+Name Shoryu
+Color R
+Level 1
+Cost 0
+Power 5000
+Trait1 Weapon
+Auto: OnPlay
+{
+	If StageContains 1 Other && NameContains Marielle
+	{
+		GainPower 2000
+	}
+}
+Text Auto: When this card is placed on the stage from your hand, if you have another character with "Marielle" in its card name, this card gets +2000 power until end of turn.
+EndCard
+
+Character: LH/SE20-E20
+Name Petit Akatsuki
+Color R
+Level 1
+Cost 0
+Power 5500
+Trait1 Weapon
+Trait2 Shinobi
+Text 
+EndCard
+
+Character: LH/SE20-E21
+Name Cleric, Marielle
+Color R
+Level 2
+Cost 1
+Trigger Soul
+Power 8000
+Trait1 Magic
+Combo Crescent Moon Alliance
+Auto: OnAttack
+{
+	If Climax Crescent Moon Alliance
+	{
+		PayCost 1 Clock
+		{
+			Repeat 2
+			{
+				SearchWaitingRoom IsCharacter
+			}
+			TargetSelf
+			GainPower 2000
+		}
+	}
+}
+Text Auto: [(1) Put the top card of your deck into your clock] When this card attacks, if a card named "Crescent Moon Alliance" is in your climax area, you may pay the cost. If you do, choose up to two characters in your waiting room, return them to your hand, and this card gets +2000 power until end of turn.
+EndCard
+
+Character: LH/SE20-E22
+Name Bard, Isuzu
+Color R
+Level 2
+Cost 2
+Trigger Soul
+Power 8000
+Soul 2
+Trait1 Weapon
+Trait2 Music
+Cont: GiveSelf
+{
+	If StageContains 3 Other && HasTrait Magic | Weapon
+	{
+		GainPower 1000
+		GainEffect
+		{
+			*HandEncore
+		}
+	}
+}
+Text Cont: If the number of other 《Weapon》 or 《Magic》 characters you have is three or more, this card gets +1000 power and "Auto:ENCORE [Put a character from your hand into your waiting room］".
+EndCard
+
+Event: LH/SE20-E23
+Name Dolled Up Akatsuki
+Color R
+Level 2
+Cost 2
+Effect:
+{
+	Repeat 2
+	{
+		SearchWaitingRoom IsCharacter
+	}
+}
+Text Choose up to two characters in your waiting room, and return them to your hand.
+EndCard
+
+Climax: LH/SE20-E24
+Name Waltz for Two
+Color R
+*DoorClimax
+EndCard
+
+Climax: LH/SE20-E25
+Name Crescent Moon Alliance
+Color R
+*RedStockSoul
+EndCard
+
+Character: LH/SE20-E26
+Name Nyan-ta
+Color B
+Level 2
+Cost 1
+Trigger Soul
+Power 7000
+Trait1 Weapon
+Trait2 Cook
+*GainPowerWhenOtherAttacks(1000,Weapon|Magic)
+Auto: StartClimaxPhase
+{
+	PayCost 1 Discard 1 Any
+	{
+		TargetLocation OpponentStage
+		ChooseCharacterFromTargets
+		MoveToOpenPosition True True
+		TargetSelf
+		GainPower 1000
+	}
+}
+Text Auto: [(1) Put a card from your hand into your waiting room] At the beginning of your climax phase, you may pay the cost. If you do, choose one of your opponent's characters, Stand that card and move it to another open position on your opponent's stage, and this card gets +1000 power until end of turn.
+EndCard
+
+Character: LH/SE20-E27
+Name Field Monitor, Minori
+Color B
+Level 2
+Cost 1
+Trigger Soul
+Power 8000
+Trait1 Magic
+Trait2 Twins
+Combo Simplified Full Control Encounter
+Auto: OnSpecificClimaxPlay Simplified Full Control Encounter
+{
+	If InLocation CenterStage
+	{
+		PayCost 1
+		{
+			TargetLocation Stage
+			NarrowTargets Other
+			GainPower 2500
+			GainEffect
+			{
+				Auto: OnReverseOpponent
+				{
+					Question Put the battle opponent on the bottom of your opponent's deck?
+					If Yes
+					{
+						TargetBattleOpponent
+						MoveCard BottomOfOpponentDeck
+					}
+				}
+			}
+		}
+	}
+}
+Text Auto: [(1)] When a card named "Simplified Full Control Encounter" is placed on your climax area, if this card is on your center stage, you may pay the cost. If you do, until end of turn, all of your other characters get +2500 power and the following ability. "Auto: When this card's battle opponent becomes reversed, you may put that character on the bottom of your opponent's deck."
+EndCard
+
+Character: LH/SE20-E28
+Name Log Horizon's Representative, Shiroe
+Color B
+Level 3
+Cost 2
+Trigger Soul
+Power 3000
+Soul 2
+Trait1 Magic
+Trait2 Glasses
+Cont: GiveSelf
+{
+	GainSpecialEffect NeitherPlayerTakes1DamageFromAutoEffects
+}
+Text Cont: You cannot take damage from your opponent character's Auto: effects.
+Cont: Assist
+{
+	If HasTrait Weapon|Magic
+	{
+		SetXValue ThatCardsLevel
+		MultiplyXValue 1000
+		GainPower X
+	}
+}
+Text Cont: ASSIST All of your 《Weapon》 or 《Magic》 characters in front of this card get +X power. X is equal to 1000 multiplied by that character's level.
+Auto: OnOtherOpponentReversed
+{
+	If CardPosition Stand
+	{
+		PayCost 1 RestSelf
+		{
+			TargetMyCharacterInBattle
+			UntilEndOfOpponentsTurn
+			GainEffect
+			{
+				Cont: GiveSelf
+				{
+					TargetFacing
+					If HasTarget
+					{
+						LoseSoul 2
+					}	
+				}
+				Text Cont: The character facing this card gets -2 soul.
+			}
+		}
+	}
+}
+Text Auto: [(1) Rest this card] During your turn, when another of your character's battle opponent becomes reversed, if this card is standing, you may pay the cost. If you do, choose one of your characters in battle, it gets the following ability until the end of your opponent's next turn. "Cont: The character facing this card gets -2 soul."
+EndCard
+
+Character: LH/SE20-E29
+Name Full Control Encounter, Shiroe
+Color B
+Level 0
+Cost 0
+Power 1000
+Trait1 Magic
+Trait2 Glasses
+Cont: GiveAll
+{
+	If Not MyTurn && InLocation MiddleCenterStage
+	{
+		GainPower 1000
+	}
+}
+Text Cont: During your opponent's turn, your other character in the middle position of the center stage gets +1000 power.
+*Act1RestSelfDrawBrainstorm
+EndCard
+
+Character: LH/SE20-E30
+Name Waltz for Two, Shiroe
+Color B
+Level 1
+Cost 0
+Power 4000
+Trait1 Magic
+Trait2 Glasses
+Cont: GiveSelf
+{
+	If Compare CardsInHand 4 OrMore
+	{
+		GainPower 1500
+	}
+}
+Text Cont: If the number of cards in your hand is four or more, this card gets +1500 power.
+*ClockEncore
+EndCard
+
+Character: LH/SE20-E31
+Name Log Horizon, Nyan-ta
+Color B
+Level 1
+Cost 0
+Power 4000
+Trait1 Weapon
+Trait2 Cook
+Auto: OnOtherFrontalAttacked
+{
+	PayCost 1 SendSelf WaitingRoom
+	{
+		TargetMyCharacterInBattle
+		MoveCard Hand
+	}
+}
+Text Auto: [(1) Put this card into your waiting room] When another of your characters is being frontal attacked, you may pay the cost. If you do, return that character to your hand.
+Act: Rest 2 HasTrait Magic
+{
+	GainSpecialEffect FreeSideAttack
+}
+Text Act: [Rest two of your 《Magic》 characters] Until end of turn, this card's soul does not decrease by side attacking.
+EndCard
+
+Character: LH/SE20-E32
+Name Determination to Change the World, Shiroe
+Color B
+Level 1
+Cost 1
+Power 6000
+Trait1 Magic
+Trait2 Glasses
+Combo Log Horizon
+Auto: OnOtherAttacks
+{
+	If Climax Log Horizon && CardPosition Stand
+	{
+		PayCost 1 RestSelf
+		{
+			TargetOther
+			GainPower 1500
+			GainEffect
+			{
+				Auto: OnReverseOpponent
+				{
+					*OptionalDraw
+				}
+			}
+		}
+	}
+}
+Text Auto: [(1) Rest this card] When your other character attacks, if a card named "Log Horizon" is in your climax area, and this card is standing, you may pay the cost. If you do, until end of turn, that character gets +1500 power and the following ability. "Auto: When this card's battle opponent becomes reversed, you may draw a card."
+Auto: StartOpponentAttackPhase
+{
+	PayCost 1
+	{
+		TargetLocation Stage
+		NarrowTargets HasTrait Weapon|Magic
+		ChooseCharacterFromTargets
+		GainPower 1500
+	}
+}
+Text Auto: [(1)] At the beginning of your opponent's attack phase, you may pay the cost. If you do, choose one of your 《Weapon》 or 《Magic》 characters, it gets +1500 power until end of turn.
+EndCard
+
+Character: LH/SE20-E33
+Name Reliable Buddy, Naotsugu
+Color B
+Level 1
+Cost 1
+Power 7500
+Trait1 Weapon
+Auto: OnReverse
+{
+	OpponentQuestion Draw a card?
+	If Yes
+	{
+		TargetTop OpponentDeck 1
+		MoveCard OpponentHand
+		OpponentSearchLocationForTargets Hand 1 1 Any
+		MoveCard OpponentWaitingRoom
+	}
+}
+Text Auto: When this card becomes reversed in battle, your opponent may draw a card. If your opponent does, your opponent chooses a card from your opponent's hand, and puts it into his or her waiting room.
+EndCard
+
+Character: LH/SE20-E34
+Name Guardian, Naotsugu
+Color B
+Level 3
+Cost 2
+Trigger Soul
+Power 9500
+Soul 2
+Trait1 Weapon
+*GainPowerForEachOther(500, Weapon|Magic)
+Cont: GiveSelf
+{
+	GainSpecialEffect GreatPerformance
+}
+Text Cont: Great Performance
+EndCard
+
+Character: LH/SE20-E35
+Name Guildmaster, Shiroe
+Color B
+Level 0
+Cost 0
+Power 500
+Trait1 Magic
+Trait2 Glasses
+*Bond1(Reliable Buddy\, Naotsugu)
+Act: 1
+{
+	DrawCard
+	Discard 1 Any
+}
+Text Act: [(1)] Draw a card, choose a card in your hand, and put it into your waiting room.
+EndCard
+
+Character: LH/SE20-E36
+Name Rayneshia
+Color B
+Level 0
+Cost 0
+Power 1000
+Trait1 Heiress
+*SacrificeToSave(Any)
+Text Auto: [Put this card into your waiting room] When another of your characters is put into the waiting room from the stage, if this card is on the back stage, you may pay the cost. If you do, return that character to its previous stage position as resting.
+Act: Rest 2 Any
+{
+	*ScryToBottom
+}
+Text Act: [Rest two of your characters] Look at the top card of your deck, and put it on the top or the bottom of your deck.
+EndCard
+
+Character: LH/SE20-E37
+Name Sojiro
+Color B
+Level 0
+Cost 0
+Power 2500
+Trait1 Weapon
+Trait2 Japanese Clothes
+Cont: GiveSelf
+{
+	If Not MyTurn && LocationContainsOrLess OpponentStage 3 Any
+	{
+		GainPower 2000
+	}
+}
+Text Cont: During your opponent's turn, if the number of characters your opponent has is three or less, this card gets +2000 power.
+EndCard
+
+Character: LH/SE20-E38
+Name Everyone's Group Leader, Nyan-ta
+Color B
+Level 0
+Cost 0
+Power 3500
+Trait1 Weapon
+Trait2 Cook
+Auto: OnReverse
+{
+	If StageContainsOrLess 1 HasTrait Weapon | Magic
+	{
+		TargetSelf
+		MoveCard Clock
+	}
+}
+Text Auto: When this card becomes reversed in battle, if the number of other 《Weapon》 or 《Magic》 characters you have is one or less, put this card into your clock.
+EndCard
+
+Character: LH/SE20-E39
+Name Krusty
+Color B
+Level 1
+Cost 0
+Power 5000
+Trait1 Weapon
+Trait2 Glasses
+Cont: GiveSelf
+{
+	If Not MyTurn
+	{
+		GainPower 1000
+	}
+}
+Text Cont: During your opponent's turn, this card gets +1000 power.
+EndCard
+
+Character: LH/SE20-E40
+Name Minori
+Color B
+Level 1
+Cost 1
+Trigger Soul
+Power 2500
+Trait1 Magic
+Trait2 Twins
+Cont: GiveAll
+{
+	If NameContains Toya || NameEquals Samurai, Toya
+	{
+		GainPower 1000
+	}
+}
+Text Cont: All of your other "Samurai, Toya" and "Toya" get +1000 power.
+Cont: GiveAll
+{
+	If Not MyTurn &&& Other && HasTrait Weapon | Magic
+	{
+		GainPower 1000
+	}
+}
+Text Cont: During your opponent's turn, all of your other 《Weapon》 or 《Magic》 characters get +1000 power.
+EndCard
+
+Character: LH/SE20-E41
+Name Maiden's Heart, Minori
+Color B
+Level 0
+Cost 0
+Power 2000
+Trait1 Magic
+Trait2 Twins
+Act: 1 RestSelf
+{
+	TargetLocation Stage
+	NarrowTargets HasTrait Weapon|Magic
+	ChooseCharacterFromTargets
+	UntilEndOfOpponentsTurn
+	GainPower 1500
+}
+Text Act: [(1) Rest this card] Choose one of your 《Weapon》 or 《Magic》 characters, it gets +1500 power until the end of your opponent's next turn.
+EndCard
+
+Character: LH/SE20-E42
+Name Petit Naotsugu
+Color B
+Level 0
+Cost 0
+Power 2500
+Trait1 Weapon
+Act: Rest 2 Any
+{
+	UntilEndOfOpponentsTurn
+	GainPower 1000
+}
+Text Act: [Rest two of your characters] This card gets +1000 power until the end of your opponent's next turn.
+EndCard
+
+Character: LH/SE20-E43
+Name Samurai, Toya
+Color B
+Level 0
+Cost 0
+Power 2500
+Trait1 Weapon
+Trait2 Twins
+*RunInFrontOfCharacter
+EndCard
+
+Character: LH/SE20-E44
+Name Toya
+Color B
+Level 1
+Cost 1
+Power 5000
+Trait1 Weapon
+Trait2 Twins
+Cont: GiveSelf
+{
+	If StageContains 1 Other && NameContains Minori
+	{
+		GainPower 1500
+	}
+}
+Text Cont: If you have another character with "Minori" in its card name, this card gets +1500 power.
+Cont: GiveAll
+{
+	If Not CardPosition Reversed && Not MyTurn
+	{
+		TargetLocation Stage
+		NarrowTargets Other
+		GainPower 1000
+	}
+}
+Text Cont: During your opponent's turn, if this card is on your center stage and not Reversed, all of your other characters get +1000 power.
+EndCard
+
+Character: LH/SE20-E45
+Name Petit Shiroe
+Color B
+Level 2
+Cost 1
+Trigger Soul
+Power 8500
+Trait1 Magic
+Trait2 Glasses
+Text 
+EndCard
+
+Character: LH/SE20-E46
+Name Scribe, Shiroe
+Color B
+Level 2
+Cost 2
+Trigger Soul
+Power 8000
+Soul 2
+Trait1 Magic
+Trait2 Glasses
+Cont: GiveSelf
+{
+	TargetFacing
+	If Compare ThatCardsLevel 3 OrMore
+	{
+		GainPower 3000
+	}
+}
+Text Cont: If the character facing this card is level 3 or higher, this card gets +3000 power.
+EndCard
+
+Character: LH/SE20-E47
+Name Isaac
+Color B
+Level 2
+Cost 2
+Trigger Soul
+Power 10000
+Soul 2
+Trait1 Weapon
+Trait2 Brigade Leader
+Auto: OnPlay
+{
+	Question Discard a card? If you do not, this card goes to your waiting room.
+	If Yes
+	{
+		Discard 1 Any
+	}
+	Else
+	{
+		MoveCard WaitingRoom
+	}
+}
+Text Auto: [Put a character from your hand into your waiting room] When this card is placed on the stage from your hand, you may pay the cost. If you do not, put this card into your waiting room.
+EndCard
+
+Event: LH/SE20-E48
+Name Mind Shock
+Color B
+Level 1
+Cost 1
+Counter
+Effect:
+{
+	TargetLocation Stage
+	NarrowTargets HasTrait Weapon|Magic
+	ChooseCharacterFromTargets
+	GainPower 3500
+}
+Text Counter: Choose one of your 《Weapon》 or 《Magic》 characters, it gets +3500 power until end of turn.
+EndCard
+
+Climax: LH/SE20-E49
+Name Log Horizon
+Color B
+*GateClimax
+EndCard
+
+Climax: LH/SE20-E50
+Name Simplified Full Control Encounter
+Color B
+*BookClimax
+EndCard
+
+Character: LH/SE20-PE04
+Name Minori, Apprentice Magician
+Color B
+Level 1
+Cost 0
+Power 2000
+Trait1 Magic
+Trait2 Twins
+Auto: OnUseThisCardsBackup
+{
+	If StageContains 1 NameContains Shiroe
+	{
+		TargetMyCharacterInBattle
+		GainPower 1000
+	}
+}
+Text Auto: When you use this card's "BACKUP", if you have a character with "Shiroe" in name, choose 1 of your characters in battle, and that character gains +1000 Power for the turn.
+Backup 1000
+EndCard

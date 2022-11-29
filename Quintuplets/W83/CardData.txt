@@ -777,11 +777,15 @@ Cont: GiveSelf
 *GainPowerWithEnoughCharacters(2000,2,Quintuplets)
 Auto: OnOtherFrontalAttacked
 {
-	PayCost 1 SendSelf WaitingRoom
+	IfOther HasTrait Quintuplets
 	{
-		TargetMyCharacterInBattle
-		MoveCard Hand
+		PayCost 1 SendSelf WaitingRoom
+		{
+			TargetMyCharacterInBattle
+			MoveCard Hand
+		}
 	}
+
 }
 Text Auto: [(1) Put this card into your waiting room] When your other 《Quintuplets》 character is frontal attacked, you may pay the cost. If you do, return that character to your hand.
 EndCard

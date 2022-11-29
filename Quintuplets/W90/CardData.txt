@@ -1349,13 +1349,6 @@ Soul 2
 Trait1 Quintuplets
 Trait2 Cooking
 Combo Straightforward Feelings
-Cont: GiveSelfEverywhere
-{
-	If Climax Straightforward Feelings
-	{
-		ChangeOtherCardsTriggerIcon Standby NameEquals Love Taking Off, Nino Nakano
-	}
-}
 Text Cont: CxCombo If "Straightforward Feelings" is in your climax area, this card in all of your zones get Standby in the trigger icon.
 Cont: GiveSelf
 {

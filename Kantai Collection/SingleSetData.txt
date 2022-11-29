@@ -1,0 +1,4 @@
+Series: Kantai Collection
+Folder: Kantai Collection/S25
+Prefix: KC/S25
+SetName: Kancolle

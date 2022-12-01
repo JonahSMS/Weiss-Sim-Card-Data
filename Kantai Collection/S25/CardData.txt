@@ -132,7 +132,7 @@ Auto: OnCardSentFromAToB WaitingRoom Hand|OnOpponentCardSentFromAToB OpponentWai
 {
 	IfOther IsCharacter
 	{
-		IfOther InLocation Hand
+		IfOther MyCard
 		{
 			TargetLocation Stage
 			LoseSoul 3
@@ -1259,9 +1259,9 @@ Auto: OnReversed
 Text Auto: [(1) Put this card into your memory] When this card becomes reversed in battle, you may pay the cost. If you do, choose a card named ""Faithful" Destroyer, Верный" in your waiting room, and put it on the stage position that this card was on as resting.
 Auto: OnOpponentHealToWaitingRoom|OnHealToWaitingRoom
 {
-	IfOther InLocation WaitingRoom
+	IfOther MyCard
 	{
-		Question Put the top two cards of your stock into your waiting room?
+		Question Put the top two cards of your stock into your waiting room? If you do not, you will put the top card of your deck into your clock.
 		If Yes
 		{
 			TargetTop Stock 2
@@ -1275,7 +1275,7 @@ Auto: OnOpponentHealToWaitingRoom|OnHealToWaitingRoom
 	}
 	Else
 	{
-		OpponentQuestion Put the top two cards of your stock into your waiting room?
+		OpponentQuestion Put the top two cards of your stock into your waiting room? If you do not, you will put the top card of your deck into your clock.
 		If Yes
 		{
 			OpponentPay 2
@@ -1399,7 +1399,7 @@ Auto: OnPlay
 Text Auto: When this card is placed on the stage from your hand, reveal the top card of your deck. If that card is not a 《Fleet Girl》 character, Rest this card.
 Auto: OnSentFromStageToWaitingRoom
 {
-	PayCost Clock
+	PayCost 1 Clock
 	{
 		SearchDeck IsCharacter && Compare ThatCardsLevel 1 OrLess
 	}

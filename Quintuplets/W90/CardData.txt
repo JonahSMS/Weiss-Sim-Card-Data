@@ -370,39 +370,28 @@ Color Y
 Level 0
 Cost 0
 Power 500
-Cont: Alarm
+Auto: StartMainPhase
 {
-	GainEffect
+
+	Question Draw a card?
+	If Yes
 	{
-		Auto: StartMainPhase
-		{
-			Question Draw a card?
-			If Yes
-			{
-				DrawCard
-				Discard 1 Any
-			}
-		}
-		Auto: If this card is the top card of your clock, at the beginning of your main phase, you may draw 1 card. If you do, choose 1 card in your hand, and put it into your waiting room.
+		DrawCard
+		Discard 1 Any
 	}
 }
+Alarm
 Text Auto: 【CLOCK】 ALARM If this card is the top card of your clock, at the beginning of your main phase, you may draw 1 card. If you do, choose 1 card in your hand, and put it into your waiting room.
-Cont: Alarm
+Auto: StartClimaxPhase
 {
 	If StageContains 3 HasTrait Quintuplets
 	{
-		GainEffect
-		{
-			Auto: StartClimaxPhase
-			{
-				TargetLocation Stage
-				ChooseCharacterFromTargets
-				GainPower 2000
-			}
-			Text Auto: If this card is the top card of your clock, and you have 3 or more 《Quintuplets》 characters, at the beginning of your climax phase, choose 1 of your characters, it gets +2000 power until end of turn.
-		}
+		TargetLocation Stage
+		ChooseCharacterFromTargets
+		GainPower 2000
 	}
 }
+Alarm
 Text Auto: 【CLOCK】 ALARM If this card is the top card of your clock, and you have 3 or more 《Quintuplets》 characters, at the beginning of your climax phase, choose 1 of your characters, it gets +2000 power until end of turn.
 EndCard
 

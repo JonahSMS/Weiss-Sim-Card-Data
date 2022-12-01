@@ -24,15 +24,17 @@ I will continue to work on sets I am interested in. I am open to taking requests
 
 ### Finished
 * The Quintessential Quintuplets (Booster + TD)
-
-### In Testing:
 * The Quintessential Quintuplets ∬
 
+### In Testing:
+* Kantai Collection vol. 1
+* Log Horizon (+ Power-Up Set)
+
 ### Currently working on:
-* Kantai Collection
+* N/A
 
 ### Backlog because of missing effects
-* Log Horizon (anti-burn effect)
+* N/A
 
 ### Sets I Plan to Work On Eventually (and will work on if no one will take them):
 #### EN:

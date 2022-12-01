@@ -1,0 +1,150 @@
+// Log Horizon Power Up Set
+
+Character: LH/SP02-01
+Name Isuzu, Poem She Wants to Recite
+Color R
+Level 0
+Cost 0
+Power 500
+Trait1 Magic
+Trait2 Music
+Auto: OnPlay
+{
+	PayCost Discard 1 IsClimax
+	{
+		SearchWaitingRoom HasTrait Weapon|Magic
+	}
+}
+Text Auto: [Discard a climax] When this card is placed on the stage from your hand, you may pay the cost, choose a <Weapon> or <Magic> character in your waiting room and return it to your hand.
+Auto: OnDirectAttack
+{
+	TargetLocation Stage
+	NarrowTargets Other
+	ChooseCharacterFromTargets
+	GainPower 1500
+}
+Text Auto: When this card direct attacks, choose 1 of your other characters, and that character gains +1500 power for the turn. 
+EndCard
+
+Character: LH/SP02-02
+Name Tetra, Bishoujo Idol?
+Color R
+Level 2
+Cost 1
+Trigger Soul
+Power 6000
+Trait1 Magic
+Trait2 Music
+Auto: OnReverseOpponent
+{
+	Question Choose a character in your waiting room and add it to hand?
+	If Yes
+	{
+		SearchWaitingRoom IsCharacter
+		Discard 1 Any
+	}
+}
+Text Auto: When the battle opponent of this becomes reversed, you may choose a character in your waiting room and return it to your hand. If so, discard a card from your hand to the waiting room.
+*RedEarlyPlayBomb
+EndCard
+
+Character: LH/SP02-03
+Name "Shadow Lurk" Akatsuki
+Color R
+Level 3
+Cost 2
+Trigger Soul 
+Power 9000
+Soul 2
+Trait1 Weapon
+Trait2 Ninja
+*EarlyPlay2OrLessClimax
+*GainPowerWithEnoughCharacters(1500,3,Weapon|Magic)
+*OnPlayCheckX(Weapon|Magic)
+EndCard
+
+Character: LH/SP02-04
+Name Minori, Shiroe's Pupil
+Color B
+Level 0
+Cost 0
+Power 1000
+Trait1 Magic
+Trait2 Twins
+Auto: StartClimaxPhase
+{
+	TargetLocation Stage
+	ChooseCharacterFromTargets
+	GainPower 500
+}
+Text Auto: At the start of your climax phase, choose 1 of your characters, and that character gains +500 power for the turn.
+*Act1RestSelfSearchBrainstorm(Weapon|Magic)
+EndCard
+
+Character: 	LH/SP02-05
+Name "Dual Wielding" Nyanta
+Color B
+Level 0
+Cost 0
+Power 2500
+Trait1 Weapon
+Trait2 Cook
+Cont: GiveSelf
+{
+	TargetLocation Stock
+	SetXValue TargetCount
+	If Compare X 2 OrLess
+	{
+		GainPower 1500
+	}
+}
+Text Cont: If there are 2 or fewer cards in your stock, this gains +1500 power.
+EndCard
+
+Character: LH/SP02-06
+Name William Massachusetts
+Color B
+Level 1
+Cost 0
+Power 4000
+Trait1 Weapon
+Combo Gamer's Pride
+*GainPowerForEachOther(500, Weapon|Magic)
+Auto: OnAttack
+{
+	If Climax Gamer's Pride
+	{
+		TargetTop Deck 1
+		Reveal
+		IfThatCard HasTrait Weapon|Magic
+		{
+			MoveCard Hand
+		}
+	}
+}
+Text Auto: When this attacks, if "Gamer's Pride" is in the climax area, reveal the top card of your deck. If it's a character with either <Weapon> and/or <Magic>, put it in your hand.
+EndCard
+
+Character: LH/SP02-07
+Name "Full Raid" Shiroe
+Color B
+Level 1
+Cost 0
+Power 5500
+Trait1 Magic
+Trait2 Glasses
+Cont: GiveSelf
+{
+	If AllYourCharacters HasTrait Weapon|Magic
+	{
+		GainPower 1000
+	}
+}
+Text Cont: If all your characters are either <Weapon> and/or <Magic>, this card gets +1000 power.
+EndCard
+
+Climax: LH/SP02-08
+Name Gamer's Pride
+Color B
+*GateClimax
+EndCard

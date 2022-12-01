@@ -120,7 +120,6 @@ Auto: OnPlay
 }
 Text Auto: When this card is placed on the stage from your hand, put the top 2 cards of your deck into your waiting room. If there is a climax among those cards, this card gets +2 soul until end of turn.
 *OnPlayTradeClimaxForCharacter(Quintuplets)
-Text Auto: [Put 1 climax from your hand into your waiting room] When this card is placed on the stage from your hand, you may pay the cost. If you do, choose 1 《Quintuplets》 character in your waiting room, and return it to your hand.
 EndCard
 
 Character: 5HY/W83-E004S

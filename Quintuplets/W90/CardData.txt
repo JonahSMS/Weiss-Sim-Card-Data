@@ -1349,7 +1349,9 @@ Soul 2
 Trait1 Quintuplets
 Trait2 Cooking
 Combo Straightforward Feelings
-Text Cont: CxCombo If "Straightforward Feelings" is in your climax area, this card in all of your zones get Standby in the trigger icon.
+ConditionalTrigger LoneStandby Climax Straightforward Feelings
+Text If "Straightforward Feelings" is in your climax area, this card in all of your zones get Standby in the trigger icon.
+// Currently not working in 0.4.3.1, will be fixed in next game update
 Cont: GiveSelf
 {
 	If MyTurn &&& StageContains 2 Other && HasTrait Quintuplets
@@ -2045,11 +2047,6 @@ Climax: 5HY/W90-E078
 Name Straightforward Feelings
 Color R
 *StandbyClimax
-Cont: GiveSelf
-{
-	ChangeOtherCardsTriggerIcon Standby NameEquals Love Taking Off, Nino Nakano
-}
-Text Cont: While this CX is in play, Love Taking Off, Nino Nakano gets Standby trigger.
 EndCard
 
 Climax: 5HY/W90-E079
@@ -2868,3 +2865,534 @@ Act: RestSelf
 Text Act: [Rest this card] Choose 1 of your characters, it gets +1000 power until the end of your opponent's next turn.
 EndCard
 
+Character: 5HY/W90-E001OFR
+Clone 5HY/W90-E001
+Image 5HY_W90_E001OFR
+EndCard
+
+Character: 5HY/W90-E002SSP
+Clone 5HY/W90-E002
+Image 5HY_W90_E002SSP
+EndCard
+
+Character: 5HY/W90-E003S
+Clone 5HY/W90-E003
+Image 5HY_W90_E003S
+EndCard
+
+Character: 5HY/W90-E003S
+Clone 5HY/W90-E003
+Image 5HY_W90_E003S
+EndCard
+
+Character: 5HY/W90-E004HYR
+Clone 5HY/W90-E004
+Image 5HY_W90_E004HYR
+EndCard
+
+Character: 5HY/W90-E005HYR
+Clone 5HY/W90-E005
+Image 5HY_W90_E005HYR
+EndCard
+
+Character: 5HY/W90-E006S
+Clone 5HY/W90-E006
+Image 5HY_W90_E006S
+EndCard
+
+Character: 5HY/W90-E007S
+Clone 5HY/W90-E007
+Image 5HY_W90_E007S
+EndCard
+
+Character: 5HY/W90-E008S
+Clone 5HY/W90-E008
+Image 5HY_W90_E008S
+EndCard
+
+Character: 5HY/W90-E009S
+Clone 5HY/W90-E009
+Image 5HY_W90_E009S
+EndCard
+
+Character: 5HY/W90-E010S
+Clone 5HY/W90-E010
+Image 5HY_W90_E010S
+EndCard
+
+Character: 5HY/W90-E011S
+Clone 5HY/W90-E011
+Image 5HY_W90_E011S
+EndCard
+
+Character: 5HY/W90-E012S
+Clone 5HY/W90-E012
+Image 5HY_W90_E012S
+EndCard
+
+Character: 5HY/W90-E013S
+Clone 5HY/W90-E013
+Image 5HY_W90_E013S
+EndCard
+
+Character: 5HY/W90-E014S
+Clone 5HY/W90-E014
+Image 5HY_W90_E014S
+EndCard
+
+Character: 5HY/W90-E015S
+Clone 5HY/W90-E015
+Image 5HY_W90_E015S
+EndCard
+
+Character: 5HY/W90-E016S
+Clone 5HY/W90-E016
+Image 5HY_W90_E016S
+EndCard
+
+Character: 5HY/W90-E017S
+Clone 5HY/W90-E017
+Image 5HY_W90_E017S
+EndCard
+
+Character: 5HY/W90-E018S
+Clone 5HY/W90-E018
+Image 5HY_W90_E018S
+EndCard
+
+Event: 5HY/W90-E019S
+Clone 5HY/W90-E019
+Image 5HY_W90_E019S
+EndCard
+
+Climax: 5HY/W90-E020R
+Clone 5HY/W90-E020
+Image 5HY_W90_E020R
+EndCard
+
+Climax: 5HY/W90-E021OFR
+Clone 5HY/W90-E021
+Image 5HY_W90_E021OFR
+EndCard
+
+Character: 5HY/W90-E022OFR
+Clone 5HY/W90-E022
+Image 5HY_W90_E022OFR
+EndCard
+
+Character: 5HY/W90-E023SSP
+Clone 5HY/W90-E023
+Image 5HY_W90_E023SSP
+EndCard
+
+Character: 5HY/W90-E024S
+Clone 5HY/W90-E024
+Image 5HY_W90_E024S
+EndCard
+
+Character: 5HY/W90-E025S
+Clone 5HY/W90-E025
+Image 5HY_W90_E025S
+EndCard
+
+Character: 5HY/W90-E026S
+Clone 5HY/W90-E026
+Image 5HY_W90_E026S
+EndCard
+
+Character: 5HY/W90-E027HYR
+Clone 5HY/W90-E027
+Image 5HY_W90_E027HYR
+EndCard
+
+Character: 5HY/W90-E028S
+Clone 5HY/W90-E028
+Image 5HY_W90_E028S
+EndCard
+
+Character: 5HY/W90-E029S
+Clone 5HY/W90-E029
+Image 5HY_W90_E029S
+EndCard
+
+Character: 5HY/W90-E030S
+Clone 5HY/W90-E030
+Image 5HY_W90_E030S
+EndCard
+
+Character: 5HY/W90-E031S
+Clone 5HY/W90-E031
+Image 5HY_W90_E031S
+EndCard
+
+Character: 5HY/W90-E032S
+Clone 5HY/W90-E032
+Image 5HY_W90_E032S
+EndCard
+
+
+Character: 5HY/W90-E033S
+Clone 5HY/W90-E033
+Image 5HY_W90_E033S
+EndCard
+
+
+Character: 5HY/W90-E034S
+Clone 5HY/W90-E034
+Image 5HY_W90_E034S
+EndCard
+
+Character: 5HY/W90-E035S
+Clone 5HY/W90-E035
+Image 5HY_W90_E035S
+EndCard
+
+Character: 5HY/W90-E036S
+Clone 5HY/W90-E036
+Image 5HY_W90_E036S
+EndCard
+
+Character: 5HY/W90-E037S
+Clone 5HY/W90-E037
+Image 5HY_W90_E037S
+EndCard
+
+Character: 5HY/W90-E038S
+Clone 5HY/W90-E038
+Image 5HY_W90_E038S
+EndCard
+
+Character: 5HY/W90-E039S
+Clone 5HY/W90-E039
+Image 5HY_W90_E039S
+EndCard
+
+Character: 5HY/W90-E040S
+Clone 5HY/W90-E040
+Image 5HY_W90_E040S
+EndCard
+
+Character: 5HY/W90-E041S
+Clone 5HY/W90-E041
+Image 5HY_W90_E041S
+EndCard
+
+Character: 5HY/W90-E042S
+Clone 5HY/W90-E042
+Image 5HY_W90_E042S
+EndCard
+
+Character: 5HY/W90-E043S
+Clone 5HY/W90-E043
+Image 5HY_W90_E043S
+EndCard
+
+Event: 5HY/W90-E044S
+Clone 5HY/W90-E044
+Image 5HY_W90_E044S
+EndCard
+
+Event: 5HY/W90-E045S
+Clone 5HY/W90-E045
+Image 5HY_W90_E045S
+EndCard
+
+Climax: 5HY/W90-E046OFR
+Clone 5HY/W90-E046
+Image 5HY_W90_E046OFR
+EndCard
+
+Climax: 5HY/W90-E047R
+Clone 5HY/W90-E047
+Image 5HY_W90_E047R
+EndCard
+
+Climax: 5HY/W90-E048R
+Clone 5HY/W90-E048
+Image 5HY_W90_E048R
+EndCard
+
+Character: 5HY/W90-E049OFR
+Clone 5HY/W90-E049
+Image 5HY_W90_E049OFR
+EndCard
+
+Character: 5HY/W90-E050SSP
+Clone 5HY/W90-E050
+Image 5HY_W90_E050SSP
+EndCard
+
+Character: 5HY/W90-E051OFR
+Clone 5HY/W90-E051
+Image 5HY_W90_E051OFR
+EndCard
+
+Character: 5HY/W90-E052SSP
+Clone 5HY/W90-E052
+Image 5HY_W90_E052SSP
+EndCard
+
+Character: 5HY/W90-E053S
+Clone 5HY/W90-E053
+Image 5HY_W90_E053S
+EndCard
+
+Character: 5HY/W90-E054HYR
+Clone 5HY/W90-E054
+Image 5HY_W90_E054HYR
+EndCard
+
+Character: 5HY/W90-E055S
+Clone 5HY/W90-E055
+Image 5HY_W90_E055S
+EndCard
+
+Character: 5HY/W90-E056S
+Clone 5HY/W90-E056
+Image 5HY_W90_E056S
+EndCard
+
+Character: 5HY/W90-E057S
+Clone 5HY/W90-E057
+Image 5HY_W90_E057S
+EndCard
+
+Character: 5HY/W90-E058HYR
+Clone 5HY/W90-E058
+Image 5HY_W90_E058HYR
+EndCard
+
+Character: 5HY/W90-E059S
+Clone 5HY/W90-E059
+Image 5HY_W90_E059S
+EndCard
+
+Character: 5HY/W90-E060S
+Clone 5HY/W90-E060
+Image 5HY_W90_E060S
+EndCard
+
+Character: 5HY/W90-E061S
+Clone 5HY/W90-E061
+Image 5HY_W90_E061S
+EndCard
+
+Character: 5HY/W90-E062S
+Clone 5HY/W90-E062
+Image 5HY_W90_E062S
+EndCard
+
+Character: 5HY/W90-E063S
+Clone 5HY/W90-E063
+Image 5HY_W90_E063S
+EndCard
+
+Character: 5HY/W90-E064S
+Clone 5HY/W90-E064
+Image 5HY_W90_E064S
+EndCard
+
+Character: 5HY/W90-E065S
+Clone 5HY/W90-E065
+Image 5HY_W90_E065S
+EndCard
+
+Character: 5HY/W90-E066S
+Clone 5HY/W90-E066
+Image 5HY_W90_E066S
+EndCard
+
+Character: 5HY/W90-E067S
+Clone 5HY/W90-E067
+Image 5HY_W90_E067S
+EndCard
+
+Character: 5HY/W90-E068S
+Clone 5HY/W90-E068
+Image 5HY_W90_E068S
+EndCard
+
+Character: 5HY/W90-E069S
+Clone 5HY/W90-E069
+Image 5HY_W90_E069S
+EndCard
+
+Character: 5HY/W90-E070S
+Clone 5HY/W90-E070
+Image 5HY_W90_E070S
+EndCard
+
+Character: 5HY/W90-E071S
+Clone 5HY/W90-E071
+Image 5HY_W90_E071S
+EndCard
+
+Character: 5HY/W90-E072S
+Clone 5HY/W90-E072
+Image 5HY_W90_E072S
+EndCard
+
+Character: 5HY/W90-E073S
+Clone 5HY/W90-E073
+Image 5HY_W90_E073S
+EndCard
+
+Character: 5HY/W90-E074S
+Clone 5HY/W90-E074
+Image 5HY_W90_E074S
+EndCard
+
+Event: 5HY/W90-E075S
+Clone 5HY/W90-E075
+Image 5HY_W90_E075S
+EndCard
+
+Event: 5HY/W90-E076S
+Clone 5HY/W90-E076
+Image 5HY_W90_E076S
+EndCard
+
+Event: 5HY/W90-E077S
+Clone 5HY/W90-E077
+Image 5HY_W90_E077S
+EndCard
+
+Climax: 5HY/W90-E078OFR
+Clone 5HY/W90-E078
+Image 5HY_W90_E078OFR
+EndCard
+
+Climax: 5HY/W90-E079OFR
+Clone 5HY/W90-E079
+Image 5HY_W90_E079OFR
+EndCard
+
+Climax: 5HY/W90-E080R
+Clone 5HY/W90-E080
+Image 5HY_W90_E080R
+EndCard
+
+Climax: 5HY/W90-E081R
+Clone 5HY/W90-E081
+Image 5HY_W90_E081R
+EndCard
+
+Character: 5HY/W90-E082OFR
+Clone 5HY/W90-E082
+Image 5HY_W90_E082OFR
+EndCard
+
+Character: 5HY/W90-E083SSP
+Clone 5HY/W90-E083
+Image 5HY_W90_E083SSP
+EndCard
+
+Character: 5HY/W90-E084S
+Clone 5HY/W90-E084
+Image 5HY_W90_E084S
+EndCard
+
+Character: 5HY/W90-E085S
+Clone 5HY/W90-E085
+Image 5HY_W90_E085S
+EndCard
+
+Character: 5HY/W90-E086S
+Clone 5HY/W90-E086
+Image 5HY_W90_E086S
+EndCard
+
+Character: 5HY/W90-E087S
+Clone 5HY/W90-E087
+Image 5HY_W90_E087S
+EndCard
+
+Character: 5HY/W90-E088S
+Clone 5HY/W90-E088
+Image 5HY_W90_E088S
+EndCard
+
+Character: 5HY/W90-E089S
+Clone 5HY/W90-E089
+Image 5HY_W90_E089S
+EndCard
+
+Character: 5HY/W90-E090S
+Clone 5HY/W90-E090
+Image 5HY_W90_E090S
+EndCard
+
+Character: 5HY/W90-E091S
+Clone 5HY/W90-E091
+Image 5HY_W90_E091S
+EndCard
+
+Character: 5HY/W90-E092S
+Clone 5HY/W90-E092
+Image 5HY_W90_E092S
+EndCard
+
+Character: 5HY/W90-E093S
+Clone 5HY/W90-E093
+Image 5HY_W90_E093S
+EndCard
+
+Character: 5HY/W90-E094S
+Clone 5HY/W90-E094
+Image 5HY_W90_E094S
+EndCard
+
+Character: 5HY/W90-E095S
+Clone 5HY/W90-E095
+Image 5HY_W90_E095S
+EndCard
+
+Character: 5HY/W90-E096S
+Clone 5HY/W90-E096
+Image 5HY_W90_E096S
+EndCard
+
+Event: 5HY/W90-E097S
+Clone 5HY/W90-E097
+Image 5HY_W90_E097S
+EndCard
+
+Event: 5HY/W90-E098S
+Clone 5HY/W90-E098
+Image 5HY_W90_E098S
+EndCard
+
+Climax: 5HY/W90-E099OFR
+Clone 5HY/W90-E099
+Image 5HY_W90_E099OFR
+EndCard
+
+Climax: 5HY/W90-E100R
+Clone 5HY/W90-E100
+Image 5HY_W90_E100R
+EndCard
+
+Character: 5HY/W90-PE02S
+Clone 5HY/W90-PE02
+Image 5HY_W90_PE02S
+EndCard
+
+Character: 5HY/W90-PE03S
+Clone 5HY/W90-PE03
+Image 5HY_W90_PE03S
+EndCard
+
+Character: 5HY/W90-PE04S
+Clone 5HY/W90-PE04
+Image 5HY_W90_PE04S
+EndCard
+
+Character: 5HY/W90-PE05S
+Clone 5HY/W90-PE05
+Image 5HY_W90_PE05S
+EndCard
+
+Character: 5HY/W90-PE06S
+Clone 5HY/W90-PE06
+Image 5HY_W90_PE06S
+EndCard

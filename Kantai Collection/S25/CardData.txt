@@ -206,9 +206,7 @@ Auto: OnSentFromStageToWaitingRoom
 {
 	PayCost 2
 	{
-		TargetLocation WaitingRoom
-		NarrowTargets NameEquals 2nd Junsen-class Type Ⅲ Submarine, I-8-Kai
-		ChooseCharacterFromTargets
+		SearchLocationForTargets WaitingRoom 0 1 NameEquals 2nd Junsen-class Type Ⅲ Submarine, I-8-Kai
 		PlaceOnStage False True True True
 	}
 }
@@ -684,7 +682,7 @@ EndCard
 Climax: KC/S25-E034
 Name Fast like Shimakaze
 Color Y
-*2K1Climax
+*DrawClimax
 EndCard
 
 Character: KC/S25-E035
@@ -1005,9 +1003,7 @@ Cont: GiveSelf
 Text Cont: If there is a marker underneath this card, this card gets +2000 power.
 Act: RestSelf
 {
-	TargetLocation WaitingRoom
-	NarrowTargets HasTrait Fleet Girl
-	ChooseCharacterFromTargets
+	SearchLocationForTargets WaitingRoom 0 1 HasTrait Fleet Girl
 	If HasTarget
 	{
 		Marker_FaceDown
@@ -1148,9 +1144,7 @@ Auto: OnSpecificClimaxPlay Aviation battleship, heading out!
 {
 	PayCost 1 SendSelf Clock
 	{
-		TargetLocation WaitingRoom
-		NarrowTargets NameEquals 1st Ise-class Aviation Battleship, Ise-Kai
-		ChooseCharacterFromTargets
+		SearchLocationForTargets WaitingRoom 0 1 NameEquals 1st Ise-class Aviation Battleship, Ise-Kai
 		PlaceOnStage False True True False
 	}
 }
@@ -1172,9 +1166,7 @@ Auto: OnSpecificClimaxPlay Aviation battleship, heading out!
 {
 	PayCost 1 SendSelf Clock
 	{
-		TargetLocation WaitingRoom
-		NarrowTargets NameEquals 2nd Ise-class Aviation Battleship, Hyuga-Kai
-		ChooseCharacterFromTargets
+		SearchLocationForTargets WaitingRoom 0 1 NameEquals 2nd Ise-class Aviation Battleship, Hyuga-Kai
 		PlaceOnStage False True True False
 	}
 }
@@ -1212,9 +1204,8 @@ Auto: OnAttack
 {
 	If Climax Pan Pakka Pa-n!
 	{
-		TargetLocation WaitingRoom
 		Message Choose up to two Heavy Cruisers in your waiting room to add to your stock.
-		ChooseCardsFromTargets 0 2 HasTrait Heavy Cruiser
+		SearchLocationForTargets WaitingRoom 0 2 HasTrait Heavy Cruiser
 		MoveCard Stock
 	}
 }
@@ -1261,9 +1252,7 @@ Auto: OnReversed
 {
 	PayCost 1 SendSelf Memory
 	{
-		TargetLocation WaitingRoom
-		NarrowTargets NameEquals "Faithful" Destroyer, Верный
-		ChooseCharacterFromTargets
+		SearchLocationForTargets WaitingRoom 0 1 NameEquals "Faithful" Destroyer, Верный
 		ChangeRested
 	}
 }
@@ -1357,7 +1346,7 @@ Auto: OnOtherFrontalAttacked
 {
 	IfOther HasTrait Fleet Girl
 	{
-		PayCost SendSelf WaitingROom
+		PayCost SendSelf WaitingRoom
 		{
 			TargetMyCharacterInBattle
 			GainPower 1000
@@ -1684,7 +1673,7 @@ EndCard
 Climax: KC/S25-E078
 Name We must go into night combat!
 Color G
-*2K1Climax
+*DrawClimax
 EndCard
 
 Climax: KC/S25-E079
@@ -2105,9 +2094,7 @@ Auto: OnSpecificClimaxPlay That's the way to do it, anchors aweigh!
 Text Auto: When a card named "That's the way to do it, anchors aweigh!" is placed on your climax area, you may put a marker from underneath this card into your stock.
 Act: RestSelf
 {
-	TargetLocation WaitingRoom
-	NarrowTargets HasTrait Fleet Girl
-	ChooseCharacterFromTargets
+	SearchLocationForTargets WaitingRoom 0 1 HasTrait Fleet Girl
 	Marker_FaceDown
 }
 ActivationRequirement Not HasMarker
@@ -2536,9 +2523,7 @@ Auto: OnSentFromStageToWaitingRoom
 {
 	PayCost 1
 	{
-		TargetLocation WaitingRoom
-		NarrowTargets NameEquals 10th Ayanami-class Destroyer, Ushio
-		ChooseCharacterFromTargets
+		SearchLocationForTargets WaitingRoom 0 1 NameEquals 10th Ayanami-class Destroyer, Ushio
 		ChangeRested
 	}
 }
@@ -2663,7 +2648,7 @@ EndCard
 Climax: KC/S25-E125
 Name Let me take care of it!
 Color R
-*2K1Climax
+*DrawClimax
 EndCard
 
 Climax: KC/S25-E126
@@ -2688,8 +2673,29 @@ Power 10000
 Soul 2
 Trait1 Fleet Girl
 Trait2 Battleship
-Text Auto:When this card is placed on the stage from your hand, you may put the top card of your clock into your waiting room.
-Text Auto:When a card named "Do not look down on the power of the Big 7" is placed on your climax area, if this card is in your center stage, until end of turn, all of your characters get +500 power and the following ability. "Auto:When this card's battle opponent becomes 【Reverse】, you may put that character on the bottom of your opponent's deck."
+Combo Do not look down on the power of the Big 7
+*Healer
+Auto: OnSpecificClimaxPlay Do not look down on the power of the Big 7
+{
+	If InLocation CenterStage
+	{
+		TargetLocation Stage
+		GainPower 500
+		GainEffect
+		{
+			Auto: OnReverseOpponent
+			{
+				Question Put battle opponent to bottom of opponent deck?
+				If Yes
+				{
+					TargetBattleOpponent
+					MoveCard BottomOfOpponentDeck
+				}
+			}
+		}
+	}
+}
+Text Auto: When a card named "Do not look down on the power of the Big 7" is placed on your climax area, if this card is in your center stage, until end of turn, all of your characters get +500 power and the following ability. "Auto: When this card's battle opponent becomes reversed, you may put that character on the bottom of your opponent's deck."
 EndCard
 
 Character: KC/S25-E129
@@ -2700,8 +2706,23 @@ Cost 0
 Power 3500
 Trait1 Fleet Girl
 Trait2 Heavy Cruiser
-Text Auto:[(2)] When this card is placed on the stage from your hand, you may pay the cost. If you do, search your deck for up to one 《Fleet Girl》 character, reveal it to your opponent, and put it into your hand. Shuffle your deck afterwards.
-Text Auto:[Put this card into your waiting room] When a card named "Leave it to Suzuya-!" is placed on your climax area, you may pay the cost. If you do, choose up to one card named "3rd Mogami-class Aviation Heavy Cruiser, Suzuya-Kai" in your hand, and put it on the stage position that this card was on.
+Combo Leave it to Suzuya-!
+Auto: OnPlay
+{
+	PayCost 2
+	{
+		SearchDeck HasTrait Fleet Girl
+	}
+}
+Text Auto: [(2)] When this card is placed on the stage from your hand, you may pay the cost. If you do, search your deck for up to one 《Fleet Girl》 character, reveal it to your opponent, and put it into your hand. Shuffle your deck afterwards.
+Auto: OnSpecificClimaxPlay Leave it to Suzuya-!
+{
+	PayCost SendSelf WaitingRoom
+	{
+		*ChangeWaitingRoom(3rd Mogami-class Aviation Heavy Cruiser\, Suzuya-Kai)
+	}
+}
+Text Auto: [Put this card into your waiting room] When a card named "Leave it to Suzuya-!" is placed on your climax area, you may pay the cost. If you do, choose up to one card named "3rd Mogami-class Aviation Heavy Cruiser, Suzuya-Kai" in your hand, and put it on the stage position that this card was on.
 EndCard
 
 Character: KC/S25-E130
@@ -2712,8 +2733,29 @@ Cost 0
 Power 6000
 Trait1 Fleet Girl
 Trait2 Heavy Cruiser
-Text Cont:If your level is 2 or higher, this card gets the following ability. "Act:[(1) Put a card from your hand into your waiting room & Put this card into your waiting room] Choose a card named "4th Mogami-class Aviation Heavy Cruiser, Kumano-Kai" in your waiting room, and put it on the stage position that this card was on."
-Text Auto:When this card becomes 【Reverse】 in battle, put the top card of your deck into your clock, and Restthis card.
+Cont: GiveSelf
+{
+	If Compare MyLevel 2 OrMore
+	{
+		GainEffect
+		{
+			Act: 1 Discard 1 Any SendSelf WaitingRoom
+			{
+				*ChangeWaitingRoom(4th Mogami-class Aviation Heavy Cruiser\, Kumano-Kai)
+			}
+			Text Act: Choose a card named "4th Mogami-class Aviation Heavy Cruiser, Kumano-Kai" in your waiting room, and put it on the stage position that this card was on.
+		}
+	}
+}
+Text Cont: If your level is 2 or higher, this card gets the following ability. "Act: [(1) Put a card from your hand into your waiting room & Put this card into your waiting room] Choose a card named "4th Mogami-class Aviation Heavy Cruiser, Kumano-Kai" in your waiting room, and put it on the stage position that this card was on."
+Auto: OnReversed
+{
+	TargetTop Deck 1
+	MoveCard Clock
+	TargetSelf
+	Rest
+}
+Text Auto: When this card becomes reversed in battle, put the top card of your deck into your clock, and Rest this card.
 EndCard
 
 Character: KC/S25-E131
@@ -2726,10 +2768,28 @@ Power 9500
 Soul 2
 Trait1 Fleet Girl
 Trait2 Battleship
-Text Auto:When this card is placed on the stage from your hand, look at up to X cards from the top of your deck, choose up to one card from among them, and put it into your hand. Put the rest into your waiting room. X is equal to the number of 《Fleet Girl》 characters you have.
-Text Auto:At the beginning of your climax phase, reveal the top card of your deck. If that card is level 3 or higher, put this card into your waiting room. If it is not, this card gets +1500 power until the end of your opponent's next turn. 
-Text Act:[Resttwo of your 《Fleet Girl》 characters] Look at the top card of your deck, and put it on the top or the bottom of your deck.
-Text ……what, you're serious? Hmm, I'll leave the rest to you then♪
+*OnPlayCheckX(Fleet Girl)
+Auto: StartClimaxPhase
+{
+	TargetTop Deck 1
+	If Compare ThatCardsLevel 3 OrMore
+	{
+		TargetSelf
+		MoveCard WaitingRoom
+	}
+	Else
+	{
+		TargetSelf
+		UntilEndOfOpponentsTurn
+		GainPower 1500
+	}
+}
+Text Auto: At the beginning of your climax phase, reveal the top card of your deck. If that card is level 3 or higher, put this card into your waiting room. If it is not, this card gets +1500 power until the end of your opponent's next turn. 
+Act: Rest 2 HasTrait Fleet Girl
+{
+	*ScryToBottom
+}
+Text Act: [Rest two of your 《Fleet Girl》 characters] Look at the top card of your deck, and put it on the top or the bottom of your deck.
 EndCard
 
 Character: KC/S25-E132
@@ -2740,7 +2800,20 @@ Cost 0
 Power 5000
 Trait1 Fleet Girl
 Trait2 Destroyer
-Text Auto:[(1)] When a card named "Well then, let's have a great party!" is placed on your climax area, if this card is in your center stage, you may pay the cost. If you do, choose one of your opponent's characters, and move it to another open position on your opponent's stage.
+Combo Well then, let's have a great party!
+Auto: OnSpecificClimaxPlay Well then, let's have a great party!
+{
+	If InLocation CenterStage
+	{
+		PayCost 1
+		{
+			TargetLocation OpponentStage
+			ChooseCharacterFromTargets
+			MoveToOpenPosition True True
+		}
+	}
+}
+Text Auto: [(1)] When a card named "Well then, let's have a great party!" is placed on your climax area, if this card is in your center stage, you may pay the cost. If you do, choose one of your opponent's characters, and move it to another open position on your opponent's stage.
 EndCard
 
 Character: KC/S25-E133
@@ -2751,7 +2824,18 @@ Cost 1
 Power 6500
 Trait1 Fleet Girl
 Trait2 Destroyer
-Text Auto:When this card is placed on the stage from your hand, or by the Act:effect of "2nd Shiratsuyu-class Destroyer, Shigure", your opponent reveals the top card of his or her deck. If that card is level 1 or higher, this card gets +1000 power until the end of your opponent's next turn. 
+Auto: OnPlay|PlacedBy 2nd Shiratsuyu-class Destroyer, Shigure
+{
+	TargetTop OpponentDeck 1
+	Reveal
+	If Compare ThatCardsLevel 1 OrMore
+	{
+		TargetSelf
+		UntilEndOfOpponentsTurn
+		GainPower 1000
+	}
+}
+Text Auto: When this card is placed on the stage from your hand, or by the Act: effect of "2nd Shiratsuyu-class Destroyer, Shigure", your opponent reveals the top card of his or her deck. If that card is level 1 or higher, this card gets +1000 power until the end of your opponent's next turn. 
 EndCard
 
 Character: KC/S25-E134
@@ -2763,9 +2847,21 @@ Trigger Soul
 Power 2500
 Trait1 Fleet Girl
 Trait2 Light Aircraft Carrier
-Text Auto:[(2) Put the top card of your deck into your clock] When you use this card's "BACKUP", your may pay the cost. If you do, choose one of your opponent's characters with level higher than your opponent's level, and put it on the bottom of your opponent's deck.
-Text Act:Counter:BACKUP 2500, Level 2 [(1) Put this card from your hand into your waiting room] 
-Text ……would you like to have some fried eggs I made?
+Auto: OnUseThisCardsBackup
+{
+	PayCost 2 Clock
+	{
+		TargetLocation OpponentStage
+		SetXValue OpponentsLevel
+		AddToXValue 1
+		NarrowTargets Compare ThatCardsLevel X OrHigher
+		NarrowTargets CanBeChosen
+		ChooseCharacterFromTargets Choose a character to send to the bottom of your opponent's deck.
+		MoveCard BottomOfOpponentDeck
+	}
+}
+Text Auto: [(2) Put the top card of your deck into your clock] When you use this card's "BACKUP", your may pay the cost. If you do, choose one of your opponent's characters with level higher than your opponent's level, and put it on the bottom of your opponent's deck.
+Backup 2500
 EndCard
 
 Character: KC/S25-E135
@@ -2777,7 +2873,18 @@ Trigger Soul
 Power 6500
 Trait1 Fleet Girl
 Trait2 Aircraft Carrier
-Text Cont:All of your other 《Fleet Girl》 characters get +500 power and "Auto:ENCORE [Put a character from your hand into your waiting room]".
+Cont: GiveAll
+{
+	If Other && HasTrait Fleet Girl
+	{
+		GainPower 500
+		GainEffect
+		{
+			*HandEncore
+		}
+	}
+}
+Text Cont: All of your other 《Fleet Girl》 characters get +500 power and "Auto: ENCORE [Put a character from your hand into your waiting room]".
 EndCard
 
 Character: KC/S25-E136
@@ -2789,8 +2896,15 @@ Trigger Soul
 Power 7500
 Trait1 Fleet Girl
 Trait2 Aviation Heavy Cruiser
-Text Cont:If there is a marker underneath this card, this card gets +2000 power.
-Text Auto:When this card is placed on the stage from your waiting room, you may choose a card named "2nd Mogami-class Heavy Cruiser, Mikuma" in your waiting room, and put it face down underneath this card as a marker.
+Cont: GiveSelf
+{
+	If HasMarker
+	{
+		GainPower 2000
+	}
+}
+Text Cont: If there is a marker underneath this card, this card gets +2000 power.
+*OnPlayChooseMarker(2nd Mogami-class Heavy Cruiser\, Mikuma)
 EndCard
 
 Character: KC/S25-E137
@@ -2802,7 +2916,7 @@ Trigger Soul
 Power 7500
 Trait1 Fleet Girl
 Trait2 Aviation Heavy Cruiser
-Text Cont:This card gets +500 power for each of your other 《Fleet Girl》 characters.
+*GainPowerForEachOther(500, Fleet Girl)
 EndCard
 
 Character: KC/S25-E138
@@ -2815,8 +2929,24 @@ Power 8000
 Soul 2
 Trait1 Fleet Girl
 Trait2 Aircraft Carrier
-Text Auto:When this card attacks, if there is a card named "Second Carrier Division is heading out!" on your climax area, this card gets +3000 power until the end of your opponent's next turn.
-Text Auto:At the beginning of your draw phase, if you do not have any other characters on your center stage, this card gets +4000 power until end of turn.
+Combo Second Carrier Division is heading out!
+Auto: OnAttack
+{
+	If Climax Second Carrier Division is heading out!
+	{
+		UntilEndOfOpponentsTurn
+		GainPower 3000
+	}
+}
+Text Auto: When this card attacks, if there is a card named "Second Carrier Division is heading out!" on your climax area, this card gets +3000 power until the end of your opponent's next turn.
+Auto: StartDrawPhase
+{
+	If StageContainsOrLess 0 Other
+	{
+		GainPower 4000
+	}
+}
+Text Auto: At the beginning of your draw phase, if you do not have any other characters on your center stage, this card gets +4000 power until end of turn.
 EndCard
 
 Character: KC/S25-E139
@@ -2829,7 +2959,7 @@ Power 8500
 Soul 2
 Trait1 Fleet Girl
 Trait2 Aviation Heavy Cruiser
-Text Auto:When your other 《Fleet Girl》 character attacks, this card gets +1000 power until end of turn.
+*GainPowerWhenOtherAttacks(1000,Fleet Girl)
 EndCard
 
 Character: KC/S25-E140
@@ -2840,8 +2970,24 @@ Cost 0
 Power 1500
 Trait1 Fleet Girl
 Trait2 Destroyer
-Text Auto:When this card is placed on the stage from your hand, this card gets +X power until end of turn. X is equal to 500 multiplied by the number of your opponent's characters.
-Text Auto:[Put this card into your waiting room] When this card is frontal attacked, you may pay the cost. If you do, choose up to one card named "4th Shiratsuyu-class Destroyer, Yudachi-Kai-Ni" in your hand, and put it on this card's stage position as the defending character.
+Auto: OnPlay
+{
+	TargetLocation OpponentStage
+	SetXValue TargetCount
+	MultiplyXValue 500
+	TargetSelf
+	GainPower X
+}
+Text Auto: When this card is placed on the stage from your hand, this card gets +X power until end of turn. X is equal to 500 multiplied by the number of your opponent's characters.
+Auto: OnFrontalAttacked
+{
+	PayCost SendSelf Hand
+	{
+		SearchLocationForTargets Hand 0 1 NameEquals 4th Shiratsuyu-class Destroyer, Yudachi-Kai-Ni
+		Change
+	}
+}
+Text Auto: [Put this card into your waiting room] When this card is frontal attacked, you may pay the cost. If you do, choose up to one card named "4th Shiratsuyu-class Destroyer, Yudachi-Kai-Ni" in your hand, and put it on this card's stage position as the defending character.
 EndCard
 
 Character: KC/S25-E141
@@ -2852,7 +2998,8 @@ Cost 0
 Power 2000
 Trait1 Fleet Girl
 Trait2 Destroyer
-Text Auto:[Put this card into your waiting room] When another of your characters is put into your waiting room from the stage, if this card is in the back stage, you may pay the cost. If you do, return that character to its previous stage position as resting' />.
+*SacrificeToSave(Any)
+Text Auto: [Put this card into your waiting room] When another of your characters is put into your waiting room from the stage, if this card is in the back stage, you may pay the cost. If you do, return that character to its previous stage position as resting.
 EndCard
 
 Character: KC/S25-E142
@@ -2863,7 +3010,11 @@ Cost 0
 Power 3500
 Trait1 Fleet Girl
 Trait2 Destroyer
-Text Auto:When you level up, put this card into your waiting room.
+Auto: OnLevelUp
+{
+	MoveCard WaitingRoom
+}
+Text Auto: When you level up, put this card into your waiting room.
 EndCard
 
 Character: KC/S25-E143
@@ -2874,8 +3025,28 @@ Cost 0
 Power 5000
 Trait1 Fleet Girl
 Trait2 Heavy Cruiser
-Text Auto:When this card is placed on the stage from your hand, reveal the top card of your deck. If that card is not a 《Fleet Girl》 character, Restthis card. 
-Text Auto:CHANGE [(2) Put this card into your waiting room] At the beginning of your encore step, if this card is rested' />, you may pay the cost. If you do, choose a card named "1st Mogami-class Aviation Heavy Cruiser, Mogami-Kai" in your waiting room, and put it on the stage position that this card was on.
+Auto: OnPlay
+{
+	TargetTop Deck 1
+	Reveal
+	IfTarget Not HasTrait Fleet Girl
+	{
+		TargetSelf
+		Rest
+	}
+}
+Text Auto: When this card is placed on the stage from your hand, reveal the top card of your deck. If that card is not a 《Fleet Girl》 character, Rest this card. 
+Auto: StartMyEncorePhase
+{
+	If CardPosition Rest
+	{
+		PayCost 2 SendSelf WaitingRoom
+		{
+			*ChangeWaitingRoom(1st Mogami-class Aviation Heavy Cruiser\, Mogami-Kai)
+		}
+	}
+}
+Text Auto: CHANGE [(2) Put this card into your waiting room] At the beginning of your encore step, if this card is rested, you may pay the cost. If you do, choose a card named "1st Mogami-class Aviation Heavy Cruiser, Mogami-Kai" in your waiting room, and put it on the stage position that this card was on.
 EndCard
 
 Character: KC/S25-E144
@@ -2886,7 +3057,17 @@ Cost 1
 Power 6000
 Trait1 Fleet Girl
 Trait2 Heavy Cruiser
-Text Auto:CHANGE [(1) Put this card into your waiting room] At the beginning of your encore step, if this card is rested' />, you may pay the cost. If you do, choose a card named "2nd Mogami-class Aviation Heavy Cruiser, Mikuma-Kai" in your waiting room, and put it on the stage position that this card was on.
+Auto: StartMyEncorePhase
+{
+	If CardPosition Rest
+	{
+		PayCost 1 SendSelf WaitingRoom
+		{
+			*ChangeWaitingRoom(2nd Mogami-class Aviation Heavy Cruiser\, Mikuma-Kai)
+		}
+	}
+}
+Text Auto: CHANGE [(1) Put this card into your waiting room] At the beginning of your encore step, if this card is rested, you may pay the cost. If you do, choose a card named "2nd Mogami-class Aviation Heavy Cruiser, Mikuma-Kai" in your waiting room, and put it on the stage position that this card was on.
 EndCard
 
 Character: KC/S25-E145
@@ -2909,7 +3090,12 @@ Trigger Soul
 Power 7500
 Trait1 Fleet Girl
 Trait2 Light Aircraft Carrier
-Text Auto:When this card is placed on the stage from your hand, this card gets +1500 power until the end of your opponent's next turn.
+Auto: OnPlay
+{
+	UntilEndOfOpponentsTurn
+	GainPower 1500
+}
+Text Auto: When this card is placed on the stage from your hand, this card gets +1500 power until the end of your opponent's next turn.
 EndCard
 
 Character: KC/S25-E147
@@ -2921,7 +3107,18 @@ Trigger Soul
 Power 8000
 Trait1 Fleet Girl
 Trait2 Aviation Heavy Cruiser
-Text Cont:If the number of your other 《Fleet Girl》 characters is two or more, this card gets +500 power and "Auto:ENCORE [Put the top card of your deck into your clock]".
+Cont: GiveSelf
+{
+	If StageContains 2 Other && HasTrait Fleet Girl
+	{
+		GainPower 500
+		GainEffect
+		{
+			*HandEncore
+		}
+	}
+}
+Text Cont: If the number of your other 《Fleet Girl》 characters is two or more, this card gets +500 power and "Auto:ENCORE [Put the top card of your deck into your clock]".
 EndCard
 
 Character: KC/S25-E148
@@ -2932,8 +3129,12 @@ Cost 0
 Power 500
 Trait1 Fleet Girl
 Trait2 Destroyer
-Text Cont:ASSIST All of your characters in front of this card get +500 power.
-Text Act:[(2) Resttwo of your characters] Draw a card.
+*500Assist
+Act: 2 Rest 2 Any
+{
+	DrawCard
+}
+Text Act: [(2) Rest two of your characters] Draw a card.
 EndCard
 
 Character: KC/S25-E149
@@ -2944,8 +3145,19 @@ Cost 0
 Power 1000
 Trait1 Fleet Girl
 Trait2 Destroyer
-Text Auto:[Put the top card of your deck into your clock] When this card's battle opponent becomes 【Reverse】, you may pay the cost. If you do, draw a card.
-Text Act:[Restone of your 《Fleet Girl》 characters] This card gets +1000 power until end of turn.
+Auto: OnReverseOpponent
+{
+	PayCost Clock
+	{
+		DrawCard
+	}
+}
+Text Auto: [Put the top card of your deck into your clock] When this card's battle opponent becomes reversed, you may pay the cost. If you do, draw a card.
+Act: Rest 1 HasTrait Fleet Girl
+{
+	GainPower 1000
+}
+Text Act: [Rest one of your 《Fleet Girl》 characters] This card gets +1000 power until end of turn.
 EndCard
 
 Character: KC/S25-E150
@@ -2956,7 +3168,14 @@ Cost 0
 Power 1500
 Trait1 Fleet Girl
 Trait2 Destroyer
-Text Auto:[(1)] At the beginning of your opponent's attack phase, you may pay the cost. If you do, move this card to an open position of your back stage.
+Auto: StartOpponentAttackPhase
+{
+	PayCost 1
+	{
+		MoveToOpenPosition False True
+	}
+}
+Text Auto: [(1)] At the beginning of your opponent's attack phase, you may pay the cost. If you do, move this card to an open position of your back stage.
 EndCard
 
 Character: KC/S25-E151
@@ -2967,8 +3186,33 @@ Cost 0
 Power 2000
 Trait1 Fleet Girl
 Trait2 Destroyer
-Text Cont:If you do not have any other characters, this card gets +1500 power and "Auto:ENCORE [Put a character from your hand into your waiting room]".
-Text Cont:If your level is 1 or higher, this card gets the following ability. "Act:[Put a card from your hand into your waiting room & Put this card into your waiting room] Choose a card named "Lucky Destroyer, Shigure-Kai-Ni" in your waiting room, and put it on the stage position that this card was on."
+Cont: GiveSelf
+{
+	If StageContainsOrLess 0 Other
+	{
+		GainPower 1500
+		GainEffect
+		{
+			*HandEncore
+		}
+	}
+}
+Text Cont: If you do not have any other characters, this card gets +1500 power and "Auto:ENCORE [Put a character from your hand into your waiting room]".
+Cont: GiveSelf
+{
+	If Compare MyLevel 1 OrMore
+	{
+		GainEffect
+		{
+			Act: Discard 1 Any SendSelf WaitingRoom
+			{
+				*ChangeWaitingRoom(Lucky Destroyer\, Shigure-Kai-Ni)
+			}
+			Text Act: Choose a card named "Lucky Destroyer, Shigure-Kai-Ni" in your waiting room, and put it on the stage position that this card was on.
+		}
+	}
+}
+Text Cont: If your level is 1 or higher, this card gets the following ability. "Act: [Put a card from your hand into your waiting room & Put this card into your waiting room] Choose a card named "Lucky Destroyer, Shigure-Kai-Ni" in your waiting room, and put it on the stage position that this card was on."
 EndCard
 
 Character: KC/S25-E152
@@ -2979,8 +3223,13 @@ Cost 0
 Power 2000
 Trait1 Fleet Girl
 Trait2 Destroyer
-Text Auto:When this card is placed on the stage from your hand, look at the top card of your deck, and put it on the top or the bottom of your deck.
-Text Act:[(1)] Draw a card, choose a card in your hand, and put it into your waiting room.
+*OnPlayScryToBottom
+Act: 1
+{
+	DrawCard
+	Discard 1 Any
+}
+Text Act: [(1)] Draw a card, choose a card in your hand, and put it into your waiting room.
 EndCard
 
 Character: KC/S25-E153
@@ -2991,7 +3240,7 @@ Cost 0
 Power 2500
 Trait1 Fleet Girl
 Trait2 Destroyer
-Text Cont:If the number of your other 《Fleet Girl》 characters is two or more, this card gets +1000 power.
+*GainPowerWithEnoughCharacters(1000,2,Fleet Girl)
 EndCard
 
 Character: KC/S25-E154
@@ -3002,7 +3251,11 @@ Cost 0
 Power 2500
 Trait1 Fleet Girl
 Trait2 Destroyer
-Text Act:[Restone of your "1st Asashio-class Destroyer, Asashio"] This card gets +2500 power until end of turn.
+Act: Rest 1 NameEquals 1st Asashio-class Destroyer, Asashio
+{
+	GainPower 2500
+}
+Text Act: [Rest one of your "1st Asashio-class Destroyer, Asashio"] This card gets +2500 power until end of turn.
 EndCard
 
 Character: KC/S25-E155
@@ -3013,8 +3266,15 @@ Cost 0
 Power 2500
 Trait1 Fleet Girl
 Trait2 Destroyer
-Text Cont:If this card is on your center stage, this card cannot Standduring your stand phase.
-Text Auto:When this card's battle opponent becomes 【Reverse】, choose one of your other characters, Restit, and move it to an open position on your back stage.
+Cont: GiveSelf
+{
+	If InLocation CenterStage
+	{
+		GainSpecialEffect CannotStand
+	}
+}
+Text Cont: If this card is on your center stage, this card cannot Stand during your stand phase.
+*MoveOtherToBackstageOnReverse
 EndCard
 
 Character: KC/S25-E156
@@ -3036,7 +3296,18 @@ Cost 0
 Power 5000
 Trait1 Fleet Girl
 Trait2 Heavy Cruiser
-Text Auto:[Put this card into your waiting room] When another of your 《Fleet Girl》 characters is frontal attacked, you may pay the cost. If you do, choose one of your characters in battle, it gets +1500 power until end of turn.
+Auto: OnOtherFrontalAttacked
+{
+	IfOther HasTrait Fleet Girl
+	{
+		PayCost SendSelf WaitingRoom
+		{
+			TargetMyCharacterInBattle
+			GainPower 1500
+		}
+	}
+}
+Text Auto: [Put this card into your waiting room] When another of your 《Fleet Girl》 characters is frontal attacked, you may pay the cost. If you do, choose one of your characters in battle, it gets +1500 power until end of turn.
 EndCard
 
 Character: KC/S25-E158
@@ -3048,8 +3319,8 @@ Trigger Soul
 Power 2000
 Trait1 Fleet Girl
 Trait2 Heavy Cruiser
-Text Auto:When you use this card's "BACKUP", choose one of your 《Fleet Girl》 characters in battle, it gets +1000 power until the end of turn.
-Text Act:Counter:BACKUP 1500, Level 1 [(1) Put this card from your hand into your waiting room] 
+*BackupBonus1000(Fleet Girl)
+Backup 1500
 EndCard
 
 Character: KC/S25-E159
@@ -3061,8 +3332,22 @@ Trigger Soul
 Power 3000
 Trait1 Fleet Girl
 Trait2 Heavy Cruiser
-Text Cont:ASSIST During your opponent's turn, all of your characters in front of this card get +1000 power.
-Text Auto:[Put a card from your hand into your waiting room] When this card is placed on the stage from your hand, you may pay the cost. If you do, look at up to four cards from the top of your deck, choose up to one 《Fleet Girl》 character from among them, reveal it to your opponent, and put it into your hand. Put the rest into your waiting room.
+Cont: Assist
+{
+	If Not MyTurn
+	{
+		GainPower 1000
+	}
+}
+Text Cont: ASSIST During your opponent's turn, all of your characters in front of this card get +1000 power.
+Auto: OnPlay
+{
+	PayCost Discard 1 Any
+	{
+		*Check4Add1(Fleet Girl)
+	}
+}
+Text Auto: [Put a card from your hand into your waiting room] When this card is placed on the stage from your hand, you may pay the cost. If you do, look at up to four cards from the top of your deck, choose up to one 《Fleet Girl》 character from among them, reveal it to your opponent, and put it into your hand. Put the rest into your waiting room.
 EndCard
 
 Event: KC/S25-E160
@@ -3070,6 +3355,15 @@ Name Food Supply Ship, Mamiya
 Color B
 Level 1
 Cost 1
+Effect:
+{
+	SearchDeck HasTrait FleetGirl
+	Discard 1 Any
+	TargetLocation Stage
+	ChooseCharacterFromTargets
+	UntilEndOfOpponentsTurn
+	GainPower 2500
+}
 Text Search your deck for up to one 《Fleet Girl》 character, reveal it to your opponent, and put it into your hand. Shuffle your deck afterwards. Choose a card in your hand, and put it into your waiting room.
 Text Choose one of your characters, it gets +2500 power until the end of your opponent's next turn.
 EndCard
@@ -3077,24 +3371,24 @@ EndCard
 Climax: KC/S25-E161
 Name Do not look down on the power of the Big 7
 Color B
-Text Cont:All of your characters get +1000 power and +1 soul.
+*BookClimax
 EndCard
 
 Climax: KC/S25-E162
 Name Leave it to Suzuya-!
 Color B
-Text Cont:All of your characters get +1000 power and +1 soul.
+*GateClimax
 EndCard
 
 Climax: KC/S25-E163
 Name Second Carrier Division is heading out!
 Color B
-Text Auto:When this card is placed on your climax area from your hand, choose up to one blue card in your waiting room, put it into your stock, and all of your characters get +1 soul until end of turn.
+*BlueStockSoul
 EndCard
 
 Climax: KC/S25-E164
 Name Well then, let's have a great party!
 Color B
-Text Auto:When this card is placed on your climax area from hand, draw a card, choose one of your characters, it gets +2000 power and +1 soul until end of turn.
+*DrawClimax
 EndCard
 

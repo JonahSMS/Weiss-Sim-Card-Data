@@ -8,3 +8,8 @@ Folder: Quintuplets/W90
 Prefix: 5HY/W90
 SetName: The Quintessential Quintuplets 2
 
+Series: The Quintessential Quintuplets
+Folder: Quintuplets/W101
+Prefix: 5HY/W101
+SetName: The Quintessential Quintuplets Movie
+

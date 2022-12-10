@@ -61,6 +61,7 @@ Auto: OnAttack
 		GainPower 1500
 	}
 }
+Quick
 Text Auto: When this card attacks, if you have another 《Quintuplets》 character, this card gets +1500 power until end of turn.
 Auto: OnAttack
 {
@@ -256,6 +257,7 @@ Auto: OnPlay
 		GainPower 2000
 	}
 }
+Quick
 Text Auto: When this card is placed on the stage from your hand, if you have another 《Quintuplets》 character, this card gets +2000 power until end of turn.
 Auto: OnReverseOpponent
 {
@@ -457,7 +459,7 @@ Auto: OnTriggerCheck
 		}
 	}
 }
-Text Auto: [Put 1 《Quintuplets》 character from your hand into your waiting room] When your character's trigger check reveals a climax with in its trigger icon, you may pay the cost. If you do, look at up to 2 cards from the top of your deck, choose up to 1 card from among them, put it into your hand, and put the rest into your waiting room.
+Text Auto: [Put 1 《Quintuplets》 character from your hand into your waiting room] When your character's trigger check reveals a climax with Choice in its trigger icon, you may pay the cost. If you do, look at up to 2 cards from the top of your deck, choose up to 1 card from among them, put it into your hand, and put the rest into your waiting room.
 EndCard
 
 Character: 5HY/W83-E017
@@ -1241,7 +1243,7 @@ Trait1 Quintuplets
 Trait2 Headphone
 Cont: GiveSelf
 {
-	If StageContains 2 NameContains Miku
+	If StageContains 2 Other && NameContains Miku
 	{
 		GainPower 2000
 	}
@@ -1324,6 +1326,7 @@ Auto: OnOtherPlacedOnStageFromHand
 		GainPower 1500
 	}
 }
+Quick
 TimesPerTurn 2
 Text Auto: This ability activates up to 2 times per turn. When your other 《Quintuplets》 character is placed on the stage from your hand, this card gets +1500 power until end of turn.
 Auto: OnReverseOpponent
@@ -1487,6 +1490,7 @@ Auto: OnAttack
 		GainPower 2000
 	}
 }
+Quick
 Text Auto: When this card attacks, if you have 2 or more other 《Quintuplets》 characters, this card gets +2000 power until end of turn.
 EndCard
 
@@ -1812,6 +1816,7 @@ Auto: OnClimaxPlay
 		}
 	}
 }
+Quick
 Text Auto: When your climax with Door in its trigger icon is placed on your climax area, this card gets +1000 power and the following ability until end of turn. "Auto: [(1)] When this card attacks, you may pay the cost. If you do, during that attack, perform a trigger check 2 times on the trigger step."
 *RedLevel1Bomb
 EndCard
@@ -1924,6 +1929,7 @@ Auto: OnClimaxPlay
 {
 	GainPower 1500
 }
+Quick
 Text Auto: When your climax is placed on your climax area, this card gets +1500 power until end of turn.
 Auto: OnAttack
 {
@@ -1932,6 +1938,7 @@ Auto: OnAttack
 		GainPower 6000
 	}
 }
+Quick
 Text Auto: When this card attacks, if the character facing this card is level 3 or higher, this card gets +6000 power until end of turn.
 EndCard
 
@@ -1952,29 +1959,23 @@ Trait1 Quintuplets
 Trait2 Cooking
 *2000Assist
 *OnPlayDraw2Discard1
-Cont: GiveAll //update when onOtherStand or onStand is updated
+Auto: OnStand|OnOtherStand
 {
 	If Phase Climax || Phase Attack
 	{
-		GainEffect
+		TargetTop Deck 2
+		If Compare TargetCount 2 OrMore
 		{
-			Auto: OnStand
-			{
-				TargetTop Deck 2
-				If Compare TargetCount 2 OrMore
-				{
-					Reorder
-				}
-				Else
-				{
-					View
-				}
-				Message Choose a character to give +2000 power.
-				TargetLocation Stage
-				ChooseCharacterFromTargets 0 1 Any
-				GainPower 2000
-			}
+			Reorder
 		}
+		Else
+		{
+			View
+		}
+		Message Choose a character to give +2000 power.
+		TargetLocation Stage
+		ChooseCharacterFromTargets 0 1 Any
+		GainPower 2000
 	}
 }
 Text Auto: During your climax phase or your attack phase, when your character becomes Stand, look at up to 2 cards from the top of your deck, put them on the top of your deck in any order, choose 1 of your characters, it gets +2000 power until end of turn.
@@ -2403,19 +2404,13 @@ Power 4500
 Trait1 Quintuplets
 Trait2 Cooking
 *LevelAssistTrait(Quintuplets)
-Cont: GiveAll
+Auto: OnStand|OnOtherStand
 {
 	If Phase Climax || Phase Attack
 	{
-		GainEffect
+		PayCost Discard 1 Any
 		{
-			Auto: OnStand
-			{
-				PayCost Discard 1 Any
-				{
-					SearchWaitingRoom IsCharacter
-				}
-			}
+			SearchWaitingRoom IsCharacter
 		}
 	}
 }
@@ -2559,6 +2554,7 @@ Effect
 	LoseSoul 3
 }
 Text Counter: Choose 1 of your opponent's characters, it gets -3 soul until end of turn.
+Text <color=red> * This card is part of a 3C1 restriction alongside W90-E053 and W90-E061 in JP. </color>
 EndCard
 
 Climax: 5HY/W83-E101
@@ -2766,6 +2762,7 @@ Auto: OnClimaxPlay
 		GainPower 500
 	}
 }
+Quick
 Text Auto: When your climax with Gate in its trigger icon is placed on your climax area, all of your characters get +500 power until end of turn.
 Act: 1 RestSelf
 {
@@ -2965,6 +2962,7 @@ Auto: OnUseEvent
 {
 	GainPower 2000
 }
+Quick
 Text Auto: This ability activates up to 1 time per turn. When you play an event, this card gets +2000 power until end of turn.
 EndCard
 
@@ -3228,7 +3226,7 @@ Cont: GiveAll
 Text Cont: During your opponent's turn, all of your other 《Quintuplets》 characters get +1000 power.
 Act: RestSelf
 {
-	TargetLocation OpponentStage
+	TargetLocation OpponentBackstage
 	SetXValue OpponentsLevel
 	AddToXValue 1
 	NarrowTargets Compare ThatCardsLevel X OrHigher
@@ -3719,6 +3717,7 @@ Auto: OnAttack
 		GainPower 2000
 	}
 }
+Quick
 Text Auto: When this card attacks, if you have 2 or more other 《Quintuplets》 characters, this card gets +2000 power until end of turn.
 EndCard
 
@@ -3940,6 +3939,7 @@ Auto: OnPlay
 		GainPower 2000
 	}
 }
+Quick
 Text Auto: When this card is placed on the stage from your hand, if you have another 《Quintuplets》 character, this card gets +2000 power until end of turn.
 EndCard
 
@@ -4757,6 +4757,7 @@ Auto: OnOtherPlacedOnStageFromHand
 		GainPower 2000
 	}	
 }
+Quick
 TimesPerTurn 2
 Text Auto: This ability activates up to 2 times per turn. When your other 《Quintuplets》 character is placed on the stage from your hand, this card gets +2000 power until end of turn.
 EndCard
@@ -5006,6 +5007,7 @@ Auto: OnAttack
 		GainPower 1500
 	}
 }
+Quick
 Text Auto: When this card attacks, if you have another 《Quintuplets》 character, this card gets +1500 power until end of turn.
 Auto: OnSentFromStageToWaitingRoom
 {

@@ -128,21 +128,25 @@ Power 2000
 Trait1 Fleet Girl
 Trait2 Destroyer
 *GlobalPower(500,Fleet Girl)
-Auto: OnCardSentFromAToB WaitingRoom Hand|OnOpponentCardSentFromAToB OpponentWaitingRoom OpponentHand
+Auto: OnCardSentFromWaitingRoomToHand|OnOpponentCardSentFromWaitingRoomToHand
 {
-	IfOther IsCharacter
+	If Phase Attack
 	{
-		IfOther MyCard
+		IfOther IsCharacter
 		{
-			TargetLocation Stage
-			LoseSoul 3
-		}
-		Else
-		{
-			TargetLocation OpponentStage
-			LoseSoul 3
-		}
+			IfOther MyCard
+			{
+				TargetLocation Stage
+				LoseSoul 3
+			}
+			Else
+			{
+				TargetLocation OpponentStage
+				LoseSoul 3
+			}
+		}	
 	}
+
 }
 Text Auto: During the attack phase, when your character or your opponent's character is returned to hand from the waiting room, all of that player's characters get -3 soul until end of turn.
 EndCard
@@ -653,10 +657,7 @@ Effect:
 	{
 		TargetBattleOpponent
 		NarrowTargets CanBeChosen
-		GainEffect
-		{
-			GainSpecialEffect CannotDealDamage
-		}
+		GainSpecialEffect CannotDealDamage
 	}
 	Else
 	{
@@ -708,11 +709,14 @@ Auto: StartClimaxPhase
 Text Auto: At the beginning of your climax phase, put all cards from your stock into your waiting room, and all of your characters get +1000 power until the end of your opponent's next turn.
 Auto: OnReverseOpponent
 {
-	Question Put the reversed opponent into their clock?
-	If Yes
+	If Climax Akagi of the First Carrier Division is up next!
 	{
-		TargetBattleOpponent
-		MoveCard OpponentClock
+		Question Put the reversed opponent into their clock?
+		If Yes
+		{
+			TargetBattleOpponent
+			MoveCard OpponentClock
+		}
 	}
 }
 Text Auto: When this card's battle opponent becomes reversed, if a card named "Akagi of the First Carrier Division is up next!" is in your climax area, you may put that character into your opponent's clock.
@@ -745,6 +749,7 @@ Auto: StartOpponentAttackPhase
 	{
 		TargetLocation OpponentStage
 		NarrowTargets CanBeChosen
+		ChooseCharacterFromTargets
 		GainSoul 4
 	}
 }
@@ -773,7 +778,6 @@ Cont: InHand
 	SetXValue TargetCount
 	If Compare X 1 OrLess
 	{
-		TargetSelf
 		GainSpecialEffect CannotBePlayed
 	}
 }
@@ -789,7 +793,7 @@ Cont: GiveSelf
 	}
 }
 Text Cont: If the number of cards in your stock is four or more, this card gets +1000 power.
-Auto: OnOpponentCardSentFromAToB OpponentWaitingRoom OpponentHand
+Auto: OnOpponentCardSentFromWaitingRoomToHand
 {
 	IfOther IsCharacter
 	{
@@ -876,7 +880,7 @@ Soul 2
 Trait1 Fleet Girl
 Trait2 Light Aircraft Carrier
 *1500Assist
-Auto: OnOpponentCardSentFromAToB OpponentWaitingRoom OpponentHand
+Auto: OnOpponentCardSentFromWaitingRoomToHand
 {
 	IfOther IsCharacter
 	{
@@ -1261,11 +1265,21 @@ Auto: OnOpponentHealToWaitingRoom|OnHealToWaitingRoom
 {
 	IfOther MyCard
 	{
-		Question Put the top two cards of your stock into your waiting room? If you do not, you will put the top card of your deck into your clock.
-		If Yes
+		TargetLocation Stock
+		SetXValue TargetCount
+		If Compare X 2 OrMore
 		{
-			TargetTop Stock 2
-			MoveCard WaitingRoom
+			Question Put the top two cards of your stock into your waiting room? If you do not, you will put the top card of your deck into your clock.
+			If Yes
+			{
+				TargetTop Stock 2
+				MoveCard WaitingRoom
+			}
+			Else
+			{
+				TargetTop Deck 1
+				MoveCard Clock
+			}
 		}
 		Else
 		{
@@ -1275,10 +1289,20 @@ Auto: OnOpponentHealToWaitingRoom|OnHealToWaitingRoom
 	}
 	Else
 	{
-		OpponentQuestion Put the top two cards of your stock into your waiting room? If you do not, you will put the top card of your deck into your clock.
-		If Yes
+		TargetLocation OpponentStock
+		SetXValue TargetCount
+		If Compare X 2 OrMore
 		{
-			OpponentPay 2
+			OpponentQuestion Put the top two cards of your stock into your waiting room? If you do not, you will put the top card of your deck into your clock.
+			If Yes
+			{
+				OpponentPay 2
+			}
+			Else
+			{
+				TargetTop OpponentDeck 1
+				MoveCard OpponentClock
+			}
 		}
 		Else
 		{
@@ -1286,7 +1310,6 @@ Auto: OnOpponentHealToWaitingRoom|OnHealToWaitingRoom
 			MoveCard OpponentClock
 		}
 	}
-
 }
 InMemory
 Text Auto: MEMORY If this card is in your memory, when your card or your opponent's card in the clock is put into the waiting room due to the respective player's card effects, that player may put the top two cards from the stock into the waiting room. If not, that player puts the top card of the deck into the clock.
@@ -1987,33 +2010,32 @@ Soul 2
 Trait1 Fleet Girl
 Trait2 Light Cruiser
 Combo Torpedo Squadron, Charge!
-Cont: InHand
+HandAction 0
 {
+	PlaceOnStage False True True False
 	If StageContains 1 NameEquals 2nd Nagara-class Light Cruiser, Isuzu
 	{
-		ChangeCost 2
-		GainEffect
+		Question Put a 2nd Nagara-class Light Cruiser, Isuzu into waiting room? You will pay 2 stock if you don't.
+		If Yes
 		{
-			Auto: OnPlay
-			{
-				Question Put a 2nd Nagara-class Light Cruiser, Isuzu into your waiting room?
-				If Yes
-				{
-					TargetLocation Stage
-					NarrowTargets NameEquals 2nd Nagara-class Light Cruiser, Isuzu
-					ChooseCharacterFromTargets
-					MoveCard WaitingRoom
-				}
-				If No
-				{
-					TargetTop Stock 2
-					MoveCard WaitingRoom
-				}
-			}
+			TargetLocation Stage
+			NarrowTargets NameEquals 2nd Nagara-class Light Cruiser, Isuzu
+			ChooseCharacterFromTargets
+			MoveCard WaitingRoom
+		}
+		Else
+		{
+			TargetTop Stock 2
+			MoveCard WaitingRoom
 		}
 	}
-
+	Else
+	{
+		TargetTop Stock 2
+		MoveCard WaitingRoom
+	}
 }
+ActivationRequirement StageContains 1 NameEquals 2nd Nagara-class Light Cruiser, Isuzu && Compare MyLevel 2 OrMore && LocationContains Level 1 IsColor Red ||| LocationContains Clock 1 IsColor Red
 Text Cont: When this card is played from your hand, you may choose one of your cards named "2nd Nagara-class Light Cruiser, Isuzu", and put it into your waiting room. If you do, you may play this card with 0 cost.
 Auto: OnAttack
 {

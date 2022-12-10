@@ -29,6 +29,7 @@ I will continue to work on sets I am interested in. I am open to taking requests
 ### In Testing:
 * Kantai Collection vol. 1
 * Log Horizon (+ Power-Up Set)
+* The Quintessential Quintuplets Movie
 
 ### Currently working on:
 * N/A
@@ -42,7 +43,6 @@ I will continue to work on sets I am interested in. I am open to taking requests
 * Love Live! (only the OG sets)
 
 #### JP:
-* The Quintessential Quintuplets Movie
 * Clannad (stand-alone sets + relevant cards in crossover sets like Key All-Stars)
 * Shin Sakura Taisen
 * Love Live! Nijigasaki

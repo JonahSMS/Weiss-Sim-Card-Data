@@ -87,8 +87,10 @@ Act: RestSelf
 	AddToXValue TargetCount
 	If Compare X 5 OrLess
 	{
-		Message Choose up to 1 character with "Irreplaceable Bond" in its card name from your waiting room, put it under this as a marker. You should choose "Irreplaceable Bond, Ichika Nakano", "Irreplaceable Bond, Nino Nakano", "Irreplaceable Bond, Miku Nakano", "Irreplaceable Bond, Yotsuba Nakano", and "Irreplaceable Bond, Itsuki Nakano" only ONCE each.
-		SearchLocationForTargets WaitingRoom 0 1 NameContains Irreplaceable Bond
+		TargetLocation Marker
+		SaveTargets
+		Message Choose up to 1 character with "Irreplaceable Bond" in its card name from your waiting room, put it under this as a marker.
+		SearchLocationForTargets WaitingRoom 0 1 NameContains Irreplaceable Bond && Not SameNameAsSavedTarget
 		Marker_FaceUp
 	}
 }
@@ -370,39 +372,28 @@ Color Y
 Level 0
 Cost 0
 Power 500
-Cont: Alarm
+Auto: StartMainPhase
 {
-	GainEffect
+
+	Question Draw a card?
+	If Yes
 	{
-		Auto: StartMainPhase
-		{
-			Question Draw a card?
-			If Yes
-			{
-				DrawCard
-				Discard 1 Any
-			}
-		}
-		Auto: If this card is the top card of your clock, at the beginning of your main phase, you may draw 1 card. If you do, choose 1 card in your hand, and put it into your waiting room.
+		DrawCard
+		Discard 1 Any
 	}
 }
+Alarm
 Text Auto: 【CLOCK】 ALARM If this card is the top card of your clock, at the beginning of your main phase, you may draw 1 card. If you do, choose 1 card in your hand, and put it into your waiting room.
-Cont: Alarm
+Auto: StartClimaxPhase
 {
 	If StageContains 3 HasTrait Quintuplets
 	{
-		GainEffect
-		{
-			Auto: StartClimaxPhase
-			{
-				TargetLocation Stage
-				ChooseCharacterFromTargets
-				GainPower 2000
-			}
-			Text Auto: If this card is the top card of your clock, and you have 3 or more 《Quintuplets》 characters, at the beginning of your climax phase, choose 1 of your characters, it gets +2000 power until end of turn.
-		}
+		TargetLocation Stage
+		ChooseCharacterFromTargets
+		GainPower 2000
 	}
 }
+Alarm
 Text Auto: 【CLOCK】 ALARM If this card is the top card of your clock, and you have 3 or more 《Quintuplets》 characters, at the beginning of your climax phase, choose 1 of your characters, it gets +2000 power until end of turn.
 EndCard
 
@@ -576,7 +567,7 @@ Trait2 Ribbon
 *OnAttackGivePowerForEachOther(500,Quintuplets)
 Auto: OnReversed
 {
-	If OpponentsTurn
+	If OpponentsTurn && InLocation Stage
 	{
 		PayCost 1
 		{
@@ -586,7 +577,11 @@ Auto: OnReversed
 				Effect:
 				{
 					TargetSelf
-					MoveCard Memory
+					If InLocation Stage
+					{
+						MoveCard Memory
+					}
+					
 				}
 			}
 		}
@@ -726,6 +721,7 @@ Auto: OnUseAct
 		GainPower 3000
 	}
 }
+Quick
 TimesPerTurn 1
 Text Auto: This ability activates up to 1 time per turn. When you use an Act:, if you have another 《Quintuplets》 character, this card gets +3000 power until end of turn.
 EndCard
@@ -1273,6 +1269,7 @@ Auto: OnUseAct
 {
 	GainPower 1500
 }
+Quick
 TimesPerTurn 1
 Text Auto: This ability activates up to 1 time per turn. When you use an Act:, this card gets +1500 power until end of turn.
 Auto: OnAttack
@@ -1351,7 +1348,6 @@ Trait2 Cooking
 Combo Straightforward Feelings
 ConditionalTrigger LoneStandby Climax Straightforward Feelings
 Text If "Straightforward Feelings" is in your climax area, this card in all of your zones get Standby in the trigger icon.
-// Currently not working in 0.4.3.1, will be fixed in next game update
 Cont: GiveSelf
 {
 	If MyTurn &&& StageContains 2 Other && HasTrait Quintuplets
@@ -1371,7 +1367,8 @@ Auto: OnEndOfAttack
 		}
 	}
 }
-Text Auto: CxCombo [(1) Put 1 card from your hand into your waiting room] At the end of this card's attack, if "Straightforward Feelings" is in your climax area, and you have 2 or more other 《Quintuplets》 characters, you may pay the cost. If you do, deal 3 damage to your opponent. 
+Text Auto: CxCombo [(1) Put 1 card from your hand into your waiting room] At the end of this card's attack, if "Straightforward Feelings" is in your climax area, and you have 2 or more other 《Quintuplets》 characters, you may pay the cost. If you do, deal 3 damage to your opponent.
+Text <color=red> * This card is limited to 2 copies in the JP format. </color>
 EndCard
 
 Character: 5HY/W90-E053
@@ -1400,7 +1397,8 @@ Auto: OnPlay
 		SearchWaitingRoom IsCharacter && Compare ThatCardsLevel X OrLower
 	}
 }
-Text Auto: [Put 1 card from your hand into your waiting room] When this card is placed on the stage from your hand, you may pay the cost. If you do, reveal the top card of your deck, choose 1 level X or lower character in your waiting room, and return it to your hand. X is equal to the level of the revealed card. 
+Text Auto: [Put 1 card from your hand into your waiting room] When this card is placed on the stage from your hand, you may pay the cost. If you do, reveal the top card of your deck, choose 1 level X or lower character in your waiting room, and return it to your hand. X is equal to the level of the revealed card.
+Text <color=red> * This card is part of a 3C1 restriction alongside W90-E061 and W83-E100 in JP. </color>
 EndCard
 
 Character: 5HY/W90-E054
@@ -1637,6 +1635,7 @@ Act: 1 Rest 2 Any
 	}
 }
 Text Act: BRAINSTORM [(1) Rest 2 of your characters] Flip over 5 cards from the top of your deck, and put them into your waiting room. For each climax revealed among those cards, search your deck for up to 1 character with "Ichika" in its card name, reveal it to your opponent, put it into your hand, and shuffle your deck.
+Text <color=red> * This card is part of a 3C1 restriction alongside W90-E053 and W83-E100 in JP. </color>
 EndCard
 
 Character: 5HY/W90-E062
@@ -2875,10 +2874,6 @@ Clone 5HY/W90-E002
 Image 5HY_W90_E002SSP
 EndCard
 
-Character: 5HY/W90-E003S
-Clone 5HY/W90-E003
-Image 5HY_W90_E003S
-EndCard
 
 Character: 5HY/W90-E003S
 Clone 5HY/W90-E003
@@ -3372,27 +3367,4 @@ Clone 5HY/W90-E100
 Image 5HY_W90_E100R
 EndCard
 
-Character: 5HY/W90-PE02S
-Clone 5HY/W90-PE02
-Image 5HY_W90_PE02S
-EndCard
 
-Character: 5HY/W90-PE03S
-Clone 5HY/W90-PE03
-Image 5HY_W90_PE03S
-EndCard
-
-Character: 5HY/W90-PE04S
-Clone 5HY/W90-PE04
-Image 5HY_W90_PE04S
-EndCard
-
-Character: 5HY/W90-PE05S
-Clone 5HY/W90-PE05
-Image 5HY_W90_PE05S
-EndCard
-
-Character: 5HY/W90-PE06S
-Clone 5HY/W90-PE06
-Image 5HY_W90_PE06S
-EndCard

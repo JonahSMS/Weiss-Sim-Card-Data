@@ -1,10 +1,13 @@
-Series: The Quintessential Quintuplets
+Series: Quintessential Quintuplets
 Folder: Quintuplets/W83
 Prefix: 5HY/W83
-SetName: The Quintessential Quintuplets
+SetName: Volume 1 (W83)
 
-Series: The Quintessential Quintuplets
 Folder: Quintuplets/W90
 Prefix: 5HY/W90
-SetName: The Quintessential Quintuplets 2
+SetName: Volume 2 (W90)
+
+Folder: Quintuplets/W101
+Prefix: 5HY/W101
+SetName: Movie Set (W101)
 

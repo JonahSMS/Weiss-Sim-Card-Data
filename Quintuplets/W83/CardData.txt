@@ -36,7 +36,6 @@ Auto: OnSpecificClimaxPlay Surprise Approach
 		}
 	}
 }
-TimesPerTurn: 1
 Text Auto: CxCombo [(1) Put 1 《Quintuplets》 character from your hand into your waiting room] When "Surprise Approach" is placed on your climax area, if you have 2 or more other 《Quintuplets》 characters, you may pay the cost. If you do, this card gets the following ability until end of turn. "Auto: This ability activates up to 1 time per turn. When damage dealt by this card is canceled, you may deal 2 damage to your opponent 2 times."
 EndCard
 
@@ -61,6 +60,7 @@ Auto: OnAttack
 		GainPower 1500
 	}
 }
+Quick
 Text Auto: When this card attacks, if you have another 《Quintuplets》 character, this card gets +1500 power until end of turn.
 Auto: OnAttack
 {
@@ -122,10 +122,6 @@ Text Auto: When this card is placed on the stage from your hand, put the top 2 c
 *OnPlayTradeClimaxForCharacter(Quintuplets)
 EndCard
 
-Character: 5HY/W83-E004S
-Clone 5HY/W83-E004
-Image 5HY_W83_E004S
-EndCard
 
 Character: 5HY/W83-E005
 Name Habit of Undressing, Ichika Nakano
@@ -157,10 +153,6 @@ Act: 1 RestSelf
 Text Act: BRAINSTORM [(1) Rest this card] Flip over 4 cards from the top of your deck, and put them into your waiting room. For each climax with in its trigger icon revealed among those cards, search your deck for up to 1 《Quintuplets》 character, reveal it to your opponent, put it into your hand, and shuffle your deck.
 EndCard
 
-Character: 5HY/W83-E005S
-Clone 5HY/W83-E005
-Image 5HY_W83_E005S
-EndCard
 
 Character: 5HY/W83-E006
 Name One Step Forward, Ichika Nakano
@@ -185,10 +177,6 @@ Cont: GiveSelf
 Text Cont: During your turn, if all of your characters have "Ichika" in their card names, this card gets +2000 power and the following ability. "Auto: [(1)] When this card attacks, you may pay the cost. If you do, during that attack, perform a trigger check 2 times on the trigger step."
 EndCard
 
-Character: 5HY/W83-E006S
-Clone 5HY/W83-E006
-Image 5HY_W83_E006S
-EndCard
 
 Character: 5HY/W83-E007
 Name Intimate Sisters, Ichika Nakano
@@ -208,10 +196,7 @@ Auto: OnSentFromStageToWaitingRoom
 Text Auto: [(1) Put the top card of your deck into your clock] When this card is put into your waiting room from the stage, you may pay the cost. If you do, look at up to 2 cards from the top of your deck, choose up to 2 《Quintuplets》 characters from among them, reveal them to your opponent, put them into your hand, and put the rest into your waiting room.
 EndCard
 
-Character: 5HY/W83-E007S
-Clone 5HY/W83-E007
-Image 5HY_W83_E007S
-EndCard
+
 
 Character: 5HY/W83-E008
 Name Overflowing Charm, Ichika Nakano
@@ -235,10 +220,6 @@ Cont: GiveSelf
 Text Cont: During your turn, if all of your characters have "Ichika" in their card names, this card gets +2000 power and the following ability. "Auto: [(1)] When this card attacks, you may pay the cost. If you do, during that attack, perform a trigger check 2 times on the trigger step."
 EndCard
 
-Character: 5HY/W83-E008S
-Clone 5HY/W83-E008
-Image 5HY_W83_E008S
-EndCard
 
 Character: 5HY/W83-E009
 Name Test of Courage, Yotsuba Nakano
@@ -256,6 +237,7 @@ Auto: OnPlay
 		GainPower 2000
 	}
 }
+Quick
 Text Auto: When this card is placed on the stage from your hand, if you have another 《Quintuplets》 character, this card gets +2000 power until end of turn.
 Auto: OnReverseOpponent
 {
@@ -273,10 +255,6 @@ Auto: OnReverseOpponent
 Text Auto: CxCombo When this card's battle opponent becomes reversed, if "Impersonating Ghosts" is in your climax area, put up to 1 card from the top of your deck into your stock, and reveal the top card of your deck. If that card is level 1 or higher, put it into your hand.
 EndCard
 
-Character: 5HY/W83-E009S
-Clone 5HY/W83-E009
-Image 5HY_W83_E009S
-EndCard
 
 Character: 5HY/W83-E010
 Name Yotsuba Check, Yotsuba Nakano
@@ -290,10 +268,6 @@ Trait2 Ribbon
 *YellowLevel1Bomb
 EndCard
 
-Character: 5HY/W83-E010S
-Clone 5HY/W83-E010
-Image 5HY_W83_E010S
-EndCard
 
 Character: 5HY/W83-E011
 Name In a Jersey, Yotsuba Nakano
@@ -335,11 +309,6 @@ Auto: StartOpponentAttackPhase
 	}
 }
 Text Auto: [Put 1 climax from your hand into your waiting room] At the beginning of your opponent's attack phase, you may pay the cost. If you do, choose this card and 1 of your other 《Quintuplets》 characters, exchange them as standing, and that 《Quintuplets》 character gets +1000 power until end of turn.
-EndCard
-
-Character: 5HY/W83-E011S
-Clone 5HY/W83-E011
-Image 5HY_W83_E011S
 EndCard
 
 Character: 5HY/W83-E012
@@ -457,7 +426,7 @@ Auto: OnTriggerCheck
 		}
 	}
 }
-Text Auto: [Put 1 《Quintuplets》 character from your hand into your waiting room] When your character's trigger check reveals a climax with in its trigger icon, you may pay the cost. If you do, look at up to 2 cards from the top of your deck, choose up to 1 card from among them, put it into your hand, and put the rest into your waiting room.
+Text Auto: [Put 1 《Quintuplets》 character from your hand into your waiting room] When your character's trigger check reveals a climax with Choice in its trigger icon, you may pay the cost. If you do, look at up to 2 cards from the top of your deck, choose up to 1 card from among them, put it into your hand, and put the rest into your waiting room.
 EndCard
 
 Character: 5HY/W83-E017
@@ -563,8 +532,10 @@ Cont: GiveSelf
 Text Cont: If this card is in the stage, this card’s card name will also be regarded as “Yotsuba Nakano(中野 四葉)”.
 Auto: OnReversed
 {
-	MoveCard BottomOfDeck
-
+	If InLocation Stage
+	{
+		MoveCard BottomOfDeck
+	}
 }
 Text Auto: When this card becomes reversed in battle, put this card at the bottom of your deck.
 EndCard
@@ -685,6 +656,7 @@ Auto: OnAttack
 			Auto: StartOpponentAttackPhase
 			{
 				TargetLocation OpponentStage
+				ChooseCharacterFromTargets
 				LoseSoul 2
 			}
 		}
@@ -818,11 +790,6 @@ Auto: OnAttack
 Text Auto: When this card attacks, choose 1 of your characters, it gets +1000 power until end of turn.
 EndCard
 
-Character: 5HY/W83-E032S
-Clone 5HY/W83-E032
-Image 5HY_W83_E032S
-EndCard
-
 Character: 5HY/W83-E033
 Name Worst Timing, Itsuki Nakano
 Color G
@@ -840,11 +807,6 @@ Auto: OnPlay
 	}
 }
 Text Auto: [Put 1 《Quintuplets》 character from your hand into your waiting room] When this card is placed on the stage from your hand, you may pay the cost. If you do, draw 1 card.
-EndCard
-
-Character: 5HY/W83-E033S
-Clone 5HY/W83-E033
-Image 5HY_W83_E033S
 EndCard
 
 Character: 5HY/W83-E034
@@ -880,10 +842,6 @@ Auto: OnPlay
 Text Auto: [Put 1 card from your hand into your waiting room] When this card is placed on the stage from your hand, put the top 2 cards of your deck into your waiting room. If there is a climax among those cards, you may pay the cost. If you do, choose 1 character in your waiting room, and return it to your hand.
 EndCard
 
-Character: 5HY/W83-E034S
-Clone 5HY/W83-E034
-Image 5HY_W83_E034S
-EndCard
 
 Character: 5HY/W83-E035
 Name Intimate Sisters, Yotsuba Nakano
@@ -921,10 +879,6 @@ Auto: OnTriggerCheckClimax
 Text Auto: When your character's trigger check reveals a climax with Bar in its trigger icon, you may draw 2 cards. If you do, choose 2 cards in your hand, and put them into your waiting room.
 EndCard
 
-Character: 5HY/W83-E035S
-Clone 5HY/W83-E035
-Image 5HY_W83_E035S
-EndCard
 
 Character: 5HY/W83-E036
 Name Scorning Eyes, Miku Nakano
@@ -959,10 +913,7 @@ Auto: OnPlay
 Text Auto: When this card is placed on the stage from your hand, draw up to 1 card, choose 1 of your opponent's characters, it gets the following ability until end of turn. "Cont: During this card's battle, you cannot play event cards or "BACKUP" from your hand."
 EndCard
 
-Character: 5HY/W83-E036S
-Clone 5HY/W83-E036
-Image 5HY_W83_E036S
-EndCard
+
 
 Character: 5HY/W83-E037
 Name Awkward Atmosphere, Itsuki Nakano
@@ -1000,10 +951,6 @@ Act: Discard 1 Any
 Text Act: [Put 1 card from your hand into your waiting room] Choose 1 of your 《Quintuplets》 characters, it gets +2500 power until end of turn.
 EndCard
 
-Character: 5HY/W83-E037S
-Clone 5HY/W83-E037
-Image 5HY_W83_E037S
-EndCard
 
 Character: 5HY/W83-E038
 Name Each and Everyone's Strengths, Yotsuba Nakano
@@ -1241,7 +1188,7 @@ Trait1 Quintuplets
 Trait2 Headphone
 Cont: GiveSelf
 {
-	If StageContains 2 NameContains Miku
+	If StageContains 2 Other && NameContains Miku
 	{
 		GainPower 2000
 	}
@@ -1324,6 +1271,7 @@ Auto: OnOtherPlacedOnStageFromHand
 		GainPower 1500
 	}
 }
+Quick
 TimesPerTurn 2
 Text Auto: This ability activates up to 2 times per turn. When your other 《Quintuplets》 character is placed on the stage from your hand, this card gets +1500 power until end of turn.
 Auto: OnReverseOpponent
@@ -1487,6 +1435,7 @@ Auto: OnAttack
 		GainPower 2000
 	}
 }
+Quick
 Text Auto: When this card attacks, if you have 2 or more other 《Quintuplets》 characters, this card gets +2000 power until end of turn.
 EndCard
 
@@ -1788,10 +1737,7 @@ Text Auto: When your climax with Door in its trigger icon is placed on your clim
 *Act1RestSelfSalvageBrainstorm(Any)
 EndCard
 
-Character: 5HY/W83-E069S
-Clone 5HY/W83-E069
-Image 5HY_W83_E069S
-EndCard
+
 
 Character: 5HY/W83-E070
 Name Knowing the Circumstances, Itsuki Nakano
@@ -1812,14 +1758,11 @@ Auto: OnClimaxPlay
 		}
 	}
 }
+Quick
 Text Auto: When your climax with Door in its trigger icon is placed on your climax area, this card gets +1000 power and the following ability until end of turn. "Auto: [(1)] When this card attacks, you may pay the cost. If you do, during that attack, perform a trigger check 2 times on the trigger step."
 *RedLevel1Bomb
 EndCard
 
-Character: 5HY/W83-E070S
-Clone 5HY/W83-E070
-Image 5HY_W83_E070S
-EndCard
 
 Character: 5HY/W83-E071
 Name Under the Moonlight, Nino Nakano
@@ -1846,10 +1789,6 @@ Auto: OnSpecificClimaxPlay Moonlit Invitation
 Text Auto: CxCombo [(1)] When "Moonlit Invitation" is placed on your climax area, if this card is in your center stage, you may pay the cost. If you do, choose 1 of your other 《Quintuplets》 characters, and Stand it.
 EndCard
 
-Character: 5HY/W83-E071S
-Clone 5HY/W83-E071
-Image 5HY_W83_E071S
-EndCard
 
 Character: 5HY/W83-E072
 Name Intimate Sisters, Itsuki Nakano
@@ -1881,10 +1820,6 @@ Act: RestSelf Discard 1 NameEquals The Quintessential Quintuplets, Itsuki Nakano
 Text Act: [Put 1 "The Quintessential Quintuplets, Itsuki Nakano" from your hand into your waiting room & Rest this card] Choose 1 of your 《Quintuplets》 characters, it gets +5500 power until end of turn.
 EndCard
 
-Character: 5HY/W83-E072S
-Clone 5HY/W83-E072
-Image 5HY_W83_E072S
-EndCard
 
 Character: 5HY/W83-E073
 Name Belligerent, Itsuki Nakano
@@ -1906,10 +1841,6 @@ Text Auto: [(2) Put 1 character from your stage into your waiting room] When you
 Backup 2500
 EndCard
 
-Character: 5HY/W83-E073S
-Clone 5HY/W83-E073
-Image 5HY_W83_E073S
-EndCard
 
 Character: 5HY/W83-E074
 Name Unknown Truth, Ichika Nakano
@@ -1924,6 +1855,7 @@ Auto: OnClimaxPlay
 {
 	GainPower 1500
 }
+Quick
 Text Auto: When your climax is placed on your climax area, this card gets +1500 power until end of turn.
 Auto: OnAttack
 {
@@ -1932,13 +1864,11 @@ Auto: OnAttack
 		GainPower 6000
 	}
 }
+Quick
 Text Auto: When this card attacks, if the character facing this card is level 3 or higher, this card gets +6000 power until end of turn.
 EndCard
 
-Character: 5HY/W83-E074S
-Clone 5HY/W83-E074
-Image 5HY_W83_E074S
-EndCard
+
 
 Character: 5HY/W83-E075
 Name Intimate Sisters, Nino Nakano
@@ -1952,38 +1882,28 @@ Trait1 Quintuplets
 Trait2 Cooking
 *2000Assist
 *OnPlayDraw2Discard1
-Cont: GiveAll //update when onOtherStand or onStand is updated
+Auto: OnStand|OnOtherStand
 {
 	If Phase Climax || Phase Attack
 	{
-		GainEffect
+		TargetTop Deck 2
+		If Compare TargetCount 2 OrMore
 		{
-			Auto: OnStand
-			{
-				TargetTop Deck 2
-				If Compare TargetCount 2 OrMore
-				{
-					Reorder
-				}
-				Else
-				{
-					View
-				}
-				Message Choose a character to give +2000 power.
-				TargetLocation Stage
-				ChooseCharacterFromTargets 0 1 Any
-				GainPower 2000
-			}
+			Reorder
 		}
+		Else
+		{
+			View
+		}
+		Message Choose a character to give +2000 power.
+		TargetLocation Stage
+		ChooseCharacterFromTargets 0 1 Any
+		GainPower 2000
 	}
 }
 Text Auto: During your climax phase or your attack phase, when your character becomes Stand, look at up to 2 cards from the top of your deck, put them on the top of your deck in any order, choose 1 of your characters, it gets +2000 power until end of turn.
 EndCard
 
-Character: 5HY/W83-E075S
-Clone 5HY/W83-E075
-Image 5HY_W83_E075S
-EndCard
 
 Character: 5HY/W83-E076
 Name In a Santa Suit, Ichika Nakano
@@ -2010,10 +1930,7 @@ Auto: OnAttack
 Text Auto: When this card attacks, if you have 4 or more other 《Quintuplets》 characters, choose 1 of your characters, it gets +2500 power and +1 soul until end of turn.
 EndCard
 
-Character: 5HY/W83-E076S
-Clone 5HY/W83-E076
-Image 5HY_W83_E076S
-EndCard
+
 
 Character: 5HY/W83-E077
 Name Drawing Back, Ichika Nakano
@@ -2403,19 +2320,13 @@ Power 4500
 Trait1 Quintuplets
 Trait2 Cooking
 *LevelAssistTrait(Quintuplets)
-Cont: GiveAll
+Auto: OnStand|OnOtherStand
 {
 	If Phase Climax || Phase Attack
 	{
-		GainEffect
+		PayCost Discard 1 Any
 		{
-			Auto: OnStand
-			{
-				PayCost Discard 1 Any
-				{
-					SearchWaitingRoom IsCharacter
-				}
-			}
+			SearchWaitingRoom IsCharacter
 		}
 	}
 }
@@ -2559,6 +2470,7 @@ Effect
 	LoseSoul 3
 }
 Text Counter: Choose 1 of your opponent's characters, it gets -3 soul until end of turn.
+Text <color=red> * This card is part of a 3C1 restriction alongside W90-E053 and W90-E061 in JP. </color>
 EndCard
 
 Climax: 5HY/W83-E101
@@ -2628,6 +2540,7 @@ Auto: OnEndOfAttack
 		}
 	}
 }
+TimesPerTurn 1
 Text Auto: CxCombo [(2)] This ability activates up to 1 time per turn. At the end of this card's attack, if "A White Lie" is in your climax area, and you have another 《Quintuplets》 character, you may pay the cost. If you do, Stand this card.
 EndCard
 
@@ -2766,6 +2679,7 @@ Auto: OnClimaxPlay
 		GainPower 500
 	}
 }
+Quick
 Text Auto: When your climax with Gate in its trigger icon is placed on your climax area, all of your characters get +500 power until end of turn.
 Act: 1 RestSelf
 {
@@ -2782,10 +2696,7 @@ Act: 1 RestSelf
 Text Act: BRAINSTORM [(1) Rest this card] Flip over 4 cards from the top of your deck, and put them into your waiting room. For each climax with in its trigger icon revealed among those cards, search your deck for up to 1 《Quintuplets》 character, reveal it to your opponent, put it into your hand, and shuffle your deck.
 EndCard
 
-Character: 5HY/W83-E110S
-Clone 5HY/W83-E110
-Image 5HY_W83_E110S
-EndCard
+
 
 Character: 5HY/W83-E111
 Name Secret Ingredient, Miku Nakano
@@ -2821,10 +2732,7 @@ Auto: OnAttack
 Text Auto: When this card attacks, if you have another character with "Miku" in its card name, this card gets +3000 power until end of turn.
 EndCard
 
-Character: 5HY/W83-E111S
-Clone 5HY/W83-E111
-Image 5HY_W83_E111S
-EndCard
+
 
 Character: 5HY/W83-E112
 Name Heartfelt, Miku Nakano
@@ -2937,11 +2845,6 @@ Text Cont: If all of your characters have "Nino" in their card names, this card 
 *Healer
 EndCard
 
-Character: 5HY/W83-E114S
-Clone 5HY/W83-E114
-Image 5HY_W83_E114S
-EndCard
-
 Character: 5HY/W83-E115
 Name Intimate Sisters, Miku Nakano
 Color B
@@ -2965,13 +2868,11 @@ Auto: OnUseEvent
 {
 	GainPower 2000
 }
+Quick
+TimesPerTurn 1
 Text Auto: This ability activates up to 1 time per turn. When you play an event, this card gets +2000 power until end of turn.
 EndCard
 
-Character: 5HY/W83-E115S
-Clone 5HY/W83-E115
-Image 5HY_W83_E115S
-EndCard
 
 Character: 5HY/W83-E116
 Name In a Yukata, Nino Nakano
@@ -3228,7 +3129,7 @@ Cont: GiveAll
 Text Cont: During your opponent's turn, all of your other 《Quintuplets》 characters get +1000 power.
 Act: RestSelf
 {
-	TargetLocation OpponentStage
+	TargetLocation OpponentBackstage
 	SetXValue OpponentsLevel
 	AddToXValue 1
 	NarrowTargets Compare ThatCardsLevel X OrHigher
@@ -3719,6 +3620,7 @@ Auto: OnAttack
 		GainPower 2000
 	}
 }
+Quick
 Text Auto: When this card attacks, if you have 2 or more other 《Quintuplets》 characters, this card gets +2000 power until end of turn.
 EndCard
 
@@ -3940,6 +3842,7 @@ Auto: OnPlay
 		GainPower 2000
 	}
 }
+Quick
 Text Auto: When this card is placed on the stage from your hand, if you have another 《Quintuplets》 character, this card gets +2000 power until end of turn.
 EndCard
 
@@ -4757,6 +4660,7 @@ Auto: OnOtherPlacedOnStageFromHand
 		GainPower 2000
 	}	
 }
+Quick
 TimesPerTurn 2
 Text Auto: This ability activates up to 2 times per turn. When your other 《Quintuplets》 character is placed on the stage from your hand, this card gets +2000 power until end of turn.
 EndCard
@@ -5006,6 +4910,7 @@ Auto: OnAttack
 		GainPower 1500
 	}
 }
+Quick
 Text Auto: When this card attacks, if you have another 《Quintuplets》 character, this card gets +1500 power until end of turn.
 Auto: OnSentFromStageToWaitingRoom
 {

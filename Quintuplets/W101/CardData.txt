@@ -27,7 +27,7 @@ Color Y
 Level 3
 Cost 2
 Trigger Soul
-Power 1000
+Power 10000
 Soul 2
 Trait1 Quintuplets
 Trait2 Stylish
@@ -54,6 +54,8 @@ Auto: OnAttack
 					ShuffleLocation OpponentDeck
 					Burn X
 				}
+				TimesPerTurn 1
+				Text Auto: Auto: This ability activates up to once per turn. When the damage dealt by this is cancelled, choose up to X cards in your opponent's waiting room and return them to their deck, your opponent shuffles their deck, and deal X damage to your opponent. X = # of your other 《Quintuplets》 Characters.
 			}
 		}
 	}
@@ -112,9 +114,12 @@ Auto: OnPlay
 Text Auto: When this card is placed on the stage from your hand, put the top 2 cards of your deck into your waiting room, and this card gets +X power until end of turn. X is 1000 times the number of characters with "Yotsuba" in name or "Reason of Transferring".
 Auto: OnReversed
 {
-	PayCost 1 Discard 1 Any SendSelf Memory
+	If InLocation Stage
 	{
-		SearchWaitingRoom IsCharacter && NameContains Yotsuba
+		PayCost 1 Discard 1 Any SendSelf Memory
+		{
+			SearchWaitingRoom IsCharacter && NameContains Yotsuba
+		}	
 	}
 }
 Text Auto: [(1) Discard a card from your hand to the waiting room, send this to memory] When this becomes reversed in battle, you may pay cost. If so, choose a character in your waiting room with "Yotsuba" in name and return it to your hand. 
@@ -384,7 +389,10 @@ Auto: OnPlay|OnPlacedOnStageFromMemory
 Text Auto: When this is placed from hand or memory to the stage, draw up to 2 cards, and discard a card from your hand to the Waiting Room.
 Auto: OnReversed
 {
-	MoveCard Memory
+	If InLocation Stage
+	{
+		MoveCard Memory
+	}
 }
 Text Auto: When this becomes reversed in battle, send this to memory.
 Auto: StartClimaxPhase
@@ -759,9 +767,12 @@ InMemory
 Text Cont: MEMORY If this is in your memory, all of your "'Special' Yotsuba Nakano" gain +500 power.
 Auto: OnReversed
 {
-	PayCost HandClock Any SendSelf Memory
+	If InLocation Stage
 	{
-		SearchDeck NameContains Yotsuba
+		PayCost HandClock Any SendSelf Memory
+		{
+			SearchDeck NameContains Yotsuba
+		}
 	}
 }
 Text Auto: [Put a card from your hand in your clock, send this to memory] When this becomes reversed in battle, you may pay cost. If so, search your deck for up to 1 character with "Yotsuba" in name, reveal it, put it in your hand, and shuffle your deck. 
@@ -1726,6 +1737,7 @@ Auto: OnUseAct
 	NarrowTargets NameContains Itsuki
 	SetXValue TargetCount
 	MultiplyXValue 500
+	TargetSelf
 	GainPower X
 }
 Quick
@@ -1748,6 +1760,7 @@ Auto: OnUseAct
 	}
 }
 Quick
+TimesPerTurn 1
 Text Auto: This ability activates up to once per turn. When you use an Act: ability, this gains the following ability for the turn. "Auto: When this attacks, reveal the top card of your deck. If it's level 1 or higher, put it in your stock."
 EndCard
 

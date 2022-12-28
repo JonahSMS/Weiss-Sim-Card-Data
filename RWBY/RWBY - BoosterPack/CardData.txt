@@ -1,0 +1,1474 @@
+// RWBY Booster Cards
+
+Character: RWBY/WX03-001
+Name Yang Xiao Long
+Color Y
+Level 0
+Cost 0
+Power 1500
+Trait1 Remnant
+Trait2 RWBY
+Auto: OnPlay
+{
+	TargetTop Deck 1
+	Reveal
+	IfTarget HasTrait Remnant
+	{
+		TargetLocation Stage
+		ChooseCharacterFromTargets
+		GainPower 2000
+	}
+}
+Text Auto: When this card is placed on the stage from your hand, reveal the top card of your deck. If that card is a 《Remnant》 character, choose 1 of your characters, it gets +2000 power until end of turn. 
+*MoveOtherWithTraitToBackstageOnReverse(Remnant)
+EndCard
+
+Character: RWBY/WX03-002
+Name Jaune: School Dance
+Color Y
+Level 1
+Cost 0
+Power 4000
+Trait1 Remnant
+Trait2 JNPR
+Combo School Dance
+Auto: OnSpecificClimaxPlay Remnant
+{
+	If StageContains 1 Other && HasTrait Remnant
+	{
+		TargetLocation Stage
+		NarrowTargets Other
+		ChooseCharacterFromTargets
+		GainEffect
+		{
+			Auto: OnReverseOpponent
+			{
+				SearchDeck HasTrait Remnant
+			}
+			Text Auto: When this card's battle opponent becomes reversed, search your deck for up to 1 《Remnant》 character, reveal it to your opponent, put it into your hand, and shuffle your deck.
+		}
+	}
+}
+Text Auto: CxCombo When "School Dance" is placed on your climax area, if you have another 《Remnant》 character, choose 1 of your other characters, it gets the following ability until end of turn. "Auto: When this card's battle opponent becomes reversed, search your deck for up to 1 《Remnant》 character, reveal it to your opponent, put it into your hand, and shuffle your deck."
+Auto: OnAttack
+{
+	If AllYourCharacters HasTrait Remnant
+	{
+		TargetLocation Stage
+		ChooseCharacterFromTargets
+		GainPower 2000
+	}
+}
+Text Auto: When this card attacks, if all of your characters are 《Remnant》, choose 1 of your characters, it gets +2000 power until end of turn.
+EndCard
+
+Character: RWBY/WX03-003
+Name Sun Wukong
+Color Y
+Level 0
+Cost 0
+Power 2000
+Trait1 Remnant
+Trait2 SSSN
+Auto: OnPlay
+{
+	If StageContains 1 Other && HasTrait Remnant
+	{
+		GainPower 2000
+	}
+}
+Text Auto: When this card is placed on the stage from your hand, if you have another 《Remnant》 character, this card gets +2000 power until end of turn.
+Auto: OnReverseOpponent
+{
+	PayCost 1 Clock
+	{
+		*CheckAndAddAll(2, HasTrait Remnant)
+	}
+}
+Text Auto: [(1) Put the top card of your deck into your clock] When this card's battle opponent becomes reversed, you may pay the cost. If you do, look at up to 2 cards from the top of your deck, choose up to 2 《Remnant》 characters from among them, reveal them to your opponent, put them into your hand, and put the rest into your waiting room.
+EndCard
+
+Character: RWBY/WX03-004
+Name Jaune Arc
+Color Y
+Level 2
+Cost 1
+Trigger Soul
+Power 3500
+Trait1 Remnant
+Trait2 JNPR
+Combo School Dance
+Combo A Kiss to Remember By
+Cont: GiveAll
+{
+	If NameEquals Pyrrha Nikos
+	{
+		GainPower 500
+		GainEffect
+		{
+			*HandEncoreTrait(Remnant)
+		}
+	}
+}
+Text Cont: All of your other "Pyrrha Nikos" get +500 power and "Auto: ENCORE [Put 1 《Remnant》 character from your hand into your waiting room]".
+*LevelAssist
+Auto: OnPlay
+{
+	PayCost Discard 1 NameEquals School Dance|A Kiss to Remember By
+	{
+		SearchWaitingRoom NameEquals School Dance|A Kiss to Remember By
+	}
+}
+Text Auto: CxCombo [Put 1 "School Dance" or "A Kiss to Remember By" from your hand into your waiting room] When this card is placed on the stage from your hand, you may pay the cost. If you do, choose 1 "School Dance" or "A Kiss to Remember By" in your waiting room, and return it to your hand.
+EndCard
+
+Character: RWBY/WX03-005
+Name Yang: Vytal Festival
+Color Y
+Level 3
+Cost 2
+Trigger Soul
+Power 10000
+Soul 2
+Trait1 Remnant
+Trait2 RWBY
+Combo Falling Into a Trap
+*OnPlayCheck3
+Auto: OnSpecificClimaxPlay Falling Into a Trap
+{
+	If InLocation CenterStage
+	{
+		TargetLocation Stage
+		NarrowTargets Other
+		ChooseCharacterFromTargets
+		GainEffect
+		{
+			Auto: OnDamageCancel
+			{
+				*OptionalBurn(2)
+			}
+			TimesPerTurn 1
+			Text Auto: This ability activates up to 1 time per turn. When damage dealt by this card is canceled, you may deal 2 damage to your opponent.
+		}
+	}
+}
+Text Auto: CxCombo When "Falling Into a Trap" is placed on your climax area, if this card is in your center stage, choose 1 of your other characters, it gets the following ability until end of turn. "Auto: This ability activates up to 1 time per turn. When damage dealt by this card is canceled, you may deal 2 damage to your opponent." 
+EndCard
+
+Character: RWBY/WX03-006
+Name Neon Katt
+Color Y
+Level 0
+Cost 0
+Power 1000
+Trait1 Remnant
+Trait2 FNKI
+Auto: OnPlay
+{
+	TargetLocation OpponentStage
+	SetXValue TargetCount
+	If Compare X 1 OrLess
+	{
+		NarrowTargets Compare ThatCardsCost 0 OrLess
+		ChooseCharacterFromTargets
+		MoveCard BottomOfOpponentDeck
+	}
+}
+Text Auto: When this card is placed on the stage from your hand, if your opponent has 1 or less characters in their center stage, choose 1 cost 0 or lower character in your opponent's center stage, and put it at the bottom of their deck.
+Auto: StartOpponentDrawPhase
+{
+	TargetTop Deck 1
+	Reveal
+	If Compare TargetCardsLevel 1 OrMore
+	{
+		Question Return this card to your hand?
+		If Yes
+		{
+			TargetSelf
+			Bounce
+		}
+	}
+}
+Text Auto: At the beginning of your opponent's draw phase, reveal the top card of your deck. If that card is level 1 or higher, you may return this card to your hand. 
+EndCard
+
+Character: RWBY/WX03-007
+Name Uniform Jaune
+Color Y
+Level 0
+Cost 0
+Power 1500
+Trait1 Remnant
+Trait2 JNPR
+*GlobalPower(500,Remnant)
+*OnClimaxPlayGivePower(1000)
+EndCard
+
+Character: RWBY/WX03-008
+Name Yang: Framed
+Color Y
+Level 0
+Cost 0
+Power 2000
+Trait1 Remnant
+Trait2 RWBY
+*GainPowerWithEnoughCharacters(1000,2,Remnant)
+*DropSearch(Remnant)
+EndCard
+
+Character: RWBY/WX03-009
+Name Uniform Yang
+Color Y
+Level 1
+Cost 1
+Trigger Soul
+Power 500
+Trait1 Remnant
+Trait2 RWBY
+*ScryBackup(Remnant)
+Backup 2000
+EndCard
+
+Character: RWBY/WX03-010
+Name Taiyang Xiao Long
+Color Y
+Level 1
+Cost 0
+Power 2500
+Trait1 Remnant
+Trait2 STRQ
+Auto: GiveAll
+{
+	If MyTurn &&& Other && HasTrait Remnant
+	{
+		GainPower 1000
+	}
+}
+Text Cont: During your turn, all of your other 《Remnant》 characters get +1000 power.
+Act: 1 Discard 1 Any RestSelf
+{
+	*CheckAndAddOne(3, Any)
+}
+Text Act: [(1) Put 1 card from your hand into your waiting room & Rest this card] Look at up to 3 cards from the top of your deck, choose up to 1 card from among them, put it into your hand, and put the rest into your waiting room.
+EndCard
+
+Character: RWBY/WX03-011
+Name Yang: Warm Welcome
+Color Y
+Level 2
+Cost 2
+Trigger Soul
+Power 7000
+Soul 2
+Trait1 Remnant
+Trait2 RWBY
+*GainPowerWithEnoughCharacters(3000,2,Remnant)
+*HandEncoreTrait(Remnant)
+EndCard
+
+Character: RWBY/WX03-012
+Name Glynda Goodwitch
+Color Y
+Level 3
+Cost 2
+Trigger Soul
+Power 10000
+Soul 2
+Trait1 Remnant
+*Healer
+Auto: OnAttack
+{
+	PayCost 1 Discard 1 Any
+	{
+		GainPower 2000
+		GainEffect
+		{
+			Auto: OnReverseOpponent
+			{
+				*OptionalBurn(1)
+			}
+			Text Auto: When this card's battle opponent becomes reversed, you may deal 1 damage to your opponent.
+		}
+	}
+}
+Text Auto: [(1) Put 1 card from your hand into your waiting room] When this card attacks, you may pay the cost. If you do, this card gets +2000 power and the following ability until end of turn. "Auto: When this card's battle opponent becomes reversed, you may deal 1 damage to your opponent." 
+EndCard
+
+Character: RWBY/WX03-013
+Name Arslan Altan
+Color Y
+Level 1
+Cost 0
+Power 4000
+Trait1 Remnant
+Trait2 ABRN
+Auto: OnAttack
+{
+	If StageContains 1 Other && HasTrait Remnant
+	{
+		GainPower 3000
+	}
+}
+Text Auto: When this card attacks, if you have another 《Remnant》 character, this card gets +3000 power until end of turn.
+Auto: OnReverseOpponent
+{
+	Question Draw a card?
+	If Yes
+	{
+		DrawCard
+		Discard 1 Any
+	}
+}
+Text Auto: When this card's battle opponent becomes reversed, if you have another 《Remnant》 character, you may draw 1 card. If you do, choose 1 card in your hand, and put it into your waiting room.
+EndCard
+
+Character: RWBY/WX03-014
+Name Brawnz Ni
+Color Y
+Level 0
+Cost 0
+Power 2000
+Trait1 Remnant
+Trait2 BRNZ
+Auto: OnPlay
+{
+	Mill 2
+	NarrowTargets IsClimax
+	If HasTarget
+	{
+		TargetSelf
+		GainPower 3000
+	}
+}
+Text Auto: When this card is placed on the stage from your hand, put the top 2 cards of your deck into your waiting room. If there is a climax among those cards, this card gets +3000 power until end of turn.
+Auto: OnPlay
+{
+	Mill 2
+	NarrowTargets IsClimax
+	If HasTarget
+	{
+		TargetLocation Stage
+		ChooseCharacterFromTargets
+		GainPower 1500
+	}
+}
+Text Auto: When this card is placed on the stage from your hand, put the top 2 cards of your deck into your waiting room. If there is a climax among those cards, choose 1 of your characters, it gets +1500 power until end of turn.
+EndCard
+
+Character: RWBY/WX03-015
+Name Sun: Vytal Festival
+Color Y
+Level 2
+Cost 1
+Trigger Soul
+Power 7000
+Trait1 Remnant
+Trait2 SSSN
+Combo Team SSSN
+Cont: InHand
+{
+	If StageContains 4 HasTrait Remnant
+}
+Text Cont: If you have 4 or more 《Remnant》 characters, this card gets -1 level while in your hand.
+Auto: OnEndOfAttack
+{
+	If Climax Team SSSN
+	{
+		PayCost SendClimax WaitingRoom
+		{
+			RevealUpTo Deck 5
+			ChooseCardsFromTargets 0 2 HasTrait Remnant
+			RevealTargets
+			MoveCard Hand
+			PutTheRestIntoTheWaitingRoom
+		}
+	}
+}
+Text Auto: CxCombo [Put 1 "Team SSSN" from your climax area into your waiting room] At the end of this card's attack, you may pay the cost. If you do, look at up to 5 cards from the top of your deck, choose up to 2 《Remnant》 characters from among them, reveal them to your opponent, put them into your hand, and put the rest into your waiting room.
+EndCard
+
+Event: RWBY/WX03-016
+Name A Childhood Memory
+Color Y
+Level 1
+Cost 0
+Text If you do not have a 《Remnant》 character, this card cannot be played from your hand.
+Effect:
+{
+	Question Discard a Remnand character?
+	If Yes
+	{
+		Discard 1 HasTrait Remnant
+		SearchWaitingRoom IsClimax
+	}
+}
+ActivationRequirement StageContains 1 HasTrait Remnant
+Text You may choose 1 《Remnant》 character in your hand, and put it into your waiting room. If you do, choose 1 climax in your waiting room, and return it to your hand.
+EndCard
+
+Climax: RWBY/WX03-017
+Name School Dance
+Color Y
+*ChoiceClimax
+EndCard
+
+Climax: RWBY/WX03-018
+Name Falling Into a Trap
+Color Y
+*ChoiceClimax
+EndCard
+
+Climax: RWBY/WX03-019
+Name Team SSSN
+Color Y
+*ChoiceClimax
+EndCard
+
+Character: RWBY/WX03-020
+Name Lie Ren
+Color G
+Level 0
+Cost 0
+Power 500
+Trait1 Remnant
+Trait2 JNPR
+Auto: OnReverseOpponent
+{
+	TargetBattleOpponent
+	If StageContains 1 Other && HasTrait Remnant &&& Compare TargetCardsLevel 0 OrLess
+	{
+		TargetTop OpponentClock 1
+		MoveCard OpponentWaitingRoom
+		TargetBattleOpponent
+		MoveCard OpponentClock
+	}
+}
+Text Auto: When this card becomes reversed, if you have another 《Remnant》 character, and this card's battle opponent is level 0 or lower, you may put the top card of your opponent's clock into their waiting room. If you do, put that character into your opponent's clock.
+Auto: OnSentFromStageToWaitingRoom
+{
+	PayCost 1
+	{
+		RevealUpTo Deck 3
+		Message Choose up to 1 card to put into your clock.
+		ChooseCardsFromTargets 0 1 Any
+		If HasTarget
+		{
+			MoveCard Clock
+			PutTheRestIntoTheWaitingRoom
+			SearchWaitingRoom HasTrait Remnant
+		}
+		Else
+		{
+			PutTheRestIntoTheWaitingRoom
+		}
+	}
+}
+Text Auto: [(1)] When this card is put into your waiting room from the stage, you may pay the cost. If you do, look at up to 3 cards from the top of your deck, choose 1 card from among them, put it into your clock, and put the rest into your waiting room. If you put 1 card into your clock, choose 1 《Remnant》 character in your waiting room, and return it to your hand.
+EndCard
+
+Character: RWBY/WX03-021
+Name Emerald Sustrai
+Color G
+Level 0
+Cost 0
+Power 1500
+Trait1 Remnant
+Combo Fall Maiden's Downfall
+Combo Grimm Invasion
+*GiveMiddlePower(500,Any)
+Act: 1 Rest 2 IsCharacter
+{
+	Brainstorm 5
+	TargetBrainstormed
+	NarrowTargets NameEquals Fall Maiden's Downfall|Grimm Invasion
+	SetXValue TargetCount
+	Repeat X
+	{
+		SearchDeck HasTrait Remnant
+	}
+}
+Text Act: CxCombo BRAINSTORM [(1) Rest 2 of your characters] Flip over 5 cards from the top of your deck, and put them into your waiting room. For each "Fall Maiden's Downfall" or "Grimm Invasion" revealed among those cards, search your deck for up to 1 《Remnant》 character, reveal it to your opponent, put it into your hand, and shuffle your deck.
+EndCard
+
+Character: RWBY/WX03-022
+Name Ozpin
+Color G
+Level 0
+Cost 0
+Power 1000
+Trait1 Remnant
+*OnPlayReorderTop2
+*OnAttackMill1PutLevel0OnField
+EndCard
+
+Character: RWBY/WX03-023
+Name Penny Polendina
+Color G
+Level 1
+Cost 0
+Power 4500
+Trait1 Remnant
+Combo Military Weapon
+*OnPlayGainPower(1500)
+Auto: OnAttack
+{
+	If Climax Military Weapon &&& StageContains 1 Other && HasTrait Remnant
+	{
+		Mill 2
+		SetXValue TotalLevel
+		SearchWaitingRoom HasTrait Remnant && Compare ThatCardsLevel X OrLess
+	}
+}
+Text Auto: CxCombo When this card attacks, if "Military Weapon" is in your climax area, and you have another 《Remnant》 character, put the top 2 cards of your deck into your waiting room, choose up to 1 level X or lower 《Remnant》 character in your waiting room, and return it to your hand. X is equal to the total level of the cards put into your waiting room by this effect. 
+EndCard
+
+Character: RWBY/WX03-024
+Name Oobleck: Field Trip
+Color G
+Level 0
+Cost 0
+Power 1000
+Trait1 Remnant
+Auto: OnOtherOpponentReversed
+{
+	TargetLocation Stage
+	ChooseCharacterFromTargets
+	GainPower 1000
+}
+Text Auto: When your other character's battle opponent becomes reversed, choose 1 of your characters, it gets +1000 power until end of turn.
+Act: 2 RestSelf
+{
+	SearchDeck HasTrait Remnant
+}
+Text Act: [(2) Rest this card] Search your deck for up to 1 《Remnant》 character, reveal it to your opponent, put it into your hand, and shuffle your deck.
+EndCard
+
+Character: RWBY/WX03-025
+Name Ren: Winning Advice
+Color G
+Level 2
+Cost 1
+Trigger Soul
+Power 2500
+Trait1 Remnant
+Trait2 JNPR
+Text Auto: [(2) Put 1 character from your stage into your waiting room] When you use this card's "BACKUP", you may pay the cost. If you do, choose 1 of your opponent's characters with level higher than your opponent's level, and put it into their waiting room.
+Backup 2500
+EndCard
+
+Character: RWBY/WX03-026
+Name Uniform Ren
+Color G
+Level 3
+Cost 2
+Trigger Soul
+Power 9500
+Soul 2
+Trait1 Remnant
+Trait2 JNPR
+Text Cont: During your turn, this card gets +500 power for each of your other 《Remnant》 characters.
+Text Auto: When this card is placed on the stage from your hand, search your deck for up to 1 《Remnant》 character, reveal it to your opponent, put it into your hand, and shuffle your deck.
+Text Auto: [Put 2 characters from your hand into your waiting room] When this card's battle opponent becomes reversed, you may pay the cost. If you do, put that character into your opponent's clock.
+EndCard
+
+Character: RWBY/WX03-027
+Name Ozpin: Fighting Off Cinder
+Color G
+Level 3
+Cost 2
+Trigger Soul
+Power 9500
+Soul 2
+Trait1 Remnant
+Text Cont: If "Ozpin" is in your clock, this card gets -1 level while in your hand.
+Text Auto: When this card is placed on the stage from your hand, draw up to 2 cards, choose 1 card in your hand, and put it into your waiting room.
+Text Auto: CxCombo When this card attacks, if "Defending the School" is in your climax area, and you have 4 or more other 《Remnant》 characters, this card gets +1000 power and the following ability until the end of your opponent's next turn. "Auto: At the beginning of your opponent's attack phase, choose 1 of your opponent's characters, it gets -2 soul until end of turn."
+EndCard
+
+Character: RWBY/WX03-028
+Name Roy Stallion
+Color G
+Level 0
+Cost 0
+Power 1000
+Trait1 Remnant
+Trait2 BRNZ
+Text Auto: [Return 2 characters from your waiting room to your deck & Shuffle your deck] When this card is placed on the stage from your hand, you may pay the cost. If you do, this card's soul does not decrease by side attacking until end of turn.
+Text Auto: When this card attacks, choose 1 character in your opponent's center stage, it gets -1000 power until end of turn.
+EndCard
+
+Character: RWBY/WX03-029
+Name Sage Ayana
+Color G
+Level 0
+Cost 0
+Power 1000
+Trait1 Remnant
+Trait2 SSSN
+Text Auto: When this card is placed on the stage from your hand, choose up to 1 of your opponent's characters, put it into their memory, and your opponent puts that character from their memory on any position of their stage.
+Text Auto: When this card is placed on the stage from your hand, choose 1 of your other 《Remnant》 characters, it gets +2000 power until end of turn.
+EndCard
+
+Character: RWBY/WX03-030
+Name Yatsuhashi Daichi
+Color G
+Level 0
+Cost 0
+Power 1500
+Trait1 Remnant
+Trait2 CFVY
+Text Cont: If your hand has 5 or more cards, this card gets +2000 power.
+Text Auto: ENCORE [(1) Put 1 character from your stage into your waiting room] 
+EndCard
+
+Character: RWBY/WX03-031
+Name Bartholomew Oobleck
+Color G
+Level 1
+Cost 0
+Power 2500
+Trait1 Remnant
+Text Auto: [Put 1 card from your hand into your waiting room] When this card is placed on the stage from your hand, you may pay the cost. If you do, choose 1 《Remnant》 character in your clock, return it to your hand, and put the top card of your deck into your clock.
+Text Auto: When this card becomes reversed, if this card's battle opponent is cost 0 or lower, you may put the top card of your opponent's clock into their waiting room. If you do, put that character into your opponent's clock.
+EndCard
+
+Character: RWBY/WX03-032
+Name Flynt Coal
+Color G
+Level 1
+Cost 0
+Power 4500
+Trait1 Remnant
+Trait2 FNKI
+Text Cont: During your turn, if you have another 《Remnant》 character, this card gets +1500 power.
+Text Auto: [(1)] When this card is placed on the stage from your hand, you may pay the cost. If you do, search your deck for up to 1 "Flynt Coal", put it on any position of your stage, and shuffle your deck.
+EndCard
+
+Character: RWBY/WX03-033
+Name Coco Adel
+Color G
+Level 1
+Cost 1
+Power 4500
+Trait1 Remnant
+Trait2 CFVY
+Text Cont: If the character facing this card is cost 0 or lower, this card gets +1 level and +3500 power.
+Text Auto: [(1)] At the beginning of the encore step, if you do not have another Rest character in your center stage, you may pay the cost. If you do, Rest this card.
+EndCard
+
+Character: RWBY/WX03-034
+Name Emerald & Mercury: Infiltrating Beacon Academy
+Color G
+Level 1
+Cost 0
+Power 4000
+Trait1 Remnant
+Text Cont: This card gets +500 power for each of your other 《Remnant》 characters.
+Text Auto: ENCORE [Put 1 character from your hand into your waiting room] 
+EndCard
+
+Character: RWBY/WX03-035
+Name Emerald: Scouted
+Color G
+Level 2
+Cost 1
+Trigger Soul
+Power 6500
+Trait1 Remnant
+Text Cont: During your turn, this card gets +1500 power for each of your other 《Remnant》 characters.
+Text Auto: When your climax with in its trigger icon is placed on your climax area, look at the top card of your deck, put it on the top of your deck or into your waiting room, and this card gets the following ability until end of turn. "Auto: When this card's battle opponent becomes reversed, you may choose 1 《Remnant》 character in your waiting room, and put it into your stock."
+EndCard
+
+Character: RWBY/WX03-036
+Name Reese Chloris
+Color G
+Level 2
+Cost 1
+Trigger Soul
+Power 5500
+Trait1 Remnant
+Trait2 ABRN
+Text Auto: When this card is placed on the stage from your hand, choose 1 character in your opponent's center stage, it gets -1000 power until end of turn.
+Text Auto: When this card becomes reversed, if the level of this card's battle opponent is higher than your opponent's level, you may put the top card of your opponent's clock into their waiting room. If you do, put that character into your opponent's clock.
+EndCard
+
+Character: RWBY/WX03-037
+Name Cardin Winchester
+Color G
+Level 2
+Cost 1
+Trigger Soul
+Power 5500
+Trait1 Remnant
+Trait2 CRDL
+Text Cont: This card gets +2500 power for each character in your opponent's back stage.
+Text Auto: [(1)] At the beginning of the encore step, if you do not have another Rest character in your center stage, you may pay the cost. If you do, Rest this card.
+EndCard
+
+Event: RWBY/WX03-038
+Name Beacon Academy
+Color G
+Level 1
+Cost 1
+Text Put this card into your memory.
+Text Reveal the top card of your deck. If that card is an event or a 《Remnant》 character, put it into your hand. 
+Text Cont: MEMORY During your turn, if this card is in your memory, all of your 《Remnant》 characters get +500 power.
+EndCard
+
+Climax: RWBY/WX03-039
+Name Military Weapon
+Color G
+Text Cont: All of your characters get +1000 power and +1 soul.
+EndCard
+
+Climax: RWBY/WX03-040
+Name Defending the School
+Color G
+Text Cont: All of your characters get +1000 power and +1 soul.
+EndCard
+
+Character: RWBY/WX03-041
+Name Pyrrha: Fall Maiden's Vessel Candidate
+Color R
+Level 0
+Cost 0
+Power 2000
+Trait1 Remnant
+Trait2 JNPR
+Text Auto: When this card becomes reversed in battle, you may reveal up to 3 cards from the top of your deck. If you revealed 1 or more cards, choose up to 1 《Remnant》 character from among them, put it into your hand, put the rest into your waiting room, choose 1 card in your hand, and put it into your waiting room.
+Text Auto: When this card becomes reversed in battle, if your memory has 2 or less cards, you may put this card into your memory.
+EndCard
+
+Character: RWBY/WX03-042
+Name Nora Valkyrie
+Color R
+Level 0
+Cost 0
+Power 2000
+Trait1 Remnant
+Trait2 JNPR
+Text Auto: When your other character's battle opponent becomes reversed, choose 1 of your 《Remnant》 characters, it gets +500 power until end of turn.
+Text Act: BRAINSTORM [(1) Rest this card] Flip over 4 cards from the top of your deck, and put them into your waiting room. For each climax revealed among those cards, choose up to 1 《Remnant》 character in your waiting room, and return it to your hand.
+EndCard
+
+Character: RWBY/WX03-043
+Name Cinder: Complete Maiden Powers
+Color R
+Level 3
+Cost 2
+Trigger Soul
+Power 8000
+Soul 2
+Trait1 Remnant
+Text Cont: MEMORY If "Amber: Fall Maiden" is in your memory, this card gets +3000 power.
+Text Auto: When this card is placed on the stage from your hand, you may put the top card of your clock into your waiting room.
+Text Auto: CxCombo When this card's battle opponent becomes reversed, if "Fall Maiden's Downfall" is in your climax area, deal 1 damage to your opponent, and put that character on the top of your opponent's deck. 
+EndCard
+
+Character: RWBY/WX03-044
+Name Ruby Rose
+Color R
+Level 3
+Cost 2
+Trigger Soul
+Power 9000
+Soul 2
+Trait1 Remnant
+Trait2 RWBY
+Text Cont: If all of your characters are 《Remnant》, this card gets +2000 power.
+Text Auto: When this card is placed on the stage from your hand, you may put the top card of your clock into your waiting room.
+EndCard
+
+Character: RWBY/WX03-045
+Name Salem
+Color R
+Level 3
+Cost 2
+Trigger Soul
+Power 9000
+Soul 2
+Trait1 Remnant
+Text Cont: This card gets +1000 power for each character in your opponent's back stage.
+Text Auto: [(1)] When this card is placed on the stage from your hand, you may pay the cost. If you do, choose 1 of the following effects and perform it. "Your opponent puts all of their stock into their waiting room, and puts the same number of cards from the top of their deck into their stock." "Put the bottom 5 cards of your opponent's deck into their waiting room, and deal X damage to your opponent. X is equal to the number of climax among those cards." 
+EndCard
+
+Character: RWBY/WX03-046
+Name Raven Branwen
+Color R
+Level 1
+Cost 0
+Power 4500
+Trait1 Remnant
+Trait2 STRQ
+Text Auto: When your climax is placed on your climax area, this card gets +1500 power until end of turn.
+Text Auto: When this card attacks, choose 1 of your other 《Remnant》 characters, it gets +X power until end of turn. X is equal to the number of other 《Remnant》 characters you have ×500.
+EndCard
+
+Character: RWBY/WX03-047
+Name Adam Taurus
+Color R
+Level 1
+Cost 0
+Power 5000
+Trait1 Remnant
+Text Auto: [Put 1 other 《Remnant》 character from your stage into your waiting room] When this card attacks, you may pay the cost. If you do, reveal the top card of your deck. If that card is a 《Remnant》 character, put it into your hand. 
+EndCard
+
+Character: RWBY/WX03-048
+Name Amber: Fall Maiden
+Color R
+Level 0
+Cost 0
+Power 2000
+Trait1 Remnant
+Text Cont: During your turn, this card gets +1000 power.
+Text Auto: [(1) Put the top card of your deck into your clock] When this card is placed on the stage from your hand, you may pay the cost. If you do, choose 1 《Remnant》 character in your waiting room, and return it to your hand.
+EndCard
+
+Character: RWBY/WX03-049
+Name Zwei
+Color R
+Level 0
+Cost 0
+Power 2000
+Trait1 Remnant
+Trait2 RWBY
+Text Auto: [Put 1 card from your hand into your waiting room] When this card is placed on the stage from your hand, put the top 2 cards of your deck into your waiting room. If there is a climax among those cards, you may pay the cost. If you do, search your deck for up to 1 《Remnant》 character, reveal it to your opponent, put it into your hand, and shuffle your deck.
+Text Auto: [(1) Put 1 card from your hand into your waiting room] When this card is placed on the stage from your hand, you may pay the cost. If you do, choose 1 《Remnant》 character in your waiting room, return it to your hand, choose 1 of your other 《Remnant》 characters, it gets +1000 power until end of turn.
+EndCard
+
+Character: RWBY/WX03-050
+Name Qrow Branwen
+Color R
+Level 2
+Cost 1
+Trigger Soul
+Power 2500
+Trait1 Remnant
+Trait2 STRQ
+Text Auto: [(2)] When you use this card's "BACKUP", you may pay the cost. If you do, return all cards in your waiting room to your deck, and shuffle your deck.
+Backup 2500
+EndCard
+
+Character: RWBY/WX03-051
+Name Cinder: Infiltrating Beacon Academy
+Color R
+Level 2
+Cost 1
+Trigger Soul
+Power 4000
+Trait1 Remnant
+Text Cont: ASSIST All of your level 3 or higher characters in front of this card get +2000 power.
+EndCard
+
+Character: RWBY/WX03-052
+Name Ruby: Embarking on a New Journey
+Color R
+Level 2
+Cost 2
+Trigger Soul
+Power 6500
+Soul 2
+Trait1 Remnant
+Trait2 RWBY
+Text Cont: This card gets +2000 power for each other 《Remnant》 character in your back stage.
+Text Auto: When this card attacks, look at the top card of your deck, and put it on the top of your deck or into your waiting room.
+EndCard
+
+Character: RWBY/WX03-053
+Name Pyrrha Nikos
+Color R
+Level 3
+Cost 2
+Trigger Soul
+Power 10000
+Soul 2
+Trait1 Remnant
+Trait2 JNPR
+Text Cont: If this card is in your center stage, all of your 《Remnant》 characters get +1500 power.
+Text Auto: CxCombo [(2) Put 1 "A Kiss to Remember By" from your climax area into your waiting room] During your climax phase, when this card is placed on the stage by the effect of "A Kiss to Remember By", you may pay the cost. If you do, Stand this card, choose up to X cards in your opponent's waiting room, return them to their deck, and your opponent shuffles their deck. X is equal to the number of 《Remnant》 characters you have.
+EndCard
+
+Character: RWBY/WX03-054
+Name Ruby: Vytal Festival
+Color R
+Level 3
+Cost 2
+Trigger Soul
+Power 10000
+Soul 2
+Trait1 Remnant
+Trait2 RWBY
+Text Auto: When this card is placed on the stage from your hand, you may choose 1 《Remnant》 character in your waiting room, and return it to your hand.
+Text Auto: [(2) Put 2 cards from your hand into your waiting room] At the end of this card's attack, you may pay the cost. If you do, deal 2 damage to your opponent. 
+EndCard
+
+Character: RWBY/WX03-055
+Name Cinder: Scouting
+Color R
+Level 0
+Cost 0
+Power 1000
+Trait1 Remnant
+Text Auto: [(1) Put 1 《Remnant》 character from your hand into your waiting room] When this card is placed on the stage from your hand, you may pay the cost. If you do, look at up to 4 cards from the top of your deck, choose up to 1 card from among them, put it into your hand, and put the rest into your waiting room.
+EndCard
+
+Character: RWBY/WX03-056
+Name Ruby: Life-Changing Scene
+Color R
+Level 0
+Cost 0
+Power 2000
+Trait1 Remnant
+Trait2 RWBY
+Text Auto: When this card is placed on the stage from your hand, look at the top card of your deck, and put it on the top of your deck or into your waiting room.
+Text Auto: [(1) Put 1 climax from your hand into your waiting room] When this card is placed on the stage from your hand, you may pay the cost. If you do, choose 1 climax in your waiting room, and return it to your hand.
+EndCard
+
+Character: RWBY/WX03-057
+Name Cinder: Leading a Grimm Invasion
+Color R
+Level 1
+Cost 0
+Power 3000
+Trait1 Remnant
+Text Cont: During your turn, this card gets +2000 power.
+Text Auto: CxCombo When this card attacks, if "Grimm Invasion" is in your climax area, put the top card of your deck into your waiting room, choose up to 1 level X or lower 《Remnant》 character in your waiting room, and return it to your hand. X is equal to the total level of the cards put into your waiting room by this effect. 
+EndCard
+
+Character: RWBY/WX03-058
+Name Uniform Pyrrha
+Color R
+Level 1
+Cost 0
+Power 2500
+Trait1 Remnant
+Trait2 JNPR
+Text Auto: When this card is placed on the stage from your hand, if you have 2 or more other 《Remnant》 characters, you may draw 1 card. If you do, choose 1 card in your hand, and put it into your waiting room.
+Text Auto: When this card becomes reversed, if you have 2 or more other 《Remnant》 characters, and this card's battle opponent is level 1 or lower, you may Reversed that character.
+EndCard
+
+Character: RWBY/WX03-059
+Name Uniform Ruby
+Color R
+Level 1
+Cost 1
+Power 5500
+Trait1 Remnant
+Trait2 RWBY
+Text Cont: If you have 2 or more other 《Remnant》 characters, this card gets +2000 power.
+Text Auto: ENCORE [Put 1 character from your hand into your waiting room] 
+EndCard
+
+Character: RWBY/WX03-060
+Name Uniform Nora
+Color R
+Level 3
+Cost 2
+Trigger Soul
+Power 9500
+Soul 2
+Trait1 Remnant
+Trait2 JNPR
+Text Cont: If you have 4 or more 《Remnant》 characters, this card gets -1 level while in your hand.
+Text Auto: When this card is placed on the stage from your hand, this card gets +4500 power and the following ability until the end of your opponent's next turn. "Cont: During this card's battle, all players cannot play "BACKUP" from their hands."
+EndCard
+
+Character: RWBY/WX03-061
+Name Qrow: Priorities
+Color R
+Level 0
+Cost 0
+Power 3500
+Trait1 Remnant
+Trait2 STRQ
+Text Cont: All of your opponent's characters get "Auto: ENCORE [(2)]".
+Text Auto: When this card is placed on the stage from your hand, you may choose 1 card in your hand, and put it into your stock.
+EndCard
+
+Character: RWBY/WX03-062
+Name Scarlet David
+Color R
+Level 0
+Cost 0
+Power 1500
+Trait1 Remnant
+Trait2 SSSN
+Text Cont: The character facing this card cannot move to another position of the stage.
+Text Auto: When this card attacks, choose 1 of your 《Remnant》 characters, it gets +1500 power until end of turn.
+EndCard
+
+Character: RWBY/WX03-063
+Name Nadir Shiko
+Color R
+Level 0
+Cost 0
+Power 1500
+Trait1 Remnant
+Trait2 ABRN
+Text Cont: Your other 《Remnant》 character in the middle position of your center stage gets +1500 power.
+Text Auto: When your opponent's climax is placed on their climax area, you may put this card into your stock.
+EndCard
+
+Character: RWBY/WX03-064
+Name May Zedong
+Color R
+Level 0
+Cost 0
+Power 1500
+Trait1 Remnant
+Trait2 BRNZ
+Text Auto: [(1) Put 1 card from your hand into your waiting room] When you level up, you may pay the cost. If you do, search your deck for up to 1 《Remnant》 character, reveal it to your opponent, put it into your hand, and shuffle your deck.
+Text Act: [Rest this card] Choose 1 of your 《Remnant》 characters, it gets +1500 power until end of turn.
+EndCard
+
+Character: RWBY/WX03-065
+Name Fox Alistair
+Color R
+Level 0
+Cost 0
+Power 1500
+Trait1 Remnant
+Trait2 CFVY
+Text Auto: [(1)] When this card frontal attacks, you may pay the cost. If you do, choose 1 of your opponent's characters, it gets -1 level until end of turn.
+Text Auto: When this card becomes reversed, if this card's battle opponent is level 0 or lower, you may Reversed that character.
+EndCard
+
+Character: RWBY/WX03-066
+Name Junior Xiong
+Color R
+Level 1
+Cost 0
+Power 2500
+Trait1 Remnant
+Text Cont: All of your other 《Remnant》 characters get +500 power.
+Text Auto: At the beginning of your climax phase, choose 1 of your characters, it gets +1000 power until end of turn.
+EndCard
+
+Character: RWBY/WX03-067
+Name Nora: Winning Advice
+Color R
+Level 1
+Cost 0
+Power 3500
+Trait1 Remnant
+Trait2 JNPR
+Text Cont: During your turn, if you have another 《Remnant》 character, this card gets +3000 power.
+Text Auto: [(2)] When this card is placed on the stage from your hand, you may pay the cost. If you do, search your deck for up to 1 climax with the same card name as a climax in your waiting room, reveal it to your opponent, put it into your hand, and shuffle your deck.
+EndCard
+
+Character: RWBY/WX03-068
+Name Peter Port
+Color R
+Level 2
+Cost 1
+Trigger Soul
+Power 3500
+Trait1 Remnant
+Text Auto: [Put 1 card from your hand into your waiting room] When this card is placed on the stage from your hand, you may pay the cost. If you do, choose 1 《Remnant》 character in your waiting room, and return it to your hand.
+Text Auto: When this card becomes reversed , if this card's battle opponent is level 2 or lower, you may Reversed that character.
+EndCard
+
+Character: RWBY/WX03-069
+Name Velvet Scarlatina
+Color R
+Level 2
+Cost 1
+Trigger Soul
+Power 6000
+Trait1 Remnant
+Trait2 CFVY
+Text Cont: All of your other 《Remnant》 characters get +1000 power.
+Text Act: BRAINSTORM [(1) Rest 2 of your characters] Flip over 4 cards from the top of your deck, and put them into your waiting room. For each climax revealed among those cards, choose up to 1 character in your waiting room, and return it to your hand.
+EndCard
+
+Event: RWBY/WX03-070
+Name Salem's Glove
+Color R
+Level 2
+Cost 1
+Text Choose up to 2 characters in your waiting room, return them to your hand, choose 1 card in your hand, and put it into your waiting room.
+EndCard
+
+Event: RWBY/WX03-071
+Name Maidens
+Color R
+Level 2
+Cost 3
+Counter
+Text Counter: If you have 5 or more 《Remnant》 characters, choose 1 character in battle, it gets the following ability until end of turn. "Cont: This card cannot deal damage to a player." Choose 1 of your characters, it gets +1500 power until end of turn.
+EndCard
+
+Climax: RWBY/WX03-072
+Name Ruby's Awakening
+Color R
+Text Auto: When this card is placed on your climax area from your hand, perform the effect.
+EndCard
+
+Climax: RWBY/WX03-073
+Name Fall Maiden's Downfall
+Color R
+Text Cont: All of your characters get +1000 power and +1 soul.
+EndCard
+
+Climax: RWBY/WX03-074
+Name A Kiss to Remember By
+Color R
+Text Auto: When this card is placed on your climax area from your hand, perform the effect.
+EndCard
+
+Climax: RWBY/WX03-075
+Name Grimm Invasion
+Color R
+Text Cont: All of your characters get +1000 power and +1 soul.
+EndCard
+
+Character: RWBY/WX03-076
+Name Weiss Schnee
+Color B
+Level 1
+Cost 0
+Power 4000
+Trait1 Remnant
+Trait2 RWBY
+Text Cont: If you have 2 or more other 《Remnant》 characters, this card gets +2000 power.
+Text Auto: CxCombo When this card attacks, if "Team RWBY" is in your climax area, and all of your characters are 《Remnant》, reveal the top 3 cards of your deck, your opponent chooses 1 character or event card from among them, you put it into your hand, you choose up to 1 of the revealed cards except the card put into your hand, put it on the top of your deck, and put the rest into your waiting room.
+EndCard
+
+Character: RWBY/WX03-077
+Name Blake Belladonna
+Color B
+Level 3
+Cost 2
+Trigger Soul
+Power 9000
+Soul 2
+Trait1 Remnant
+Trait2 RWBY
+Text Cont: If your waiting room has 2 or less climax, this card gets -1 level while in your hand.
+Text Cont: This card gets +1000 power for each other 《Remnant》 character in your back stage.
+Text Auto: [Put 1 card from your hand into your waiting room] When this card is placed on the stage from your hand, you may pay the cost. If you do, put the top card of your clock into your stock.
+EndCard
+
+Character: RWBY/WX03-078
+Name Roman Torchwick
+Color B
+Level 0
+Cost 0
+Power 500
+Trait1 Remnant
+Text Auto: CxCombo [Put 1 "Hijacking the Control Ship" from your climax area into your waiting room] At the beginning of your encore step, you may pay the cost. If you do, choose 1 《Remnant》 character in your waiting room, and return it to your hand.
+Text Act: [Rest this card] Choose 1 of your characters, it gets +1000 power until the end of your opponent's next turn.
+EndCard
+
+Character: RWBY/WX03-079
+Name James Ironwood
+Color B
+Level 0
+Cost 0
+Power 500
+Trait1 Remnant
+Text Auto: [Put 1 《Remnant》 character from your hand into your waiting room] When this card is placed on the stage from your hand, you may pay the cost. If you do, draw 1 card.
+Text Auto: [Put 1 card from your hand into your waiting room] When this card is placed on the stage from your hand, you may pay the cost. If you do, reveal the top card of your deck, choose 1 level X or lower character in your waiting room, and return it to your hand. X is equal to the level of the revealed card. 
+EndCard
+
+Character: RWBY/WX03-080
+Name Mercury Black
+Color B
+Level 0
+Cost 0
+Power 1500
+Trait1 Remnant
+Text Cont: All of your other 《Remnant》 characters get +500 power.
+Text Auto: When your character's trigger check reveals a climax with in its trigger icon, choose 1 of your characters, it gets +2000 power until end of turn.
+EndCard
+
+Character: RWBY/WX03-081
+Name Winter Schnee
+Color B
+Level 1
+Cost 0
+Power 4500
+Trait1 Remnant
+Text Auto: When this card is placed on the stage from your hand, if you have another 《Remnant》 character, this card gets +2000 power until end of turn.
+Text Auto: When this card attacks, if you have 2 or more other 《Remnant》 characters, and the character facing this card is level 2, this card gets +6000 power until end of turn.
+EndCard
+
+Character: RWBY/WX03-082
+Name Weiss: Summoning
+Color B
+Level 3
+Cost 2
+Trigger Soul
+Power 7500
+Soul 2
+Trait1 Remnant
+Trait2 RWBY
+Text Cont: ASSIST All of your 《Remnant》 characters in front of this card get +2000 power.
+Text Auto: When this card is placed on the stage from your hand, you may put the top card of your clock into your waiting room.
+Text Act: [Rest this card] Look at up to 2 cards from the top of your deck, and put them on the top of your deck in any order.
+EndCard
+
+Character: RWBY/WX03-083
+Name Neopolitan
+Color B
+Level 3
+Cost 2
+Trigger Soul
+Power 9500
+Soul 2
+Trait1 Remnant
+Text Auto: [(1)] When this card is placed on the stage from your hand, you may pay the cost. If you do, choose 1 climax in your waiting room, and return it to your hand.
+Text Auto: [Put 1 《Remnant》 character from your hand into your waiting room] When this card is placed on the stage from your hand, you may pay the cost. If you do, choose up to 2 characters in your opponent's waiting room, and put them on separate open positions of their stage.
+EndCard
+
+Character: RWBY/WX03-084
+Name Blake: Going Undercover
+Color B
+Level 3
+Cost 2
+Trigger Soul
+Power 10000
+Soul 2
+Trait1 Remnant
+Trait2 RWBY
+Text Auto: When this card is placed on the stage from your hand, look at up to X cards from the top of your deck, choose up to 1 card from among them, put it into your hand, and put the rest into your waiting room. X is equal to the number of 《Remnant》 characters you have.
+Text Auto: CxCombo When this card attacks, if "Activist Childhood" is in your climax area, look at up to 2 cards from the top of your opponent's deck, choose up to 2 cards from among them, put them on the top of their deck in any order, put the rest into their waiting room, look at up to 2 cards from the top of your deck, choose up to 2 cards from among them, put them on the top of your deck in any order, and put the rest into your waiting room.
+EndCard
+
+Character: RWBY/WX03-085
+Name Weiss: Focusing
+Color B
+Level 0
+Cost 0
+Power 1500
+Trait1 Remnant
+Trait2 RWBY
+Text Auto: [Put 1 climax from your hand into your waiting room] When this card is placed on the stage from your hand, you may pay the cost. If you do, choose 1 《Remnant》 character in your waiting room, and return it to your hand.
+Text Auto: This ability activates up to 2 times per turn. When your other 《Remnant》 character is placed on the stage from your hand, this card gets +1000 power until end of turn.
+EndCard
+
+Character: RWBY/WX03-086
+Name Blake: Focusing Her Sights
+Color B
+Level 1
+Cost 1
+Trigger Soul
+Power 4500
+Trait1 Remnant
+Trait2 RWBY
+Text Cont: ASSIST All of your 《Remnant》 characters in front of this card get +X power. X is equal to that character's level ×500.
+Text Act: [(1) Put 1 climax from your hand into your waiting room] Choose 1 《Remnant》 character in your waiting room, and return it to your hand.
+EndCard
+
+Character: RWBY/WX03-087
+Name Neptune Vasilias
+Color B
+Level 1
+Cost 1
+Trigger Soul
+Power 3000
+Trait1 Remnant
+Trait2 SSSN
+Text Auto: When this card is placed on the stage from your hand, choose 1 of your 《Remnant》 characters, it gets +1500 power until end of turn.
+Text Auto: When this card becomes reversed, if the level of this card's battle opponent is higher than your opponent's level, you may put that character at the bottom of your opponent's deck.
+EndCard
+
+Character: RWBY/WX03-088
+Name Jacques Schnee
+Color B
+Level 2
+Cost 1
+Trigger Soul
+Power 2500
+Trait1 Remnant
+Text Auto: When you use this card's "BACKUP", choose 1 of your characters in battle, it gets the following ability until end of turn. "Auto: When this card's battle opponent becomes reversed, put that character into your opponent's memory."
+Backup 3000
+EndCard
+
+Character: RWBY/WX03-089
+Name Mercury: Scouted
+Color B
+Level 2
+Cost 2
+Trigger Soul
+Power 6500
+Soul 2
+Trait1 Remnant
+Text Cont: This card gets +1000 power for each of your other 《Remnant》 characters.
+Text Auto: When this card is placed on the stage from your hand, if you have 4 or more other 《Remnant》 characters, you may choose 1 《Remnant》 character in your waiting room, and put it into your stock.
+EndCard
+
+Character: RWBY/WX03-090
+Name James: Half-Cyborg
+Color B
+Level 3
+Cost 2
+Trigger Soul
+Power 9500
+Soul 2
+Trait1 Remnant
+Text Auto: When this card is placed on the stage from your hand, look at up to 3 cards from the top of your deck, put them on the top of your deck in any order, choose up to 1 of your opponent's characters, and return it to their hand.
+Text Auto: When this card attacks, choose 1 of your 《Remnant》 characters, it gets +X power until end of turn. X is equal to the number of 《Remnant》 characters you have ×500.
+EndCard
+
+Character: RWBY/WX03-091
+Name Uniform Blake
+Color B
+Level 0
+Cost 0
+Power 1000
+Trait1 Remnant
+Trait2 RWBY
+Text Auto: At the beginning of your climax phase, choose 1 of your 《Remnant》 characters, it gets +1000 power until end of turn.
+Text Act: BRAINSTORM [(1)] Flip over 4 cards from the top of your deck, and put them into your waiting room. For each climax revealed among those cards, perform the following action. "Search your deck for up to 1 《Remnant》 character, reveal it to your opponent, put it into your hand, choose 1 card in your hand, put it into your waiting room, and shuffle your deck."
+EndCard
+
+Character: RWBY/WX03-092
+Name Neptune: Vytal Festival
+Color B
+Level 0
+Cost 0
+Power 2000
+Trait1 Remnant
+Trait2 SSSN
+Text Cont: If there is a marker underneath this card, this card gets +2000 power.
+Text Auto: When this card is placed on the stage from your hand, reveal the top card of your deck. If that card is a 《Remnant》 character, you may put it face down underneath this card as a marker. 
+EndCard
+
+Character: RWBY/WX03-093
+Name Shopkeep
+Color B
+Level 0
+Cost 0
+Power 3000
+Trait1 Remnant
+Text 
+EndCard
+
+Character: RWBY/WX03-094
+Name Nolan Porfirio
+Color B
+Level 1
+Cost 0
+Power 2000
+Trait1 Remnant
+Trait2 BRNZ
+Text Auto: When this card is placed on the stage from your hand, choose 1 of your opponent's characters it gets the following ability until the end of your opponent's next turn. "Cont: This card cannot move to another position of the stage."
+Text Auto: When this card becomes reversed, if this card's battle opponent is cost 0 or lower, you may put that character at the bottom of your opponent's deck.
+EndCard
+
+Character: RWBY/WX03-095
+Name Bolin Hori
+Color B
+Level 2
+Cost 1
+Trigger Soul
+Power 7000
+Trait1 Remnant
+Trait2 ABRN
+Text Auto: When this card is placed on the stage from your hand, this card gets +X power until end of turn. X is equal to the number of 《Remnant》 characters you have ×1000.
+Text Auto: [(1)] When this card's level 2 or higher battle opponent becomes reversed, you may pay the cost. If you do, search your deck for up to 1 《Remnant》 character, reveal it to your opponent, put it into your hand, and shuffle your deck.
+EndCard
+
+Character: RWBY/WX03-096
+Name Uniform Weiss
+Color B
+Level 2
+Cost 1
+Trigger Soul
+Power 7000
+Trait1 Remnant
+Trait2 RWBY
+Text Cont: This card gets +500 power for each other 《Remnant》 character in your back stage.
+Text Auto: When this card attacks, if the character facing this card is level 3 or higher, this card gets +6000 power until end of turn.
+EndCard
+
+Event: RWBY/WX03-097
+Name Dust
+Color B
+Level 1
+Cost 0
+Text Choose 1 of the following effects, and perform it.
+Text "You may put the top 2 cards of your stock into your waiting room. If you do, look at up to 5 cards from the top of your deck, choose up to 2 《Remnant》 characters from among them, reveal them to your opponent, put them into your hand, and put the rest into your waiting room."
+Text "You may choose 1 "Shopkeep" in your hand, and put it into your waiting room. If you do, look at up to 5 cards from the top of your deck, choose up to 2 《Remnant》 characters from among them, reveal them to your opponent, put them into your hand, and put the rest into your waiting room."
+EndCard
+
+Climax: RWBY/WX03-098
+Name Team RWBY
+Color B
+Text Cont: All of your characters get +1000 power and +1 soul.
+EndCard
+
+Climax: RWBY/WX03-099
+Name Activist Childhood
+Color B
+Text Cont: All of your characters get +1000 power and +1 soul.
+EndCard
+
+Climax: RWBY/WX03-100
+Name Hijacking the Control Ship
+Color B
+Text Cont: All of your characters get +1000 power and +1 soul.
+EndCard
+
+Character: RWBY/WX03-101
+Name Yang: Team RWBY
+Color Y
+Level 2
+Cost 1
+Trigger Soul
+Power 8500
+Trait1 Remnant
+Trait2 RWBY
+Text Cont: During your turn, this card gets +1000 power for each of your other 《Remnant》 characters.
+Text Auto: When this card is placed on the stage from your hand, choose 1 character in your opponent's center stage, it gets +1000 power until the end of your opponent's next turn.
+EndCard
+
+Character: RWBY/WX03-102
+Name Ruby: Team RWBY
+Color R
+Level 0
+Cost 0
+Power 3000
+Trait1 Remnant
+Trait2 RWBY
+Text Cont: This card cannot side attack.
+Text Cont: If you do not have another character, this card gets +1 level and +1500 power.
+EndCard
+
+Character: RWBY/WX03-103
+Name Weiss: Team RWBY
+Color B
+Level 0
+Cost 0
+Power 2000
+Trait1 Remnant
+Trait2 RWBY
+Text Auto: When this card is placed on the stage from your hand, this card gets +1500 power until end of turn.
+Text Auto: When this card's battle opponent becomes reversed, if you have a climax in your climax area, you may put the top card of your deck into your stock.
+EndCard
+
+Character: RWBY/WX03-104
+Name Blake: Team RWBY
+Color B
+Level 1
+Cost 0
+Power 5000
+Trait1 Remnant
+Trait2 RWBY
+Text Auto: When this card attacks, choose 1 of your other 《Remnant》 characters, it gets +X power until end of turn. X is equal to that character's soul ×1000.
+EndCard
+
+Character: RWBY/WX03-P02
+Name Blake & Yang: New Uniforms
+Color B
+Level 0
+Cost 0
+Power 500
+Trait1 Remnant
+Trait2 RWBY
+Text Auto: When this card attacks, if all of your characters are 《Remnant》, look at up to 2 cards from the top of your deck, choose 1 card from among them, put it on the top of your deck, and put the rest into your waiting room.
+Text Auto: When this card becomes reversed in battle, if this card's battle opponent is level 0 or lower, you may put that character at the bottom of your opponent's deck.
+EndCard
+

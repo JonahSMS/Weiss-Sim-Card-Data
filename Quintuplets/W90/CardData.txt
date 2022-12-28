@@ -567,7 +567,7 @@ Trait2 Ribbon
 *OnAttackGivePowerForEachOther(500,Quintuplets)
 Auto: OnReversed
 {
-	If OpponentsTurn
+	If OpponentsTurn && InLocation Stage
 	{
 		PayCost 1
 		{
@@ -577,7 +577,11 @@ Auto: OnReversed
 				Effect:
 				{
 					TargetSelf
-					MoveCard Memory
+					If InLocation Stage
+					{
+						MoveCard Memory
+					}
+					
 				}
 			}
 		}
@@ -2870,10 +2874,6 @@ Clone 5HY/W90-E002
 Image 5HY_W90_E002SSP
 EndCard
 
-Character: 5HY/W90-E003S
-Clone 5HY/W90-E003
-Image 5HY_W90_E003S
-EndCard
 
 Character: 5HY/W90-E003S
 Clone 5HY/W90-E003
@@ -3367,27 +3367,4 @@ Clone 5HY/W90-E100
 Image 5HY_W90_E100R
 EndCard
 
-Character: 5HY/W90-PE02S
-Clone 5HY/W90-PE02
-Image 5HY_W90_PE02S
-EndCard
 
-Character: 5HY/W90-PE03S
-Clone 5HY/W90-PE03
-Image 5HY_W90_PE03S
-EndCard
-
-Character: 5HY/W90-PE04S
-Clone 5HY/W90-PE04
-Image 5HY_W90_PE04S
-EndCard
-
-Character: 5HY/W90-PE05S
-Clone 5HY/W90-PE05
-Image 5HY_W90_PE05S
-EndCard
-
-Character: 5HY/W90-PE06S
-Clone 5HY/W90-PE06
-Image 5HY_W90_PE06S
-EndCard
